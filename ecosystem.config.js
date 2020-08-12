@@ -2,10 +2,10 @@ module.exports = {
   apps : [{
     name: "anime-server-dev",
     script: "./app.js",
-    watch: "../",
+    watch: true,
     env: {
       NODE_ENV: "development",
-      PORT: 3001
+      PORT: 4029
     },
   }]
 }
