@@ -10,7 +10,7 @@ app.use('/dl', express.static('downloads'))
 //   res.send('Hello World!\t'+process.env.NODE_ENV)
 // })
 //
-// app.listen(port, () => {
-//   console.log(process.env.NODE_ENV)
-//   console.log(`Example app listening at http://localhost:${port}`)
-// })
+app.listen(port, () => {
+  console.log(process.env.NODE_ENV)
+  console.log(`Example app listening at http://localhost:${port}`)
+})
