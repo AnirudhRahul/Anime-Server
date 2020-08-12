@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/AnirudhRahul/Anime-Server/issues"
   },
-  "homepage": "https://github.com/AnirudhRahul/Anime-Server#readme"
+  "homepage": "https://github.com/AnirudhRahul/Anime-Server#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
