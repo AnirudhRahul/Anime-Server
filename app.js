@@ -9,6 +9,5 @@ app.get('/', function(req, res) {
 });
 
 app.listen(port, () => {
-  console.log(process.env.NODE_ENV)
   console.log(`Example app listening at http://localhost:${port}`)
 })
