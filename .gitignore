@@ -1,3 +1,5 @@
 node_modules
 downloads/*
-!downloads/.gitkeep 
+!downloads/.gitkeep
+!downloads/icon-chan.png
+
