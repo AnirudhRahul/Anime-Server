@@ -5,7 +5,7 @@ app.set('view engine', 'ejs');
 
 
 app.get('/', function(req, res) {
-    res.render('views/index');
+    res.render('index');
 });
 
 app.listen(port, () => {
