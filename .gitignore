@@ -1,5 +1,5 @@
 node_modules
-downloads/*
-!downloads/.gitkeep
-!downloads/icon-chan.png
+media/*
+!media/.gitkeep
+!media/icon-chan.png
 
