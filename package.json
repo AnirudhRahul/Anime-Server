@@ -4,7 +4,7 @@
   "description": "Basic anime server",
   "main": "app.js",
   "scripts": {
-    "test": "TBD"
+    "start": "pm2 start ecosystem.config.js"
   },
   "repository": {
     "type": "git",
