@@ -1,5 +1,6 @@
 module.exports = {
   apps : [{
+<<<<<<< HEAD
     name: "app-prod",
     script: "./app.js",
     watch: false,
@@ -13,6 +14,21 @@ module.exports = {
     script: "./auto_torrent.js",
     env: {
       DOWNLOAD_DIR: "/usr/local/lsws/Example/data/prod"
+=======
+    name: "app-dev",
+    script: "./app.js",
+    watch: true,
+    env: {
+      NODE_ENV: "development",
+      PORT: 8001
+    },
+  },
+  {
+    name: "auto_torrent-dev",
+    script: "./auto_torrent.js",
+    env: {
+      DOWNLOAD_DIR: "/usr/local/lsws/Example/data/dev"
+>>>>>>> dev
     },
   }
 ]
