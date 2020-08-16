@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require('path');
 const parse = require('./parse_markup.js')
 const cheerio = require('cheerio');
+//TODO: phase out got, use request for better 429 handling
 const got = require('got');
 const torrent = require('./torrent.js')
 
@@ -70,7 +71,7 @@ function checkNyaa() {
           }
           resp_json.push(json_item)
           resp_json.last()['file_name'] = this.attribs['title']
-          resp_json.last()['download_page'] = 'nyaa.si' + this.attribs['href']
+          resp_json.last()['download_page'] = 'https://nyaa.si' + this.attribs['href']
         }
       });
 
@@ -106,7 +107,7 @@ outer:for(j = 0; j < resp_json.length; j++){
           if(resp_json[j]['file_name'] === cur_json[i]['file_name'])
             continue outer;
 
-        torrent.download_episode(resp_json[j], path.join(video_dir, item['name']))
+        torrent.download_episode(resp_json[j], path.join(video_dir, item['name']), img_dir)
       }
 
     }).catch(err => console.log(err));
