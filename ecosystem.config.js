@@ -1,17 +1,16 @@
 module.exports = {
   apps : [{
-    name: "anime-server-dev",
+    name: "app-dev",
     script: "./app.js",
     watch: true,
     env: {
       NODE_ENV: "development",
-      PORT: 8000
+      PORT: 8001
     },
   },
   {
-    name: "cron-torrenter-dev",
+    name: "auto_torrent-dev",
     script: "./auto_torrent.js",
-    watch: true,
     env: {
       DOWNLOAD_DIR: "/usr/local/lsws/Example/data/dev"
     },

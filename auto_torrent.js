@@ -22,7 +22,7 @@ Array.prototype.last = function() {
     return this[this.length - 1];
 }
 
-data_dir = "/usr/local/lsws/Example/data/dev"
+data_dir = process.env.DOWNLOAD_DIR || "/usr/local/lsws/Example/data/dev"
 mkdir(data_dir)
 video_dir = path.join(data_dir,'videos')
 mkdir(video_dir)
