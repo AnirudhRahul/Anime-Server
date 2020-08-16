@@ -50,11 +50,6 @@ function checkNyaa() {
   console.log("Checking Nyaa.si for updates")
   list.forEach(item => {
 
-    dir = path.join(video_dir, item['name'], 'history.txt')
-    file = fs.readFileSync(dir, 'utf-8')
-    cur_json = file.split("\n")
-    for(i = 0; i < cur_json.length; i++)
-      cur_json[i] = JSON.parse(cur_json[i])
 
     const url= 'https://nyaa.si/?f=0&c=1_2&q='+encodeURI(item['query']);
 
@@ -100,12 +95,18 @@ function checkNyaa() {
         resp_json = latest_json
       }
 
-      for(j = 0; j < resp_json.length; j++){
-        for(i = 0; i < cur_json.length; i++){
-          if(resp_json[j]['file_name'] == cur_json[i]['file_name'])
-            break;
-        }
-        torrent.download_episode(resp_json[j])
+      dir = path.join(video_dir, item['name'], 'history.txt')
+      file = fs.readFileSync(dir, 'utf-8')
+      cur_json = file.split("\n")
+      for(i = 0; i < cur_json.length; i++)
+        cur_json[i] = JSON.parse(cur_json[i])
+
+outer:for(j = 0; j < resp_json.length; j++){
+        for(i = 0; i < cur_json.length; i++)
+          if(resp_json[j]['file_name'] === cur_json[i]['file_name'])
+            continue outer;
+
+        torrent.download_episode(resp_json[j], path.join(video_dir, item['name']))
       }
 
     }).catch(err => console.log(err));
