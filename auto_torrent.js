@@ -36,10 +36,8 @@ lines = require('fs').readFileSync(user_list, 'utf-8')
     .split('\r\n')
     .filter(Boolean);
 
-console.log(lines)
 list = parse(lines)
 size = list.length
-console.log(list)
 
 list.forEach(item =>{
   mkdir(path.join(video_dir, item['name']))
@@ -59,7 +57,6 @@ function checkNyaa() {
       cur_json[i] = JSON.parse(cur_json[i])
 
     const url= 'https://nyaa.si/?f=0&c=1_2&q='+encodeURI(item['query']);
-    console.log(url)
 
     got(url).then(response => {
       resp_json = []
