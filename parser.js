@@ -1,5 +1,6 @@
-module.exports = function(input){
+const assert = require('assert');
 
+module.exports.parse_markup = function(input){
   out = []
   tags = []
   input.forEach(line => {
@@ -52,4 +53,48 @@ module.exports = function(input){
 
   })
   return out
+}
+
+function isNumeric(value) {
+  return /^\d+$/.test(value)
+}
+
+module.exports.add_episode_numbers = function(input,query){
+  assert(input.length>0)
+  input.forEach(obj=>{
+    assert('file_name' in obj)
+  })
+
+  if(input.length==1)
+    input[0]['episode']=1
+
+  words = []
+  for(i=0;i<input.length;i++){
+    modified = input[i]['file_name'].replace('[^a-zA-Z0-9]'," ")
+    words.push(modified.split(" "))
+  }
+  common_words = new Set(words[0].filter(val => words[1].includes(val)))
+
+  for(i=0;i<input.length;i++)
+    for(j=0;j<words[i].length;j++){
+      cur_word = words[i][j]
+      if(common_words.has(cur_word))
+        continue
+      else if(isNumeric(cur_word)){
+        input[i]['episode'] = parseInt(cur_word, 10)
+        break
+      }
+      else if(cur_word.includes('E')){
+        lastE = cur_word.lastIndexOf('E')
+        if(lastE == cur_word.length-1)
+          continue
+        suffix = cur_word.substring(lastE+1)
+        if(isNumeric(suffix))
+          input[i]['episode'] = parseInt(suffix, 10)
+        break
+      }
+    }
+  input.forEach(obj=>{
+    assert('episode' in obj)
+  })
 }

@@ -1,64 +1,64 @@
 const fs = require('fs');
 const path = require('path');
 const cheerio = require('cheerio');
-const request = require('request');
+const WebTorrent = require('webtorrent')
+const database = require('./database.js')
+const requester = require('./requester.js')
 
 const canLeave = false;
 
-module.exports.download_episode =function(obj, download_dir){
+module.exports.download_episode =function(obj, download_dir, database_dir){
 // console.log('Downloading episode '+obj['show_name']+' from '+obj['download_page'])
+  return new Promise((resolve, reject) =>{
+      const url= obj['download_page']
+      requester.get(url, function(err, body) {
+        //Extract link to thumbnail image if its there
+        getImage(body, obj)
+        const $ = cheerio.load(body);
+        magnet_link=$('a[href^=magnet]')[0].attribs['href']
 
-    const url= obj['download_page']
+        console.log('Downloading: '+obj['show_name']+" - "+obj['episode'])
+        database.addSync(obj,database_dir)
 
-    retry(url, 150, 10000, function(err, body) {
-      //Extract link to thumbnail image if its there
-      img_start = body.indexOf('https://i.')
-      if(img_start!=-1){
-        endings = ['.png','.jpg','.webp','.jpeg']
-        s = endings.length;
-        for(i =0;i<s;i++)
-          endings.push(endings[i].toUpperCase())
+        var client = new WebTorrent()
 
-        min_index = -1
-        min_ending = ''
-        endings.forEach(end=>{
-          res = body.indexOf(end,img_start)
-          if(min_index == -1)
-            [min_index,min_ending] = [res,end]
-          else if(res!=-1)
-            [min_index,min_ending] = [min(min_index,res),end]
+        client.add(magnet_link, { path: download_dir }, function (torrent) {
+          torrent.on('done', function () {
+            // console.log(torrent.files[0])
+            console.log("FINISHED: "+obj['show_name']+" - "+obj['episode'])
+            obj['video_path'] = path.join(download_dir, torrent.files[0]['name'])
+            obj['ondisk'] = true
+            obj['size'] = torrent.files[0]['length']
+            obj['time_downloaded'] = Math.floor(new Date().getTime() / 1000)
+            database.addSync(obj,database_dir)
+            resolve()
+          })
         })
-        if(min_index!=-1)
-          obj['thumbnail_path']=body.substring(img_start, min_index)+min_ending
 
-        console.log(obj['thumbnail_path'])
-      }
-      const $ = cheerio.load(body);
-      obj['magnet_link']=$('a[href^=magnet]')[0].attribs['href']
-      console.log(obj['magnet_link'])
+
+      });
+
     });
-// fs.appendFileSync(path.join(download_dir,'history.txt'), '\n'+JSON.stringify(obj));
 }
 
-let retry = (function() {
-  let count = 0;
-  return function(url, max, timeout, next) {
-    request(url, function (error, response, body) {
-      if (error || response.statusCode !== 200) {
-        // console.log('fail');
+function getImage(body, obj){
+  img_start = body.indexOf('https://i.')
+  if(img_start!=-1){
+    endings = ['.png','.jpg','.webp','.jpeg']
+    s = endings.length;
+    for(i =0;i<s;i++)
+      endings.push(endings[i].toUpperCase())
 
-        if (count++ < max) {
-          return setTimeout(function() {
-            retry(url, max, timeout, next);
-          }, timeout);
-        } else {
-          console.log("ERRORED!")
-          return next(new Error('max retries reached'));
-        }
-      }
-
-      // console.log('success');
-      next(null, body);
-    });
+    min_index = -1
+    min_ending = ''
+    endings.forEach(end=>{
+      res = body.indexOf(end,img_start)
+      if(min_index == -1)
+        [min_index,min_ending] = [res,end]
+      else if(res!=-1)
+        [min_index,min_ending] = [min(min_index,res),end]
+    })
   }
-})();
+  if(min_index!=-1)
+    obj['thumbnail_link']=body.substring(img_start, min_index)+min_ending
+}

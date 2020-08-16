@@ -1,11 +1,11 @@
 const cron = require("node-cron");
 const fs = require("fs");
 const path = require('path');
-const parse = require('./parse_markup.js')
+const parser = require('./parser.js')
 const cheerio = require('cheerio');
-//TODO: phase out got, use request for better 429 handling
-const got = require('got');
+const requester = require('./requester.js')
 const torrent = require('./torrent.js')
+const database = require('./database.js')
 
 function mkdir(dir){
   if (!fs.existsSync(dir))
@@ -14,9 +14,7 @@ function mkdir(dir){
 
 function mkfile(path){
   if (!fs.existsSync(path)) {
-    f = fs.openSync(path, 'w')
-    fs.writeFileSync(f,'{}')
-    fs.closeSync(f)
+    fs.writeFileSync(path,'{}')
   }
 }
 
@@ -25,11 +23,12 @@ Array.prototype.last = function() {
 }
 
 data_dir = "/usr/local/lsws/Example/data/dev"
+mkdir(data_dir)
 video_dir = path.join(data_dir,'videos')
-img_dir = path.join(data_dir,'images')
-all_dirs = [data_dir, video_dir, img_dir]
+mkdir(video_dir)
+database_dir = path.join(data_dir, 'database.txt')
+mkfile(database_dir)
 
-all_dirs.forEach(dir => {mkdir(dir)});
 
 user_list = path.join('./shows/user_list.txt')
 
@@ -37,49 +36,47 @@ lines = require('fs').readFileSync(user_list, 'utf-8')
     .split('\r\n')
     .filter(Boolean);
 
-list = parse(lines)
+list = parser.parse_markup(lines)
 size = list.length
 
 list.forEach(item =>{
   mkdir(path.join(video_dir, item['name']))
-  mkfile(path.join(video_dir, item['name'], 'history.txt'))
-  mkdir(path.join(img_dir, item['name']))
 })
-
 
 function checkNyaa() {
   console.log("Checking Nyaa.si for updates")
+
+  cur_json = database.readSync(database_dir)
   list.forEach(item => {
-
-
     const url= 'https://nyaa.si/?f=0&c=1_2&q='+encodeURI(item['query']);
 
-    got(url).then(response => {
+    requester.get(url,function(err, body) {
       resp_json = []
-      const $ = cheerio.load(response.body);
+      const $ = cheerio.load(body);
       $('tr a[title][class!=comments]').each(function (index, e) {
         if(this.attribs['href'].startsWith('/view/')){
           json_item={
                 'show_name':item['name'],
-                'file_name':'',
+                'file_name':this.attribs['title'],
                 'time_uploaded':0,
-                'download_page':'',
+                'download_page':'https://nyaa.si' + this.attribs['href'],
                 'ondisk':false,
-                'video_path':'',
-                'thumbnail_path':'',
-                'time_downloaded':0,
           }
           resp_json.push(json_item)
-          resp_json.last()['file_name'] = this.attribs['title']
-          resp_json.last()['download_page'] = 'https://nyaa.si' + this.attribs['href']
         }
       });
+      if(resp_json.length==0)
+        return
 
       ind = 0
       $('td[data-timestamp]').each(function (index, e) {
           resp_json[ind]['time_uploaded'] = parseInt(this.attribs['data-timestamp'])
           ind++
-      });
+      })
+
+      parser.add_episode_numbers(resp_json, item['query'])
+
+
       resp_json.sort(function(itemA, itemB){
         return itemB['time_uploaded']-itemA['time_uploaded']
       })
@@ -96,23 +93,23 @@ function checkNyaa() {
         resp_json = latest_json
       }
 
-      dir = path.join(video_dir, item['name'], 'history.txt')
-      file = fs.readFileSync(dir, 'utf-8')
-      cur_json = file.split("\n")
-      for(i = 0; i < cur_json.length; i++)
-        cur_json[i] = JSON.parse(cur_json[i])
+
 
 outer:for(j = 0; j < resp_json.length; j++){
-        for(i = 0; i < cur_json.length; i++)
-          if(resp_json[j]['file_name'] === cur_json[i]['file_name'])
-            continue outer;
-
-        torrent.download_episode(resp_json[j], path.join(video_dir, item['name']), img_dir)
+      resp_show = resp_json[j]['show_name']
+        if(resp_show in cur_json){
+          for(i = 0; i < cur_json[resp_show].length; i++)
+            if(resp_json[j]['file_name'] === cur_json[resp_show][i]['file_name'])
+              if(cur_json[resp_show][i]['ondisk'])
+                continue outer;
+        }
+        torrent.download_episode(resp_json[j], path.join(video_dir, item['name']), database_dir)
       }
 
-    }).catch(err => console.log(err));
-
+    })
   });
+
+
 
 }
 
