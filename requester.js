@@ -13,7 +13,8 @@ let retry = (function() {
         return
       }
       if (response.statusCode !== 200) {
-        // console.log('fail');
+        if(count>10)
+        console.log('Retry '+count);
 
         if (count++ < max) {
           return setTimeout(function() {
