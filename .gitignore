@@ -1,9 +1,4 @@
 node_modules
 media/*
-<<<<<<< HEAD
-!media/.gitkeep 
-=======
 !media/.gitkeep
 !media/icon-chan.png
-
->>>>>>> dev
