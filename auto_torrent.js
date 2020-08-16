@@ -1,10 +1,10 @@
 const cron = require("node-cron");
 const fs = require("fs");
 const path = require('path');
-const season_sort = require('./sort_seasons.js')
-const extract = require('./extract_names.js')
+const parse = require('./parse_markup.js')
 const cheerio = require('cheerio');
 const got = require('got');
+const torrent = require('./torrent.js')
 
 function mkdir(dir){
   if (!fs.existsSync(dir))
@@ -26,44 +26,97 @@ Array.prototype.last = function() {
 data_dir = "/usr/local/lsws/Example/data/dev"
 video_dir = path.join(data_dir,'videos')
 img_dir = path.join(data_dir,'images')
-list = [data_dir, video_dir, img_dir]
+all_dirs = [data_dir, video_dir, img_dir]
 
-list.forEach(dir => {mkdir(dir)});
+all_dirs.forEach(dir => {mkdir(dir)});
 
-fnames = fs.readdirSync('./seasons')
-fnames.sort(season_sort)
-cur_season = path.join('./seasons',fnames.last())
-query = require('fs').readFileSync(cur_season, 'utf-8')
+user_list = path.join('./shows/user_list.txt')
+
+lines = require('fs').readFileSync(user_list, 'utf-8')
     .split('\r\n')
     .filter(Boolean);
-[sub_group, name_list] = extract(query)
 
-name_list.forEach(name =>{
-  mkdir(path.join(video_dir, name))
-  mkfile(path.join(video_dir, name, 'history.txt'))
-  mkdir(path.join(img_dir, name))
+console.log(lines)
+list = parse(lines)
+size = list.length
+console.log(list)
+
+list.forEach(item =>{
+  mkdir(path.join(video_dir, item['name']))
+  mkfile(path.join(video_dir, item['name'], 'history.txt'))
+  mkdir(path.join(img_dir, item['name']))
 })
 
-size = query.length
+
 function checkNyaa() {
   console.log("Checking Nyaa.si for updates")
+  list.forEach(item => {
 
-  name_list.forEach(name =>{
-    console.log(name)
-    dir = path.join(video_dir, name, 'history.txt')
+    dir = path.join(video_dir, item['name'], 'history.txt')
     file = fs.readFileSync(dir, 'utf-8')
-    json_list = file.split("\n")
-    console.log(json_list)
-    for(i = 0; i < json_list.length; i++)
-      json_list[i] = JSON.parse(json_list[i])
-    console.log(json_list)
+    cur_json = file.split("\n")
+    for(i = 0; i < cur_json.length; i++)
+      cur_json[i] = JSON.parse(cur_json[i])
 
-    new_json = []
+    const url= 'https://nyaa.si/?f=0&c=1_2&q='+encodeURI(item['query']);
+    console.log(url)
+
+    got(url).then(response => {
+      resp_json = []
+      const $ = cheerio.load(response.body);
+      $('tr a[title][class!=comments]').each(function (index, e) {
+        if(this.attribs['href'].startsWith('/view/')){
+          json_item={
+                'show_name':item['name'],
+                'file_name':'',
+                'time_uploaded':0,
+                'download_page':'',
+                'ondisk':false,
+                'video_path':'',
+                'thumbnail_path':'',
+                'time_downloaded':0,
+          }
+          resp_json.push(json_item)
+          resp_json.last()['file_name'] = this.attribs['title']
+          resp_json.last()['download_page'] = 'nyaa.si' + this.attribs['href']
+        }
+      });
+
+      ind = 0
+      $('td[data-timestamp]').each(function (index, e) {
+          resp_json[ind]['time_uploaded'] = parseInt(this.attribs['data-timestamp'])
+          ind++
+      });
+      resp_json.sort(function(itemA, itemB){
+        return itemB['time_uploaded']-itemA['time_uploaded']
+      })
 
 
-  })
+      if(item['latest_only']){
+        //Only grab items that are less than 2 days older than latest release
+        max_diff = 2*60*60
+        latest_json = [resp_json[0]]
+        for(i = 1; i < resp_json.length; i++)
+          if(resp_json[0]['time_uploaded']-resp_json[i]['time_uploaded']<max_diff)
+            latest_json.push(resp_json[i])
+        //Overwrites resp json since we are only checking the latest values
+        resp_json = latest_json
+      }
+
+      for(j = 0; j < resp_json.length; j++){
+        for(i = 0; i < cur_json.length; i++){
+          if(resp_json[j]['file_name'] == cur_json[i]['file_name'])
+            break;
+        }
+        torrent.download_episode(resp_json[j])
+      }
+
+    }).catch(err => console.log(err));
+
+  });
 
 }
+
 
 
 checkNyaa()
