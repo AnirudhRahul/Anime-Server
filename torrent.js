@@ -28,6 +28,11 @@ module.exports.download_episode =function(obj, download_dir, database_dir, max_s
             torrent.destroy()
             console.log("TOO LONG DESTROYED: "+obj['show_name']+" - "+obj['episode'])
           }
+          if(torrent.files.length>1){
+            torrent.destroy()
+            console.log("TOO MANY FILES DESTROYED: "+obj['show_name']+" - "+obj['episode'])
+          }
+
           torrent.on('done', () => {
             // console.log(torrent.files[0])
             console.log("FINISHED: "+obj['show_name']+" - "+obj['episode'])
