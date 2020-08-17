@@ -32,9 +32,10 @@ mkfile(database_dir)
 
 user_list = path.join('./shows/user_list.txt')
 
-lines = require('fs').readFileSync(user_list, 'utf-8')
+lines = fs.readFileSync(user_list, 'utf-8')
     .split('\r\n')
     .filter(Boolean);
+console.log(lines)
 
 list = parser.parse_markup(lines)
 size = list.length
@@ -47,7 +48,7 @@ console.log('Completed Initial Setup')
 
 function checkNyaa() {
   console.log("Checking Nyaa.si for updates")
-  console.log('Checking for '+list.length+' shows')
+  console.log('Checking for '+size+' shows')
 
   cur_json = database.readSync(database_dir)
   list.forEach(item => {
