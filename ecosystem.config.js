@@ -1,5 +1,6 @@
 module.exports = {
-  apps : [{
+  apps : [
+  {
     name: "app-dev",
     script: "./app.js",
     watch: true,
