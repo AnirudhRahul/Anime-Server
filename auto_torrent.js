@@ -33,9 +33,9 @@ mkfile(database_dir)
 user_list = path.join('./shows/user_list.txt')
 
 lines = fs.readFileSync(user_list, 'utf-8')
-    .split('\r\n')
-    .filter(Boolean);
-console.log(lines)
+    .split('\n')
+    .filter(Boolean)
+    .map(s => s.trim())
 
 list = parser.parse_markup(lines)
 size = list.length
