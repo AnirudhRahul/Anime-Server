@@ -76,8 +76,7 @@ function checkNyaa() {
           ind++
       })
 
-      parser.add_episode_numbers(resp_json, item['query'])
-
+      parser.add_episode_numbers(resp_json)
 
       resp_json.sort(function(itemA, itemB){
         return itemB['time_uploaded']-itemA['time_uploaded']
@@ -106,7 +105,7 @@ outer:for(j = 0; j < resp_json.length; j++){
               if(cur_json[resp_show][i]['ondisk'])
                 continue outer;
         }
-        torrent.download_episode(resp_json[j], path.join(video_dir, item['name']), database_dir)
+        torrent.download_episode(resp_json[j], path.join(video_dir, item['name']), database_dir, 4*1e9)
       }
 
     })

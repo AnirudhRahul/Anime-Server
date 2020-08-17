@@ -59,7 +59,7 @@ function isNumeric(value) {
   return /^\d+$/.test(value)
 }
 
-module.exports.add_episode_numbers = function(input,query){
+module.exports.add_episode_numbers = function(input){
   assert(input.length>0)
   input.forEach(obj=>{
     assert('file_name' in obj)
@@ -70,11 +70,11 @@ module.exports.add_episode_numbers = function(input,query){
 
   words = []
   for(i=0;i<input.length;i++){
-    modified = input[i]['file_name'].replace('[^a-zA-Z0-9]'," ")
+    modified = input[i]['file_name'].replace(/[^\w\s]/gi," ")
     words.push(modified.split(" "))
   }
-  common_words = new Set(words[0].filter(val => words[1].includes(val)))
 
+  common_words = new Set(words[0].filter(val => words[1].includes(val)))
   for(i=0;i<input.length;i++)
     for(j=0;j<words[i].length;j++){
       cur_word = words[i][j]
@@ -97,4 +97,5 @@ module.exports.add_episode_numbers = function(input,query){
   input.forEach(obj=>{
     assert('episode' in obj)
   })
+
 }
