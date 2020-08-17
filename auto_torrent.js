@@ -47,11 +47,11 @@ console.log('Completed Initial Setup')
 
 function checkNyaa() {
   console.log("Checking Nyaa.si for updates")
+  console.log('Checking for '+list.length+' shows')
 
   cur_json = database.readSync(database_dir)
   list.forEach(item => {
     const url= 'https://nyaa.si/?f=0&c=1_2&q='+encodeURI(item['query']);
-    console.log('Got response for '+item['name'])
     requester.get(url,function(err, body) {
       resp_json = []
       const $ = cheerio.load(body);
