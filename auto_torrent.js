@@ -50,7 +50,6 @@ function checkNyaa() {
   console.log("Checking Nyaa.si for updates")
   console.log('Checking for '+size+' shows')
 
-  cur_json = database.readSync(database_dir)
   list.forEach(item => {
     const url= 'https://nyaa.si/?f=0&c=1_2&q='+encodeURI(item['query']);
     requester.get(url,function(err, body) {
@@ -97,6 +96,7 @@ function checkNyaa() {
       }
 
 
+      cur_json = database.readSync(database_dir)
 
 outer:for(j = 0; j < resp_json.length; j++){
       resp_show = resp_json[j]['show_name']
