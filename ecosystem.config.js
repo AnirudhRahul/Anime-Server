@@ -1,18 +1,18 @@
 module.exports = {
   apps : [{
-    name: "app-prod",
+    name: "app-dev",
     script: "./app.js",
-    watch: false,
+    watch: true,
     env: {
-      NODE_ENV: "production",
-      PORT: 8000
+      NODE_ENV: "development",
+      PORT: 8001
     },
   },
   {
-    name: "auto_torrent-prod",
+    name: "auto_torrent-dev",
     script: "./auto_torrent.js",
     env: {
-      DOWNLOAD_DIR: "/usr/local/lsws/Example/data/prod"
+      DOWNLOAD_DIR: "/usr/local/lsws/Example/data/dev"
     },
   }
 ]
