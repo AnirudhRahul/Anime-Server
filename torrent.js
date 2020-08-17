@@ -16,13 +16,13 @@ module.exports.download_episode =function(obj, download_dir, database_dir, max_s
         getImage(body, obj)
         const $ = cheerio.load(body);
         magnet_link=$('a[href^=magnet]')[0].attribs['href']
-        console.log('Downloading: '+obj['show_name']+" - "+obj['episode'])
         database.addSync(obj,database_dir)
 
         var client = new WebTorrent()
         // console.log("Progress: "+client.progress)
         // for(i=0;i<10;i++)
         client.add(magnet_link, { path: download_dir }, function (torrent) {
+          console.log('Downloading: '+obj['show_name']+" - "+obj['episode'])
           console.log("Length(Bytes): "+torrent['length'])
           if(torrent['length'] > max_size_bytes){
             torrent.destroy()
