@@ -76,8 +76,7 @@ function checkNyaa() {
           ind++
       })
 
-      parser.add_episode_numbers(resp_json, item['query'])
-
+      parser.add_episode_numbers(resp_json)
 
       resp_json.sort(function(itemA, itemB){
         return itemB['time_uploaded']-itemA['time_uploaded']
