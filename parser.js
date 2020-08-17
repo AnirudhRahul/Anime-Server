@@ -71,12 +71,10 @@ module.exports.add_episode_numbers = function(input){
   words = []
   for(i=0;i<input.length;i++){
     modified = input[i]['file_name'].replace(/[^\w\s]/gi," ")
-    console.log(modified)
     words.push(modified.split(" "))
   }
 
   common_words = new Set(words[0].filter(val => words[1].includes(val)))
-  console.log(common_words)
   for(i=0;i<input.length;i++)
     for(j=0;j<words[i].length;j++){
       cur_word = words[i][j]
