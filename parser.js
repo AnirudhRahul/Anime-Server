@@ -1,9 +1,15 @@
 const assert = require('assert');
+const fs = require('fs');
 
-module.exports.parse_markup = function(input){
+module.exports.get_shows = function(input){
+  lines = fs.readFileSync('./show_list.txt', 'utf-8')
+      .split('\n')
+      .filter(Boolean)
+      .map(s => s.trim())
+
   out = []
   tags = []
-  input.forEach(line => {
+  lines.forEach(line => {
     //Don't parse comments
     if(line.startsWith("#"))
       return
@@ -16,9 +22,11 @@ module.exports.parse_markup = function(input){
       }
       return
     }
-    latest_only = line.startsWith("~")
-    if(latest_only)
+    latest_only = 0
+    while(line.startsWith("~")){
       line = line.substring(1)
+      latest_only++
+    }
     q = line
     g = q.split('[').pop().split(']')[0];
     rest = q.substring(q.indexOf(']')+1)
@@ -94,8 +102,26 @@ module.exports.add_episode_numbers = function(input){
         break
       }
     }
-  input.forEach(obj=>{
-    assert('episode' in obj)
-  })
-
 }
+
+// function getImage(body, obj){
+//   img_start = body.indexOf('https://i.')
+//   min_index = -1
+//   if(img_start!=-1){
+//     endings = ['.png','.jpg','.webp','.jpeg']
+//     s = endings.length;
+//     for(i =0;i<s;i++)
+//       endings.push(endings[i].toUpperCase())
+//
+//     min_ending = ''
+//     endings.forEach(end=>{
+//       res = body.indexOf(end,img_start)
+//       if(min_index == -1)
+//         [min_index,min_ending] = [res,end]
+//       else if(res!=-1)
+//         [min_index,min_ending] = [min(min_index,res),end]
+//     })
+//   }
+//   if(min_index!=-1)
+//     obj['thumbnail_link']=body.substring(img_start, min_index)+min_ending
+// }
