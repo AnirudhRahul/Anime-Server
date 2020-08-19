@@ -2,10 +2,7 @@ const cron = require("node-cron");
 const fs = require("fs");
 const path = require('path');
 const parser = require('./parser.js')
-const cheerio = require('cheerio');
-const requester = require('./requester.js')
-const torrent = require('./torrent.js')
-const database = require('./database.js')
+const assert = require('assert');
 
 function mkdir(dir){
   if (!fs.existsSync(dir))
@@ -18,10 +15,7 @@ function mkfile(path){
   }
 }
 
-Array.prototype.last = function() {
-    return this[this.length - 1];
-}
-
+//Initial Setup
 data_dir = process.env.DOWNLOAD_DIR || "/usr/local/lsws/Example/data/dev"
 mkdir(data_dir)
 video_dir = path.join(data_dir,'videos')
@@ -30,70 +24,66 @@ database_dir = path.join(data_dir, 'database.txt')
 mkfile(database_dir)
 
 
-user_list = path.join('./shows/user_list.txt')
+const requester = require('./requester.js')
+const torrent = require('./torrent.js')
+const database = require('./database.js')
+const web_parser = require('./web_parser')
+var client = new(require('webtorrent'))()
 
-lines = fs.readFileSync(user_list, 'utf-8')
-    .split('\n')
-    .filter(Boolean)
-    .map(s => s.trim())
-
-list = parser.parse_markup(lines)
-size = list.length
-
-list.forEach(item =>{
-  mkdir(path.join(video_dir, item['name']))
+client.on('error', function (err) {
+  if(!err.message.startsWith("Cannot add duplicate torrent"))
+    throw err;
 })
 
-console.log('Completed Initial Setup')
 
 function checkNyaa() {
-  console.log("Checking Nyaa.si for updates")
-  console.log('Checking for '+size+' shows')
+  const list = parser.get_shows()
+  const size = list.length
+  list.forEach(show =>{
+    mkdir(path.join(video_dir, show['name']))
+  })
+  console.log('Checking Nyaa.si for '+size+' shows')
 
-  list.forEach(item => {
-    const url= 'https://nyaa.si/?f=0&c=1_2&q='+encodeURI(item['query']);
+  list.forEach(show => {
+    const url= 'https://nyaa.si/?f=0&c=1_2&q='+encodeURI(show['query']);
     requester.get(url,function(err, body) {
-      resp_json = []
-      const $ = cheerio.load(body);
-      $('tr a[title][class!=comments]').each(function (index, e) {
-        if(this.attribs['href'].startsWith('/view/')){
-          json_item={
-                'show_name':item['name'],
-                'file_name':this.attribs['title'],
-                'time_uploaded':0,
-                'download_page':'https://nyaa.si' + this.attribs['href'],
-                'ondisk':false,
-          }
-          resp_json.push(json_item)
-        }
-      });
-      if(resp_json.length==0)
-        return
-
-      ind = 0
-      $('td[data-timestamp]').each(function (index, e) {
-          resp_json[ind]['time_uploaded'] = parseInt(this.attribs['data-timestamp'])
-          ind++
+      resp_json = web_parser.nyaa_si(body)
+      resp_json.forEach(obj =>{
+        obj['show_name'] = show['name']
       })
 
-      parser.add_episode_numbers(resp_json)
+      const required_keys = ['show_name', 'torrent_name', 'file_name', 'magnet_link', 'time_uploaded', 'episode']
+      resp_json.forEach(obj =>{
+        required_keys.forEach(key =>{
+          assert(key in obj)
+        })
+      })
 
       resp_json.sort(function(itemA, itemB){
         return itemB['time_uploaded']-itemA['time_uploaded']
       })
 
-
-      if(item['latest_only']){
-        //Only grab items that are less than 2 days older than latest release
-        max_diff = 2*60*60
-        latest_json = [resp_json[0]]
-        for(i = 1; i < resp_json.length; i++)
-          if(resp_json[0]['time_uploaded']-resp_json[i]['time_uploaded']<max_diff)
-            latest_json.push(resp_json[i])
-        //Overwrites resp json since we are only checking the latest values
+      if(show['latest_only']!=0 && resp_json.length>1){
+        //1 day in seconds
+        max_diff = 1*60*60
+        latest_json = []
+        index = 0
+        for(weeks = 0; weeks<show['latest_only'] && index<resp_json.length; weeks++){
+          latest_json.push(resp_json[index])
+          last = resp_json[index]
+          index++
+          while(index < resp_json.length)
+            if(last['time_uploaded']-resp_json[index]['time_uploaded']<max_diff){
+              latest_json.push(resp_json[index])
+              index++
+            }
+            else{
+              break
+            }
+        }
+        //Overwrites resp json since we are only want the latest values
         resp_json = latest_json
       }
-
 
       cur_json = database.readSync(database_dir)
 
@@ -105,7 +95,8 @@ outer:for(j = 0; j < resp_json.length; j++){
               if(cur_json[resp_show][i]['ondisk'])
                 continue outer;
         }
-        torrent.download_episode(resp_json[j], path.join(video_dir, item['name']), database_dir, 4*1e9)
+        torrent.add_episode(resp_json[j], path.join(video_dir, show['name']), database_dir, client)
+
       }
 
     })
@@ -115,8 +106,12 @@ outer:for(j = 0; j < resp_json.length; j++){
 
 }
 
-
-
 checkNyaa()
 //Run a task every half hour
-cron.schedule("0 */30 * * * *", checkNyaa);
+task = cron.schedule("0 */30 * * * *", checkNyaa);
+
+process.on('beforeExit', () => {
+  console.log("Node process gracefully terminating")
+  task.destroy()
+  client.destroy()
+})
