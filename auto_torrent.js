@@ -108,10 +108,14 @@ outer:for(j = 0; j < resp_json.length; j++){
 
 checkNyaa()
 //Run a task every half hour
-task = cron.schedule("0 */30 * * * *", checkNyaa);
+task = cron.schedule("0 */30 * * * *", checkNyaa)
 
-process.on('beforeExit', () => {
-  console.log("Node process gracefully terminating")
-  task.destroy()
-  client.destroy()
+const sigs = ['SIGINT', 'SIGTERM', 'SIGQUIT']
+sigs.forEach(sig => {
+  process.on(sig, () => {
+    // Stops gracefully
+    console.log("\nNode process gracefully terminating")
+    task.destroy()
+    client.destroy()
+  })
 })
