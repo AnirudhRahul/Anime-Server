@@ -7,6 +7,7 @@ module.exports = {
     env: {
       NODE_ENV: "development",
       DOWNLOAD_DIR: "/usr/local/lsws/Example/data/dev"
+      PREFIX: "/usr/local/lsws/Example"
       PORT: 8001
     },
   },

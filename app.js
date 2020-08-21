@@ -1,16 +1,23 @@
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 8001
-data_dir = process.env.DOWNLOAD_DIR || "./media/dev"
+const data_dir = process.env.DOWNLOAD_DIR || "./media/dev"
+var favicon = require('serve-favicon');
+const path = require('path')
+const database = require('./database.js')
 
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'pug')
 app.use("/media/icon-chan.png", express.static('./media/icon-chan.png'))
+app.use(favicon(path.join(__dirname, 'media', 'favicon.ico')))
 
-
-app.get('/', function(req, res) {
-    res.render('index');
-});
+database_dir = path.join(data_dir, 'database.txt')
+prefix = process.env.PREFIX || 'media'
+app.get('/', function (req, res) {
+  json_result = database.readAsync(database_dir, function(err, data){
+    res.render('index', {prefix:prefix, list: data})
+  })
+})
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

@@ -30,3 +30,10 @@ module.exports.addSync =function(obj, database_dir){
 module.exports.readSync =function(database_dir){
 return JSON.parse(fs.readFileSync(database_dir,'utf-8'))
 }
+
+module.exports.readAsync =function(database_dir, callback){
+  fs.readFile(database_dir,'utf-8',function(err, data){
+    callback(err, JSON.parse(data))
+  })
+// return JSON.parse()
+}
