@@ -2,3 +2,4 @@ node_modules
 media/*
 !media/.gitkeep
 !media/icon-chan.png
+!media/favicon.ico
