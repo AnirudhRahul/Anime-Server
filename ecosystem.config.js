@@ -6,8 +6,8 @@ module.exports = {
     watch: false,
     env: {
       NODE_ENV: "production",
-      DOWNLOAD_DIR: "/usr/local/lsws/Example/data/prod"
-      PREFIX: "/usr/local/lsws/Example/data"
+      DOWNLOAD_DIR: "/usr/local/lsws/Example/data/prod",
+      PREFIX: "/usr/local/lsws/Example/data",
       PORT: 8000
     },
   },
