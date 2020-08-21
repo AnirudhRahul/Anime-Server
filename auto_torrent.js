@@ -16,7 +16,10 @@ function mkfile(path){
 }
 
 //Initial Setup
-data_dir = process.env.DOWNLOAD_DIR || "./media/dev"
+const env = process.env.NODE_ENV || 'development';
+const data_dir = env =='production'?'../prod':'../dev'
+
+
 mkdir(data_dir)
 video_dir = path.join(data_dir,'videos')
 mkdir(video_dir)
