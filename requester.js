@@ -13,8 +13,8 @@ let retry = (function() {
         return
       }
       if (response.statusCode !== 200) {
-        if(count>10)
-        console.log('Retry '+count);
+        if(count!=0 && count%10==0)
+        console.log('Retry '+count+' for '+url);
 
         if (count++ < max) {
           return setTimeout(function() {
