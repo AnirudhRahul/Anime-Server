@@ -2,8 +2,8 @@
 Basic server to download and serve anime
 
 # Setup Instructions
+## Navigate to OpenLiteSpeed dir
 cd /usr/local/lsws/Example/
-
 rm -rf cgi-bin fcgi-bin
 
 ## Install latest version of git
@@ -23,7 +23,7 @@ pm2 --version
 pm2 start ecosystem.config.js
 pm2 log
 
-## etup Virtual Host Confs for openLitespeed
+## Setup Virtual Host Confs for openLitespeed
 
 ## Enable SSL(if you have domain)
 yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
