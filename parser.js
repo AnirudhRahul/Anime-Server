@@ -73,9 +73,11 @@ module.exports.add_episode_numbers = function(input){
     assert('file_name' in obj)
   })
 
-  if(input.length==1)
+  if(input.length==1){
     input[0]['episode']=1
-
+    return
+  }
+  
   words = []
   for(i=0;i<input.length;i++){
     modified = input[i]['file_name'].replace(/[^\w\s]/gi," ")
