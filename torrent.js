@@ -14,8 +14,9 @@ module.exports.add_episode =function(obj, download_dir, database_dir, client){
 
     console.log('Downloading: ' + desc)
     console.log("Length(Bytes): "+torrent['length'])
-
-    if(torrent['length'] > max_size_bytes){
+    //Double limit for first episode
+    mult = obj['episode']==1? 2:1
+    if(torrent['length'] > max_size_bytes*mult){
       torrent.destroy()
       console.log("TOO LONG DESTROYED: " + desc)
     }
