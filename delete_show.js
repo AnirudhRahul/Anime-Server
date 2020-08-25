@@ -3,9 +3,7 @@ const rimraf = require("rimraf");
 const path = require("path");
 
 const env = process.env.NODE_ENV || 'development';
-const data_dir = env =='production'?'../prod':'../dev'
-video_dir = path.join(data_dir,'videos')
-database_dir = path.join(data_dir, 'database.txt')
+const {root_dir, video_dir, database_dir} = require('./dirs.js').all(env)
 
 show_to_remove = "Shokugeki no Soma S5"
 remove_files = true
