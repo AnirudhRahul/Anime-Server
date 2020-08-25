@@ -1,7 +1,7 @@
 const assert = require('assert');
 const fs = require('fs');
 
-module.exports.get_shows = function(input){
+module.exports.get_shows = function(){
   lines = fs.readFileSync('./show_list.txt', 'utf-8')
       .split('\n')
       .filter(Boolean)
@@ -77,7 +77,7 @@ module.exports.add_episode_numbers = function(input){
     input[0]['episode']=1
     return
   }
-  
+
   words = []
   for(i=0;i<input.length;i++){
     modified = input[i]['file_name'].replace(/[^\w\s]/gi," ")
