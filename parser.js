@@ -74,7 +74,6 @@ module.exports.add_episode_numbers = function(input){
   })
   //TODO get rid of episode numbers and start using episode names
   //useful for OVAs and movies
-  input[i]['episode'] = -1
   if(input.length==1){
     input[0]['episode']=1
     return
@@ -87,7 +86,8 @@ module.exports.add_episode_numbers = function(input){
   }
 
   common_words = new Set(words[0].filter(val => words[1].includes(val)))
-  for(i=0;i<input.length;i++)
+  for(i=0;i<input.length;i++){
+    input[i]['episode'] = -1
     for(j=0;j<words[i].length;j++){
       cur_word = words[i][j]
       if(common_words.has(cur_word))
@@ -106,6 +106,7 @@ module.exports.add_episode_numbers = function(input){
         break
       }
     }
+  }
 }
 
 // function getImage(body, obj){
