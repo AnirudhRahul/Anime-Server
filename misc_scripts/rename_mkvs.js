@@ -1,14 +1,14 @@
 const path = require('path')
 const glob = require("glob")
 const fs = require("fs")
-const database = require('./database.js')
+const database = require('../database.js')
 const {argv} = require('yargs')
 
 var env = process.env.NODE_ENV || 'development';
 if(argv.prod)
   env = 'production'
 
-const {root_dir, video_dir, database_dir} = require('./dirs.js').all(env)
+const {root_dir, video_dir, database_dir} = require('../dirs.js').all(env, '..')
 
 old_ending = 'mkv'
 new_ending = 'webm'

@@ -7,7 +7,7 @@ var env = process.env.NODE_ENV || 'development';
 if(argv.prod)
   env = 'production'
 
-const {root_dir, video_dir, database_dir} = require('./dirs.js').all(env)
+const {root_dir, video_dir, database_dir} = require('./dirs.js').all(env,'..')
 
 show_to_remove = argv.file
 
