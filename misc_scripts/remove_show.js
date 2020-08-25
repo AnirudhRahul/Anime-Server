@@ -7,7 +7,7 @@ var env = process.env.NODE_ENV || 'development';
 if(argv.prod)
   env = 'production'
 
-const {root_dir, video_dir, database_dir} = require('./dirs.js').all(env,'..')
+const {root_dir, video_dir, database_dir} = require('../dirs.js').all(env,'..')
 
 show_to_remove = argv.file
 
@@ -16,15 +16,15 @@ if(!show_to_remove){
   return
 }
 
-const database = require('./database.js')
+const database = require('../database.js')
 files = database.removeSync(show_to_remove, database_dir)
 if(files.length>0)
   console.log("DB Entry Deleted")
 else
   console.log("Nothing Happened in DB")
 
-const parser = require('./parser.js')
-list = parser.get_shows()
+const parser = require('../parser.js')
+list = parser.get_shows('../show_list.txt')
 query_to_delete = ''
 list.forEach((show) => {
   if(show['name']==show_to_remove){
@@ -33,7 +33,7 @@ list.forEach((show) => {
 });
 if(query_to_delete.length>0){
   const fs = require('fs')
-  fs.readFile('show_list.txt', 'utf8', function(err, data){
+  fs.readFile('../show_list.txt', 'utf8', function(err, data){
       if (err){
         console.log(err)
         return
@@ -50,7 +50,7 @@ if(query_to_delete.length>0){
         }
       }
 
-      fs.writeFileSync('show_list.txt', output.join('\n'));
+      fs.writeFileSync('../show_list.txt', output.join('\n'));
   });
 }
 else{
