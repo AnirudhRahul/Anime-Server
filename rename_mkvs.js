@@ -16,9 +16,7 @@ glob(path.join(video_dir,'**/*.'+old_ending), function (er, files) {
   });
 })
 
-
 map = database.readSync(database_dir)
-// console.log(map)
 
 for (show in map) {
   for(index in map[show]){
@@ -28,7 +26,7 @@ for (show in map) {
       console.log(new_path)
       map[show][index]['video_path']=new_path
     }
-
   }
-
 }
+
+database.writeSync(map, database_dir)
