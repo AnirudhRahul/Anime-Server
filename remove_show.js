@@ -53,6 +53,10 @@ if(query_to_delete.length>0){
       fs.writeFileSync('show_list.txt', output.join('\n'));
   });
 }
+else{
+  console.log("Nothing Happened in show_list.txt")
+
+}
 remove_files = !(argv.keep_files)
 if(remove_files){
   delete_path = path.join(video_dir, show_to_remove)
