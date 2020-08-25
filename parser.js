@@ -1,8 +1,8 @@
 const assert = require('assert');
 const fs = require('fs');
 
-module.exports.get_shows = function(){
-  lines = fs.readFileSync('./show_list.txt', 'utf-8')
+module.exports.get_shows = function(path='./show_list.txt'){
+  lines = fs.readFileSync(path, 'utf-8')
       .split('\n')
       .filter(Boolean)
       .map(s => s.trim())
