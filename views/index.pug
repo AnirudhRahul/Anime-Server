@@ -6,13 +6,14 @@ html
       img(src='./media/icon-chan.png' class="header-icon" style="border-radius: 50%" width="30em")
     
     each show in list
-      div= show[0].show_name
-      ul
-        each item in show
-          - var link = item.video_path.startsWith(prefix)?item.video_path.substring(prefix.length):item.video_path
-          //- if(link.startsWith("media"))
-          li
-            a(href=link) Episode #{item.episode}
+      if show.length > 0
+        div= show[0].show_name
+        ul
+          each item in show
+            - var link = item.video_path.startsWith(prefix)?item.video_path.substring(prefix.length):item.video_path
+            //- if(link.startsWith("media"))
+            li
+              a(href=link) Episode #{item.episode}
           //- video(width='320', height='32', autoplay='')
           //-   source(src=link, type='video/mp4')
         
