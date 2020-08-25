@@ -27,6 +27,18 @@ module.exports.addSync =function(obj, database_dir){
   // fs.writeSync(database_dir,JSON.stringify(json_map))
 }
 
+module.exports.removeSync =function(show, database_dir){
+  json_map = this.readSync(database_dir)
+  out = []
+  if(show in json_map)
+    out = json_map[show]
+  json_map[show]=[]
+  this.writeSync(json_map, database_dir)
+  return out
+  // fs.writeSync(database_dir,JSON.stringify(json_map))
+}
+
+
 module.exports.readSync =function(database_dir){
 return JSON.parse(fs.readFileSync(database_dir,'utf-8'))
 }
