@@ -35,7 +35,6 @@ module.exports.removeSync =function(show, database_dir){
   json_map[show]=[]
   this.writeSync(json_map, database_dir)
   return out
-  // fs.writeSync(database_dir,JSON.stringify(json_map))
 }
 
 
