@@ -17,13 +17,11 @@ function mkfile(path){
 
 //Initial Setup
 const env = process.env.NODE_ENV || 'development';
-const data_dir = env =='production'?'../prod':'../dev'
 
-
-mkdir(data_dir)
-video_dir = path.join(data_dir,'videos')
+//Declares, root_dir, video_dir, database_dir
+const {root_dir, video_dir, database_dir} = require('./dirs.js').all(env)
+mkdir(root_dir)
 mkdir(video_dir)
-database_dir = path.join(data_dir, 'database.txt')
 mkfile(database_dir)
 
 
