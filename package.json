@@ -33,6 +33,7 @@
     "send": "^0.17.1",
     "serve-favicon": "^2.5.0",
     "webtorrent": "^0.108.6",
-    "webtorrent-hybrid": "^4.0.2"
+    "webtorrent-hybrid": "^4.0.2",
+    "yargs": "^15.4.1"
   }
 }
