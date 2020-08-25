@@ -31,27 +31,28 @@ list.forEach((show) => {
     query_to_delete = show['query']
   }
 });
-const fs = require('fs')
-fs.readFile('show_list.txt', 'utf8', function(err, data){
-    if (err){
-      console.log(err)
-      return
-    }
-
-    lines = data.split('\n');
-    output = []
-    for(i=0;i<lines.length;i++){
-      if(lines[i].trim().endsWith(query_to_delete.trim())){
-        console.log("Show list entry deleted")
+if(query_to_delete.length>0){
+  const fs = require('fs')
+  fs.readFile('show_list.txt', 'utf8', function(err, data){
+      if (err){
+        console.log(err)
+        return
       }
-      else{
-        output.push(lines[i])
+
+      lines = data.split('\n');
+      output = []
+      for(i=0;i<lines.length;i++){
+        if(lines[i].trim().endsWith(query_to_delete.trim())){
+          console.log("Deleted "+lines[i])
+        }
+        else{
+          output.push(lines[i])
+        }
       }
-    }
 
-    fs.writeFileSync('show_list.txt', output.join('\n'));
-});
-
+      fs.writeFileSync('show_list.txt', output.join('\n'));
+  });
+}
 remove_files = !(argv.keep_files)
 if(remove_files){
   delete_path = path.join(video_dir, show_to_remove)
