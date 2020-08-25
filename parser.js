@@ -72,7 +72,9 @@ module.exports.add_episode_numbers = function(input){
   input.forEach(obj=>{
     assert('file_name' in obj)
   })
-
+  //TODO get rid of episode numbers and start using episode names
+  //useful for OVAs and movies
+  input[i]['episode'] = -1
   if(input.length==1){
     input[0]['episode']=1
     return
