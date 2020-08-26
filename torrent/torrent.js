@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const cheerio = require('cheerio');
-const database = require('./database.js')
-const requester = require('./requester.js')
+const database = require('../database.js')
+const requester = require('../requester.js')
 
 const canLeave = false;
 

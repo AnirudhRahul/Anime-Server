@@ -1,7 +1,7 @@
 const cron = require("node-cron");
 const fs = require("fs");
 const path = require('path');
-const parser = require('./parser.js')
+const parser = require('../parser.js')
 const assert = require('assert');
 
 function mkdir(dir){
@@ -19,16 +19,16 @@ function mkfile(path){
 const env = process.env.NODE_ENV || 'development';
 
 //Declares, root_dir, video_dir, database_dir
-const {root_dir, video_dir, database_dir} = require('./dirs.js').all(env)
+const {root_dir, video_dir, database_dir} = require('../dirs.js').all(env)
 mkdir(root_dir)
 mkdir(video_dir)
 mkfile(database_dir)
+console.log(database_dir)
 
-
-const requester = require('./requester.js')
+const requester = require('../requester.js')
 const torrent = require('./torrent.js')
-const database = require('./database.js')
-const web_parser = require('./web_parser')
+const database = require('../database.js')
+const web_parser = require('../web_parser')
 var client = new(require('webtorrent'))()
 
 client.on('error', function (err) {
@@ -38,7 +38,7 @@ client.on('error', function (err) {
 
 
 function checkNyaa() {
-  const list = parser.get_shows()
+  list = parser.get_shows()
   const size = list.length
   list.forEach(show =>{
     mkdir(path.join(video_dir, show['name']))
@@ -103,8 +103,6 @@ outer:for(j = 0; j < resp_json.length; j++){
     })
   });
 
-
-
 }
 
 checkNyaa()
@@ -118,5 +116,6 @@ sigs.forEach(sig => {
     console.log("\nNode process gracefully terminating")
     task.destroy()
     client.destroy()
+    process.exit()
   })
 })
