@@ -53,7 +53,7 @@ function checkNyaa() {
         obj['show_name'] = show['name']
       })
 
-      const required_keys = ['show_name', 'torrent_name', 'file_name', 'magnet_link', 'time_uploaded', 'episode']
+      const required_keys = ['show_name', 'torrent_name', 'magnet_link', 'time_uploaded', 'episode']
       resp_json.forEach(obj =>{
         required_keys.forEach(key =>{
           assert(key in obj)
