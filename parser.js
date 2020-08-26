@@ -71,7 +71,7 @@ function isNumeric(value) {
 module.exports.add_episode_numbers = function(input){
   assert(input.length>0)
   input.forEach(obj=>{
-    assert('file_name' in obj)
+    assert('torrent_name' in obj)
   })
   //TODO get rid of episode numbers and start using episode names
   //useful for OVAs and movies
@@ -82,7 +82,7 @@ module.exports.add_episode_numbers = function(input){
 
   words = []
   for(i=0;i<input.length;i++){
-    modified = input[i]['file_name'].replace(/[^\w\s]/gi," ")
+    modified = input[i]['torrent_name'].replace(/[^\w\s]/gi," ")
     words.push(modified.split(" "))
   }
 
