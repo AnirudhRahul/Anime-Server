@@ -92,7 +92,7 @@ outer:for(j = 0; j < resp_json.length; j++){
       resp_show = resp_json[j]['show_name']
         if(resp_show in cur_json){
           for(i = 0; i < cur_json[resp_show].length; i++)
-            if(resp_json[j]['file_name'] === cur_json[resp_show][i]['file_name'])
+            if(resp_json[j]['torrent_name'] === cur_json[resp_show][i]['torrent_name'])
               if(cur_json[resp_show][i]['ondisk'])
                 continue outer;
         }
