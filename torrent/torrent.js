@@ -28,7 +28,6 @@ module.exports.add_episode =function(obj, download_dir, database_dir, client){
     torrent.on('done', () => {
       // console.log(torrent.files[0])
       console.log("FINISHED: "+obj['show_name']+" - "+obj['episode'])
-      obj['video_path'] = path.join(download_dir, torrent.files[0]['name'])
       obj['ondisk'] = true
       //Don't need magnet link anymore
       delete obj['magnet_link']

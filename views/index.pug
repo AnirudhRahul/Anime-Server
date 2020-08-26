@@ -10,7 +10,7 @@ html
         div= show[0].show_name
         ul
           each item in show
-            - var link = item.video_path.startsWith(prefix)?item.video_path.substring(prefix.length):item.video_path
+            - var link = '/prod-data/videos/'+item.show_name+'/'+item.file_name
             //- if(link.startsWith("media"))
             li
               a(href=link) Episode #{item.episode}

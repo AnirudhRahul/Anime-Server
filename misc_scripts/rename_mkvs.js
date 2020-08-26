@@ -24,13 +24,6 @@ map = database.readSync(database_dir)
 
 for (show in map) {
   for(index in map[show]){
-    old_path = map[show][index]['video_path']
-    if(old_path.endsWith(old_ending)){
-      new_path = old_path.substring(0,old_path.length-old_ending.length)+new_ending
-      console.log(new_path)
-      map[show][index]['video_path']=new_path
-    }
-
     old_path = map[show][index]['file_name']
     if(old_path.endsWith(old_ending)){
       new_path = old_path.substring(0,old_path.length-old_ending.length)+new_ending
