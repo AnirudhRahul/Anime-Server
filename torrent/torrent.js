@@ -27,13 +27,16 @@ module.exports.add_episode =function(obj, download_dir, database_dir, client){
 
     torrent.on('done', () => {
       // console.log(torrent.files[0])
-      console.log("FINISHED: "+obj['show_name']+" - "+obj['episode'])
       obj['ondisk'] = true
       //Don't need magnet link anymore
       delete obj['magnet_link']
       obj['size'] = torrent.files[0]['length']
+      obj['file_name'] = torrent.files[0]['name']
+
       obj['time_downloaded'] = Math.floor(new Date().getTime() / 1000)
       database.addSync(obj,database_dir)
+      console.log("FINISHED: "+obj['show_name']+" - "+obj['episode'])
+
     })
     torrent.on('error', () => {
       console.log("ERRORED: "+obj['show_name']+" - "+obj['episode'])
