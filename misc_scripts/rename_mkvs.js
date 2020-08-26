@@ -8,7 +8,7 @@ var env = process.env.NODE_ENV || 'development';
 if(argv.prod)
   env = 'production'
 
-const {root_dir, video_dir, database_dir} = require('../dirs.js').all(env, '..')
+const {root_dir, video_dir, database_dir} = require('../dirs.js').all(env)
 
 old_ending = 'mkv'
 new_ending = 'webm'
@@ -39,5 +39,4 @@ for (show in map) {
     }
   }
 }
-console.log(map)
 database.writeSync(map, database_dir)

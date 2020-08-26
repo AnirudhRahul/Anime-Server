@@ -7,7 +7,7 @@ var env = process.env.NODE_ENV || 'development';
 if(argv.prod)
   env = 'production'
 
-const {root_dir, video_dir, database_dir} = require('../dirs.js').all(env,'..')
+const {root_dir, video_dir, database_dir} = require('../dirs.js').all(env)
 
 show_to_remove = argv.file
 
@@ -33,7 +33,8 @@ list.forEach((show) => {
 });
 if(query_to_delete.length>0){
   const fs = require('fs')
-  fs.readFile('../show_list.txt', 'utf8', function(err, data){
+  show_list_path = path.join(__dirname,'..','show_list.txt')
+  fs.readFile(show_list_path, 'utf8', function(err, data){
       if (err){
         console.log(err)
         return
@@ -50,13 +51,13 @@ if(query_to_delete.length>0){
         }
       }
 
-      fs.writeFileSync('../show_list.txt', output.join('\n'));
+      fs.writeFileSync(show_list_path, output.join('\n'));
   });
 }
 else{
   console.log("Nothing Happened in show_list.txt")
-
 }
+
 remove_files = !(argv.keep_files)
 if(remove_files){
   delete_path = path.join(video_dir, show_to_remove)
