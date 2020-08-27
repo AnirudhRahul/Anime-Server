@@ -97,7 +97,7 @@ outer:for(j = 0; j < resp_json.length; j++){
                 continue outer;
         }
         //Testing for memory leak
-        // torrent.add_episode(resp_json[j], path.join(video_dir, show['name']), database_dir, client)
+        torrent.add_episode(resp_json[j], path.join(video_dir, show['name']), database_dir, client)
 
       }
 
