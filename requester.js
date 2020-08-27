@@ -1,4 +1,4 @@
-const request = require('request');
+const needle = require('needle');
 
 module.exports.get = function(url, callback){
   retry(url,150, 10000, callback)
@@ -7,12 +7,12 @@ module.exports.get = function(url, callback){
 let retry = (function() {
   let count = 0;
   return function(url, max, timeout, next) {
-    request(url, function (error, response, body) {
+    needle.get(url, function (error, res) {
       if(error){
         console.log(error)
         return
       }
-      if (response.statusCode !== 200) {
+      if (res.statusCode !== 200) {
         if(count!=0 && count%10==0)
         console.log('Retry '+count+' for '+url);
 
@@ -26,8 +26,8 @@ let retry = (function() {
         }
       }
 
-      // console.log('success');
-      next(null, body);
+      // console.log(res.body);
+      next(null, res.body);
     });
   }
 })();
