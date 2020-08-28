@@ -1,7 +1,16 @@
 const needle = require('needle');
+needle.defaults({user_agent: 'Nodejs App/1.0.0'})
 
-module.exports.get = function(url, callback){
-  retry(url,150, 10000, callback)
+module.exports.get = function(url){
+
+  return new Promise((resolve, reject) =>{
+    retry(url,150, 10000, (err, body)=>{
+      if(err)
+        reject(err)
+      else
+        resolve(body)
+    })
+  })
 }
 
 let retry = (function() {

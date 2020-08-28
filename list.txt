@@ -1,0 +1,14 @@
+The God Of High School S1
+  Query: [HorribleSubs] The God of High School [1080p]
+  Type: Ongoing
+  Tags: Action
+  Download: latest-2
+  Stream: latest-2
+Re:Zero S2
+  Query: [HorribleSubs] Re Zero kara Hajimeru Isekai Seikatsu [1080p]
+    Offset: -25
+  Type: Ongoing
+  Tags: Action
+  Download: latest-2
+  Stream: all
+Fire Force S2
