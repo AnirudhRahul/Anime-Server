@@ -36,7 +36,7 @@ const web_parser = require('../web_parser')
 const PromisePool = require('es6-promise-pool')
 //Interval at which we want to poll nyaa(in minutes)
 const interval_seconds = 1*60
-const max_concurrent_downloads = 3
+const max_concurrent_downloads = 2
 function checkNyaa() {
   start_time = getTime()
   list = parser.get_shows()
