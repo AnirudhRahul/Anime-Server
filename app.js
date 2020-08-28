@@ -16,6 +16,15 @@ app.use(favicon(path.join(__dirname, 'media', 'favicon.ico')))
 prefix = path.resolve('../')
 app.get('/', function (req, res) {
   json_result = database.readAsync(database_dir, function(err, data){
+    data= new Map(
+            Array
+              .from(data)
+              .sort((a, b) => {
+                // a[0], b[0] is the key of the map
+                return a[0] - b[0];
+              })
+          )
+
     res.render('index', {prefix:prefix, list: data})
   })
 })
