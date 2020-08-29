@@ -58,13 +58,29 @@ https://s8.gifyu.com/images/vhost_app_routing.png
 https://s8.gifyu.com/images/server_tuning.png
 
 ## Enable SSL(if you have domain)
-yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+`yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm`
 
-yum install certbot
+`yum install certbot`
 
-Edit virtual host config to open up folder .well-known
+`mkdir /usr/local/lsws/Example/.well-known/`
 
-Finish certbot setup
+## Finish certbot setup
+
+1. `certbot certonly`
+
+2. Select option 2
+
+3. Enter your email
+
+4. Press `A` to agree
+
+5. Press Y or N if you want to get additional emails
+
+6. Enter your domain name(required to setup ssl)
+
+7. Enter `/usr/local/lsws/Example` as your webroot
+
+
 
 Enter ssl certificate into virtual host config
 
