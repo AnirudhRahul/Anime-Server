@@ -57,7 +57,8 @@ const download = (obj, downloadPath, database_dir) => {
     // check if torrentId exist
     if (!torrentId) {
       console.log(obj)
-      return reject("No torrent id provided");
+      console.log("No torrent id provided")
+      return resolve();
     }
 
     // client
