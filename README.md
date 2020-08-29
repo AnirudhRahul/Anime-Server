@@ -90,14 +90,14 @@ Private Key File: `/etc/letsencrypt/live/aniserveani.com/privkey.pem`
 
 Certificate File: `/etc/letsencrypt/live/aniserveani.com/fullchain.pem`
 
-Test to see if https works, by going to https://{SERVER_IP}/
+Test to see if https works, by going to https://{DOMAIN_NAME}/
 
 ### Forward all traffic to HTTPS
 https://s8.gifyu.com/images/vhost_rewrite.png
-
+`
 rewriteCond %{HTTPS} !on
 
 rewriteCond %{HTTP:X-Forwarded-Proto} !https
 
 rewriteRule ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
-
+`
