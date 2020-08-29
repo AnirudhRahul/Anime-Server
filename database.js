@@ -5,7 +5,6 @@ module.exports.writeSync =function(json_map, database_dir){
   fs.writeFileSync(database_dir,JSON.stringify(json_map))
 }
 
-
 module.exports.addSync =function(obj, database_dir){
   assert('show_name' in obj)
   json_map = this.readSync(database_dir)

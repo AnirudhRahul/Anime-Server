@@ -23,11 +23,12 @@ function getTime(){
 const env = process.env.NODE_ENV || 'development';
 
 //Declares, root_dir, video_dir, database_dir
-const {root_dir, video_dir, database_dir} = require('../dirs.js').all(env)
+const {root_dir, video_dir, database_dir, time_dir} = require('../dirs.js').all(env)
 mkdir(root_dir)
 mkdir(video_dir)
 mkfile(database_dir)
-console.log(database_dir)
+mkfile(time_dir)
+
 
 const requester = require('../requester.js')
 const download = require('./download.js')
@@ -42,7 +43,7 @@ last_visited = {}
 function checkNyaa() {
   start_time = getTime()
   list = parser.get_shows()
-  visited_map = {}
+  visited_map = database.readSync(time_dir)
   list.forEach(show =>{
     mkdir(path.join(video_dir, show['name']))
     visited_map[show['name']]=0
@@ -148,7 +149,7 @@ outer:for(j = 0; j < resp_json.length; j++){
 
 
     pool = new PromisePool(generatePromises(show_queue), max_concurrent_downloads)
-
+    database.writeSync(visited_map, time_dir)
     pool.start()
     .then(() =>{
        end_time = getTime()

@@ -13,10 +13,15 @@ module.exports.database_dir = function(env){
   return path.join(this.root_dir(env),'database.txt')
 }
 
+module.exports.time_dir = function(env){
+  return path.join(this.root_dir(env),'time_file.txt')
+}
+
 module.exports.all = function(env){
   return {
     'root_dir': this.root_dir(env),
     'video_dir': this.video_dir(env),
-    'database_dir': this.database_dir(env)
+    'database_dir': this.database_dir(env),
+    'time_dir': this.time_dir(env)
   }
 }
