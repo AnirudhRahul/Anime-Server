@@ -1,5 +1,5 @@
 const needle = require('needle');
-needle.defaults({user_agent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36'})
+needle.defaults({user_agent: 'Nodejs App/1.0.1'})
 
 module.exports.get = function(url){
 
