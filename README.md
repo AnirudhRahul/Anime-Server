@@ -37,20 +37,15 @@ pm2 start ecosystem.config.js
 pm2 log
 
 ## Setup Virtual Host Confs for openLitespeed
+### Set the correct root directory
 https://s8.gifyu.com/images/vhost_basic.png
 
 https://s8.gifyu.com/images/vhost_general.png
 
+### Add Anime-Server as an external app 
 https://s8.gifyu.com/images/vhost_external_app.png
 
-https://s8.gifyu.com/images/vhost_rewrite.png
-
-rewriteCond %{HTTPS} !on
-
-rewriteCond %{HTTP:X-Forwarded-Proto} !https
-
-rewriteRule ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
-
+### Configure Routing for static file serving
 https://s8.gifyu.com/images/vhost_context.png
 
 https://s8.gifyu.com/images/vhost_context_exapanded.png
@@ -70,4 +65,15 @@ Finish certbot setup
 Enter ssl certificate into virtual host config
 
 https://s8.gifyu.com/images/vhost_ssl.png
+
+Test to see if https works, by going to https://{SERVER_IP}/
+
+### Forward all traffic to HTTPS
+https://s8.gifyu.com/images/vhost_rewrite.png
+
+rewriteCond %{HTTPS} !on
+
+rewriteCond %{HTTP:X-Forwarded-Proto} !https
+
+rewriteRule ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
 
