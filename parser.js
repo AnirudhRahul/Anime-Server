@@ -51,6 +51,9 @@ module.exports.get_shows = function(){
     if(!n.endsWith(season)){
       n+=" - "+season
     }
+    check_once = false
+    if(tags.includes("Movie") || tags.includes("Completed"))
+      check_once = true
 
     out.push({
       'name':n,
@@ -58,6 +61,7 @@ module.exports.get_shows = function(){
       'query':q,
       'latest_only':latest_only,
       'tags':tags
+      'check_once':check_once
     })
 
   })

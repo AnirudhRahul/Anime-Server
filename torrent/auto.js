@@ -48,6 +48,9 @@ function checkNyaa() {
     mkdir(path.join(video_dir, show['name']))
     if(!(show['name'] in visited_map))
       visited_map[show['name']]=0
+    if(visited_map[show['name']]!=0 && show['check_once'])
+      visited_map[show['name']] = Number.MAX_SAFE_INTEGER
+
   })
   for(key in visited_map)
     if(key in last_visited){
@@ -70,9 +73,11 @@ function checkNyaa() {
   })
 
   console.log('Checking Nyaa.si for '+list.length+' shows')
+
   show_queue = []
   promise_list = []
   list.forEach(show => {
+    console.log(show['name'])
     const url= 'https://nyaa.si/?f=0&c=1_2&q='+encodeURI(show['query']);
     promise = requester.get(url)
     promise_list.push(promise)
