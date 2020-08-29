@@ -13,9 +13,7 @@ rm -rf cgi-bin fcgi-bin
 
 ## Install latest version of git
 `sudo yum remove git*`
-
 `sudo yum -y install https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm`
-
 `sudo yum install git`
 
 (Hit y to accept download)
