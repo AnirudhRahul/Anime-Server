@@ -78,7 +78,7 @@ https://s8.gifyu.com/images/server_tuning.png
 
 6. Enter your domain name(required to setup ssl)
 
-7. Enter `/usr/local/lsws/Example` as your webroot
+7. Enter `/usr/local/lsws/Example/` as your webroot
 
 
 
