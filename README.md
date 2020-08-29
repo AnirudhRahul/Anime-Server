@@ -42,8 +42,6 @@ rm -rf cgi-bin fcgi-bin
 
 ## Setup Virtual Host Confs for openLitespeed
 ### Set the correct root directory
-https://s8.gifyu.com/images/vhost_basic.png
-
 https://s8.gifyu.com/images/vhost_general.png
 
 ### Add Anime-Server as an external app 
