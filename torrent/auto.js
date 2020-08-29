@@ -46,9 +46,9 @@ function checkNyaa() {
   visited_map = database.readSync(time_dir)
   list.forEach(show =>{
     mkdir(path.join(video_dir, show['name']))
-    visited_map[show['name']]=0
+    if(!(show['name'] in visited_map))
+      visited_map[show['name']]=0
   })
-
   for(key in visited_map)
     if(key in last_visited){
         visited_map[key]=last_visited[key]
@@ -57,8 +57,8 @@ function checkNyaa() {
   to_check = []
   for(key in last_visited)
     to_check.push({'name':key,'time':last_visited[key]})
-  to_check.sort((a,b)=>{return b['time']-a['time']})
-  // to_check = to_check.slice(0,3)
+  //Sort list ascendingly
+  to_check.sort((a,b)=>{return a['time']-b['time']})
 
   list=list.filter(show =>{
     for(index in to_check)
@@ -116,7 +116,6 @@ function checkNyaa() {
         //Overwrites resp json since we are only want the latest values
         resp_json = latest_json
       }
-      // console.log(resp_json)
 
       cur_json = database.readSync(database_dir)
 
@@ -149,7 +148,7 @@ outer:for(j = 0; j < resp_json.length; j++){
 
 
     pool = new PromisePool(generatePromises(show_queue), max_concurrent_downloads)
-    database.writeSync(visited_map, time_dir)
+    database.writeSync(last_visited, time_dir)
     pool.start()
     .then(() =>{
        end_time = getTime()
