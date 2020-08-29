@@ -46,7 +46,9 @@ https://s8.gifyu.com/images/vhost_external_app.png
 https://s8.gifyu.com/images/vhost_rewrite.png
 
 rewriteCond %{HTTPS} !on
+
 rewriteCond %{HTTP:X-Forwarded-Proto} !https
+
 rewriteRule ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
 
 https://s8.gifyu.com/images/vhost_context.png
