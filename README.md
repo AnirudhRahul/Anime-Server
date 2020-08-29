@@ -2,7 +2,11 @@
 Basic server to download and serve anime
 
 # Setup Instructions
-## Navigate to OpenLiteSpeed dir
+
+Below is a complete list of commands and settings you can run to get this server up and running on a server with OpenLiteSpeed.
+Note this has been tested on a Vultr instance using the OpenLiteSpeed CentOS 7 system image, so some instructions will not work on other operating systems.
+
+# Navigate to OpenLiteSpeed directory
 cd /usr/local/lsws/Example/
 
 rm -rf cgi-bin fcgi-bin
