@@ -23,11 +23,19 @@ module.exports = function(body){
       json_list[ind]['magnet_link'] = this.attribs['href']
       ind++
   });
+  if(ind<json_list.length){
+    return Error ('Not enough magnet links on page!')
+  }
+
   ind = 0
   $('td[data-timestamp]').each(function (index) {
       json_list[ind]['time_uploaded'] = parseInt(this.attribs['data-timestamp'])
       ind++
   })
+  if(ind<json_list.length){
+    return Error ('Not enough timestamps on page!')
+  }
+
 
   parser.add_episode_numbers(json_list)
 

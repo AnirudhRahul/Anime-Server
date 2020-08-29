@@ -34,17 +34,41 @@ const download = require('./download.js')
 const database = require('../database.js')
 const web_parser = require('../web_parser')
 const PromisePool = require('es6-promise-pool')
-//Interval at which we want to poll nyaa(in minutes)
-const interval_seconds = 1*60
+//Interval at which we want to poll nyaa(in seconds)
+const interval_seconds = 10*60
 const max_concurrent_downloads = 2
+last_visited = {}
+
 function checkNyaa() {
   start_time = getTime()
   list = parser.get_shows()
-  const size = list.length
+  visited_map = {}
   list.forEach(show =>{
     mkdir(path.join(video_dir, show['name']))
+    visited_map[show['name']]=0
   })
-  console.log('Checking Nyaa.si for '+size+' shows')
+
+  for(key in visited_map)
+    if(key in last_visited){
+        visited_map[key]=last_visited[key]
+    }
+  last_visited = visited_map
+  to_check = []
+  for(key in last_visited)
+    to_check.push({'name':key,'time':last_visited[key]})
+  to_check.sort((a,b)=>{return a['time']-b['time']})
+  // to_check = to_check.slice(0,3)
+
+  list=list.filter(show =>{
+    for(index in to_check)
+      if(index>2)
+        break
+      else if(to_check[index]['name']==show['name'])
+        return true
+    return false
+  })
+
+  console.log('Checking Nyaa.si for '+list.length+' shows')
   show_queue = []
   promise_list = []
   list.forEach(show => {
@@ -52,6 +76,8 @@ function checkNyaa() {
     promise = requester.get(url)
     promise_list.push(promise)
     promise.then((body) => {
+      last_visited[show['name']]=getTime()
+
       resp_json = web_parser.nyaa_si(body)
       resp_json.forEach(obj =>{
         obj['show_name'] = show['name']
