@@ -57,7 +57,7 @@ function checkNyaa() {
   to_check = []
   for(key in last_visited)
     to_check.push({'name':key,'time':last_visited[key]})
-  to_check.sort((a,b)=>{return a['time']-b['time']})
+  to_check.sort((a,b)=>{return b['time']-a['time']})
   // to_check = to_check.slice(0,3)
 
   list=list.filter(show =>{
