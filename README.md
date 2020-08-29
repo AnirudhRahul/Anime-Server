@@ -86,6 +86,10 @@ Enter ssl certificate into virtual host config
 
 https://s8.gifyu.com/images/vhost_ssl.png
 
+Private Key File: `/etc/letsencrypt/live/aniserveani.com/privkey.pem`
+
+Certificate File: `/etc/letsencrypt/live/aniserveani.com/fullchain.pem`
+
 Test to see if https works, by going to https://{SERVER_IP}/
 
 ### Forward all traffic to HTTPS
