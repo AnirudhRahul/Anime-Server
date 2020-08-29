@@ -37,6 +37,24 @@ pm2 start ecosystem.config.js
 pm2 log
 
 ## Setup Virtual Host Confs for openLitespeed
+https://s8.gifyu.com/images/vhost_basic.png
+
+https://s8.gifyu.com/images/vhost_general.png
+
+https://s8.gifyu.com/images/vhost_external_app.png
+
+https://s8.gifyu.com/images/vhost_rewrite.png
+
+rewriteCond %{HTTPS} !on
+rewriteCond %{HTTP:X-Forwarded-Proto} !https
+rewriteRule ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
+
+https://s8.gifyu.com/images/vhost_context.png
+
+https://s8.gifyu.com/images/vhost_context_exapanded.png
+
+## Tune Server for large file serving
+https://s8.gifyu.com/images/server_tuning.png
 
 ## Enable SSL(if you have domain)
 yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
@@ -48,4 +66,6 @@ Edit virtual host config to open up folder .well-known
 Finish certbot setup
 
 Enter ssl certificate into virtual host config
+
+https://s8.gifyu.com/images/vhost_ssl.png
 
