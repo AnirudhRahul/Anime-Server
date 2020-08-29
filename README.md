@@ -52,6 +52,8 @@ https://s8.gifyu.com/images/vhost_context.png
 
 https://s8.gifyu.com/images/vhost_context_exapanded.png
 
+https://s8.gifyu.com/images/vhost_app_routing.png
+
 ## Tune Server for large file serving
 https://s8.gifyu.com/images/server_tuning.png
 
