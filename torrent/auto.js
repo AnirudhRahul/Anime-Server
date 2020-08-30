@@ -56,23 +56,14 @@ function checkNyaa() {
     if(key in last_visited)
         visited_map[key]=last_visited[key]
   last_visited = visited_map
-  to_check = []
-  for(key in last_visited)
-    to_check.push({'name':key,'time':last_visited[key]})
-  //Sort list ascendingly
-  to_check.sort((a,b)=>{return a['time']-b['time']})
-
-  size = 0
-  list=list.filter(show =>{
-    for(index in to_check)
-      if(size>=3)
-        break
-      else if(to_check[index]['name']==show['name'] && to_check[index]['time']<Number.MAX_SAFE_INTEGER){
-        size++
-        return true
-      }
-    return false
+  list.forEach(show =>{show['last_checked']=last_visited[show['name']]})
+  list = list.filter(show =>{
+    return show['last_checked']<Number.MAX_SAFE_INTEGER
   })
+  list = list.sort((itemA,itemB)=>(itemA['last_checked']-itemB['last_checked']))
+
+  if(list.length>max_concurrent_downloads)
+    list = list.slice(0,max_concurrent_downloads)
 
   console.log('Checking Nyaa.si for '+list.length+' shows')
 
@@ -136,10 +127,7 @@ outer:for(j = 0; j < resp_json.length; j++){
         }
         //Testing for memory leak
         show_queue.push(resp_json[j])
-        // download.download(resp_json[j], path.join(video_dir, show['name']), database_dir)
-
       }
-
     }).catch((err)=>{
       console.log(err)
     })
@@ -152,8 +140,6 @@ outer:for(j = 0; j < resp_json.length; j++){
   }
 
   Promise.all(promise_list).then(()=>{
-
-
     pool = new PromisePool(generatePromises(show_queue), max_concurrent_downloads)
     database.writeSync(last_visited, time_dir)
     pool.start()
@@ -167,6 +153,7 @@ outer:for(j = 0; j < resp_json.length; j++){
        console.log('Completed all downloads')
      })
   })
+
 }
 
 checkNyaa()
