@@ -61,7 +61,7 @@ function checkNyaa() {
     to_check.push({'name':key,'time':last_visited[key]})
   //Sort list ascendingly
   to_check.sort((a,b)=>{return a['time']-b['time']})
-  console.log(to_check)
+
   size = 0
   list=list.filter(show =>{
     for(index in to_check)
