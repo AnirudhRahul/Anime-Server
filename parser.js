@@ -60,7 +60,7 @@ module.exports.get_shows = function(){
       'subtitle_group':g,
       'query':q,
       'latest_only':latest_only,
-      'tags':tags
+      'tags':tags,
       'check_once':check_once
     })
 

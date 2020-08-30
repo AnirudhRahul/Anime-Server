@@ -50,25 +50,27 @@ function checkNyaa() {
       visited_map[show['name']]=0
     if(visited_map[show['name']]!=0 && show['check_once'])
       visited_map[show['name']] = Number.MAX_SAFE_INTEGER
-
   })
+
   for(key in visited_map)
-    if(key in last_visited){
+    if(key in last_visited)
         visited_map[key]=last_visited[key]
-    }
   last_visited = visited_map
   to_check = []
   for(key in last_visited)
     to_check.push({'name':key,'time':last_visited[key]})
   //Sort list ascendingly
   to_check.sort((a,b)=>{return a['time']-b['time']})
-
+  console.log(to_check)
+  size = 0
   list=list.filter(show =>{
     for(index in to_check)
-      if(index>2)
+      if(size>=3)
         break
-      else if(to_check[index]['name']==show['name'])
+      else if(to_check[index]['name']==show['name'] && to_check[index]['time']<Number.MAX_SAFE_INTEGER){
+        size++
         return true
+      }
     return false
   })
 
