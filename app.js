@@ -27,14 +27,14 @@ app.get('/', function (req, res) {
 app.get('/show/:show/episode/:episode', function (req, res) {
   if(!(req.params.show in json_map))
     res.send("Show not found")
-  episode_obj = None
+  episode_obj = -1
   for(index in json_map[req.params.show]){
     if(json_map[req.params.show][index]['episode']==req.params.episode){
       episode_obj = json_map[req.params.show][index]
       break
     }
   }
-  if(episode_obj==None)
+  if(episode_obj===-1)
     res.send("Episode not found")
 
 
