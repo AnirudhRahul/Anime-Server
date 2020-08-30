@@ -16,25 +16,25 @@ const new_ending = 'mp4'
 glob(path.join(video_dir,'**/*.'+old_ending), function (er, files) {
   count = 0
   files.forEach((old_path) => {
-    if(count>0)
+    if(!path.basename(old_path).startsWith('[HorribleSubs]'))
+      return
+    if(count>3)
       return
     count++
 
     new_path = changeFileEnding(old_path, new_ending)
     subtitle_path = changeFileEnding(old_path, 'vtt')
-    console.log(new_path)
-    console.log(subtitle_path)
     command =
     ffmpeg()
     .input(old_path)
     .output(new_path)
     .outputOptions('-c:v copy')
     .outputOptions('-c:a copy')
+    .outputOptions('-c:s mov_text')
     .output(subtitle_path)
     .on('end', function() {
-      console.log("DONE")
+      console.log("DONE "+old_path)
       // fs.unlinkSync(old_path)
-      // console.log(new_path)
       map = database.readSync(database_dir)
       for (show in map) {
         for(index in map[show]){
@@ -45,8 +45,11 @@ glob(path.join(video_dir,'**/*.'+old_ending), function (er, files) {
           }
         }
       }
-      console.log(map)
       // database.writeSync(map, database_dir)
+    })
+    .on('error', function(err) {
+      console.log(err)
+      console.log(old_path)
     })
     .run()
 
