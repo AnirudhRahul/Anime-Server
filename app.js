@@ -15,8 +15,6 @@ fs.watchFile(database_dir,{interval: 10000}, (cur) => {
   json_map = sortMap(json_map)
 });
 
-console.log(json_map)
-
 app.set('view engine', 'pug')
 app.use("/media/icon-chan.png", express.static('./media/icon-chan.png'))
 app.use(favicon(path.join(__dirname, 'media', 'favicon.ico')))
