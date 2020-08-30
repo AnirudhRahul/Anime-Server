@@ -24,6 +24,23 @@ app.get('/', function (req, res) {
   res.render('index', {prefix:prefix, list: json_map})
 })
 
+app.get('/show/:show/episode/:episode', function (req, res) {
+  if(!(req.params.show in json_map))
+    res.send("Show not found")
+  episode_obj = None
+  for(index in json_map[req.params.show]){
+    if(json_map[req.params.show][index]['episode']==req.params.episode){
+      episode_obj = json_map[req.params.show][index]
+      break
+    }
+  }
+  if(episode_obj==None)
+    res.send("Episode not found")
+
+
+  res.render('episode', {data:episode_obj})
+})
+
 
 
 
