@@ -1,10 +1,9 @@
 html
   head
     title=data.show_name
-  //- include header.pug
+  include header.pug
   body
     - video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name)
-    //- video(src=video_src onclick="this.play();")
     video(controls='')
       source(src=video_src, type='video/mp4')
       |   Your browser does not support the video tag.  
