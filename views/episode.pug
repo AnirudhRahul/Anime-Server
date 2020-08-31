@@ -2,27 +2,30 @@ html
   head
     title=data.show_name
   include header.pug
-  style(type='text/css').
-    .videosize {
-      width: 100%    !important;
-      height: auto   !important;
-    }
-    ::cue {
-      size: 80;
-      color: white;
-      font-size: 0.65em;
-      font-weight: 300;
-      background-color: rgba(0, 0, 0, 0);
-      text-shadow:
-        -1px -1px 0 #000,
-         0   -1px 0 #000,
-         1px -1px 0 #000,
-         1px  0   0 #000,
-         1px  1px 0 #000,
-         0    1px 0 #000,
-        -1px  1px 0 #000,
-        -1px  0   0 #000;
-    }
+  script(src='https://cdn.plyr.io/3.6.2/plyr.js')
+  link(rel='stylesheet', href='https://cdn.plyr.io/3.6.2/plyr.css')
+  
+  //- style(type='text/css').
+  //-   .videosize {
+  //-     width: 100%    !important;
+  //-     height: auto   !important;
+  //-   }
+  //-   ::cue {
+  //-     size: 80;
+  //-     color: white;
+  //-     font-size: 0.65em;
+  //-     font-weight: 300;
+  //-     background-color: rgba(0, 0, 0, 0);
+  //-     text-shadow:
+  //-       -1px -1px 0 #000,
+  //-        0   -1px 0 #000,
+  //-        1px -1px 0 #000,
+  //-        1px  0   0 #000,
+  //-        1px  1px 0 #000,
+  //-        0    1px 0 #000,
+  //-       -1px  1px 0 #000,
+  //-       -1px  0   0 #000;
+  //-   }
   body
     - video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name)
     - subtitle_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name.substring(0,data.file_name.lastIndexOf('.')+1)+'vtt')
