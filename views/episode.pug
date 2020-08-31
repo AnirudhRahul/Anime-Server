@@ -2,9 +2,19 @@ html
   head
     title=data.show_name
   include header.pug
+  style(type='text/css').
+    .videosize {
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      width: 100%; 
+      height: 100%;
+      object-fit: cover;
+    }
   body
     - video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name)
-    video(controls='')
+    video(controls='' class='videosize')
       source(src=video_src, type='video/mp4')
       |   Your browser does not support the video tag.  
     div(class="m-3")
