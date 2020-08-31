@@ -40,6 +40,15 @@ rm -rf cgi-bin fcgi-bin
 
 `pm2 log`
 
+# Install ffmpeg
+`sudo yum install epel-release`
+
+`sudo yum localinstall --nogpgcheck https://download1.rpmfusion.org/free/el/rpmfusion-free-release-7.noarch.rpm`
+
+`sudo yum install ffmpeg ffmpeg-devel`
+
+`ffmpeg -version`
+
 ## Setup Virtual Host Confs for openLitespeed
 ### Set the correct root directory
 https://s8.gifyu.com/images/vhost_general.png
