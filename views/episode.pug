@@ -3,9 +3,10 @@ html
     title=data.show_name
   include header.pug
   body
-    video(src=escapeURL('/prod-data/videos/'+data.show_name+'/'+data.file_name))
+    - video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name)
+    video(src=video_src)
     div(class="m-3")
       h2= data.show_name
         img(src='/../../../../media/icon-chan.png' class="header-icon" style="border-radius: 50%" width="30em")
       h3= "Episode "+data.episode
-      a(href='/prod-data/videos/'+data.show_name+'/'+data.file_name) Download Link
+      a(href=video_src) Download Link
