@@ -7,6 +7,16 @@ html
       width: 100%    !important;
       height: auto   !important;
     }
+    ::cue {
+      font-size: medium;
+      opacity: 0.4;
+      color: white;
+      text-shadow:
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;  
+    }
   body
     - video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name)
     - subtitle_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name.substring(0,data.file_name.lastIndexOf('.')+1)+'vtt')
