@@ -18,9 +18,9 @@ glob(path.join(video_dir,'**/*.'+old_ending), function (er, files) {
   files.forEach((old_path) => {
     if(!path.basename(old_path).startsWith('[HorribleSubs]'))
       return
-    if(count>3)
-      return
-    count++
+    // if(count>3)
+    //   return
+    // count++
 
     new_path = changeFileEnding(old_path, new_ending)
     subtitle_path = changeFileEnding(old_path, 'vtt')
@@ -34,7 +34,7 @@ glob(path.join(video_dir,'**/*.'+old_ending), function (er, files) {
     .output(subtitle_path)
     .on('end', function() {
       console.log("DONE "+old_path)
-      // fs.unlinkSync(old_path)
+      fs.unlinkSync(old_path)
       map = database.readSync(database_dir)
       for (show in map) {
         for(index in map[show]){
@@ -45,7 +45,7 @@ glob(path.join(video_dir,'**/*.'+old_ending), function (er, files) {
           }
         }
       }
-      // database.writeSync(map, database_dir)
+      database.writeSync(map, database_dir)
     })
     .on('error', function(err) {
       console.log(err)
