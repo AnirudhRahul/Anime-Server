@@ -2,10 +2,19 @@ html
   head
     title=data.show_name
   include header.pug
+  style(type='text/css').
+    .videosize {
+      max-width:100%;
+      max-height:100%;
+      height: auto;
+      width:auto;
+    }
   body
     - video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name)
-    video(controls='' class='embed-responsive embed-responsive-16by9')
+    - subtitle_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.subtitle_file_name)
+    video(controls='' class='videosize')
       source(src=video_src, type='video/mp4')
+      track(label="English" kind="subtitles" srclang="en" src=subtitle_src default)
       |   Your browser does not support the video tag.  
     div(class="m-3")
       h2= data.show_name
