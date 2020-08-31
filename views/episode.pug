@@ -4,14 +4,12 @@ html
   include header.pug
   style(type='text/css').
     .videosize {
-      max-width:100%;
-      max-height:100%;
-      height: auto;
-      width:auto;
+      width: 100%    !important;
+      height: auto   !important;
     }
   body
     - video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name)
-    - subtitle_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.subtitle_file_name)
+    - subtitle_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name.substring(0,data.file_name.lastIndexOf('.')+1)+'vtt')
     video(controls='' class='videosize')
       source(src=video_src, type='video/mp4')
       track(label="English" kind="subtitles" srclang="en" src=subtitle_src default)
