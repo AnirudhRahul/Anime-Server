@@ -4,6 +4,8 @@ html
   include header.pug
   script(src='https://cdn.plyr.io/3.6.2/plyr.js')
   link(rel='stylesheet', href='https://cdn.plyr.io/3.6.2/plyr.css')
+  script.
+    const player = new Plyr('#player');
   
   //- style(type='text/css').
   //-   .videosize {
@@ -29,7 +31,7 @@ html
   body
     - video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name)
     - subtitle_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name.substring(0,data.file_name.lastIndexOf('.')+1)+'vtt')
-    video(controls='' class='videosize')
+    video(id="player" playsinline controls)
       source(src=video_src, type='video/mp4')
       track(label="English" kind="subtitles" srclang="en" src=subtitle_src default)
       |   Your browser does not support the video tag.  
