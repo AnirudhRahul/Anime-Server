@@ -1,7 +1,9 @@
 html
   head
     title=data.show_name
+  include header.pug
   body
-    h1= data.show_name
-      img(src='/../../../../media/icon-chan.png' class="header-icon" style="border-radius: 50%" width="30em")
-    h3= data.episode
+    div(class="m-3")
+      h2= data.show_name
+        img(src='/../../../../media/icon-chan.png' class="header-icon" style="border-radius: 50%" width="30em")
+      h3= "Episode "+data.episode

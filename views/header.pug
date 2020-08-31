@@ -1,28 +1,13 @@
 html
-  link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T', crossorigin='anonymous')
-  body
-    nav.navbar.navbar-expand-lg.navbar-light.bg-light
-      a.navbar-brand(href="#") Navbar
-      button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
-        span.navbar-toggler-icon
-      #navbarSupportedContent.collapse.navbar-collapse
-        ul.navbar-nav.mr-auto
-          li.nav-item.active
-            a.nav-link(href="#")
-              | Home 
-              span.sr-only (current)
-          li.nav-item
-            a.nav-link(href="#") Link
-          li.nav-item.dropdown
-            a#navbarDropdown.nav-link.dropdown-toggle(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
-              | Dropdown
-            .dropdown-menu(aria-labelledby="navbarDropdown")
-              a.dropdown-item(href="#") Action
-              a.dropdown-item(href="#") Another action
-              .dropdown-divider
-              a.dropdown-item(href="#") Something else here
-          li.nav-item
-            a.nav-link.disabled(href="#") Disabled
-        form.form-inline.my-2.my-lg-0
-          input.form-control.mr-sm-2(type="search" placeholder="Search" aria-label="Search")
-          button.btn.btn-outline-success.my-2.my-sm-0(type="submit") Search
+  link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/darkly/bootstrap.min.css', crossorigin='anonymous')
+  nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
+    a.navbar-brand(href='/') AniServe
+    ul.navbar-nav.mr-auto
+      li.nav-item
+        a.nav-link(href='/') Home
+          //- | Home 
+          //- span.sr-only (current)
+      li.nav-item
+        a.nav-link(href='/show_list') Shows
+      li.nav-item
+        a.nav-link(href='/latest') Latest

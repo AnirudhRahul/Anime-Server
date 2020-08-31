@@ -3,12 +3,12 @@ html
     title="Anime Server"
   include header.pug
   body
-    h1= "Anime Server"
+    h1(class="ml-2")="Anime Server"
       img(src='./media/icon-chan.png' class="header-icon" style="border-radius: 50%" width="30em")
     
     each show in list
       if show.length > 0
-        div= show[0].show_name
+        div(class="ml-2")= show[0].show_name
         ul
           each item in show
             - var link = '/show/'+item.show_name+'/episode/'+item.episode
