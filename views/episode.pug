@@ -9,14 +9,15 @@ html
     }
     ::cue {
       size: 80;
-      /* font-size: large; */
       color: white;
-      background-color: rgba(0, 0, 0, 0);
+      font-size: 3.5vw;
+      font-weight: normal;
+      background-color: rgba(0, 0, 0, 0.25);
       text-shadow:
-      -1px -1px 0 #000,
-      1px -1px 0 #000,
-      -1px 1px 0 #000,
-      1px 1px 0 #000;  
+      -2px -2px 0 #000,
+      2px -2px 0 #000,
+      -2px 2px 0 #000,
+      2px 2px 0 #000;  
     }
   body
     - video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name)
