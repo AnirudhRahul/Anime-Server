@@ -29,9 +29,9 @@ html
   body
     - video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name)
     - subtitle_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name.substring(0,data.file_name.lastIndexOf('.')+1)+'vtt')
-    video(id="player" playsinline controls allowfullscreen )
+    video(id="player" playsinline controls allowfullscreen  )
       source(src=video_src, type='video/mp4')
-      track(label="English" kind="subtitles" srclang="en" src=subtitle_src default)
+      track(label="English" kind="subtitles" srclang="en" src=subtitle_src default data-plyr-config='{ "controls": ["play-large", "play", "progress", "current-time", "duration", "volume", "fast-forward", "captions", "pip", "airplay", "fullscreen", "download"] }')
       |   Your browser does not support the video tag.  
     div(class="m-3")
       h2= data.show_name
@@ -41,11 +41,3 @@ html
     script(src='https://cdn.plyr.io/3.6.2/plyr.js')
     script.
       const player = new Plyr('#player');
-      player.on('enterfullscreen', event => {
-        screen.lockOrientationUniversal = screen.lockOrientation || screen.mozLockOrientation || screen.msLockOrientation;
-        if (screen.lockOrientationUniversal("landscape")) {
-          
-        } else {
-  
-        }
-      });
