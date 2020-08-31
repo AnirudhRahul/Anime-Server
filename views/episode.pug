@@ -31,7 +31,7 @@ html
     - subtitle_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name.substring(0,data.file_name.lastIndexOf('.')+1)+'vtt')
     video(id="player" playsinline controls allowfullscreen  )
       source(src=video_src, type='video/mp4')
-      track(label="English" kind="subtitles" srclang="en" src=subtitle_src default data-plyr-config='{ "controls": ["play-large", "play", "progress", "current-time", "duration", "volume", "fast-forward", "captions", "pip", "airplay", "fullscreen", "download"] }')
+      track(label="English" kind="subtitles" srclang="en" src=subtitle_src default)
       |   Your browser does not support the video tag.  
     div(class="m-3")
       h2= data.show_name
@@ -40,4 +40,19 @@ html
       a(href=video_src) Download Link
     script(src='https://cdn.plyr.io/3.6.2/plyr.js')
     script.
-      const player = new Plyr('#player');
+      const controls = [
+      'play-large', // The large play button in the center
+      'rewind', // Rewind by the seek time (default 10 seconds)
+      'play', // Play/pause playback
+      'fast-forward', // Fast forward by the seek time (default 10 seconds)
+      'progress', // The progress bar and scrubber for playback and buffering
+      'current-time', // The current time of playback
+      'duration', // The full duration of the media
+      'volume', // Volume control
+      'captions', // Toggle captions
+      'pip', // Picture-in-picture (currently Safari only)
+      'airplay', // Airplay (currently Safari only)
+      'download', // Show a download button with a link to either the current source or a custom URL you specify in your options
+      'fullscreen' // Toggle fullscreen
+      ];
+      const player = new Plyr('#player', {controls});
