@@ -41,9 +41,11 @@ html
     script(src='https://cdn.plyr.io/3.6.2/plyr.js')
     script.
       const player = new Plyr('#player');
-      screen.lockOrientationUniversal = screen.lockOrientation || screen.mozLockOrientation || screen.msLockOrientation;
-      if (screen.lockOrientationUniversal("landscape")) {
-        
-      } else {
-
-      }
+      player.on('enterfullscreen', event => {
+        screen.lockOrientationUniversal = screen.lockOrientation || screen.mozLockOrientation || screen.msLockOrientation;
+        if (screen.lockOrientationUniversal("landscape")) {
+          
+        } else {
+  
+        }
+      });
