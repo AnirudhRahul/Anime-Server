@@ -1,11 +1,9 @@
 html
   head
     title=data.show_name
+    link(rel='stylesheet', href='https://cdn.plyr.io/3.6.2/plyr.css')
   include header.pug
-  script(src='https://cdn.plyr.io/3.6.2/plyr.js')
-  link(rel='stylesheet', href='https://cdn.plyr.io/3.6.2/plyr.css')
-  script.
-    const player = new Plyr('#player');
+
   
   //- style(type='text/css').
   //-   .videosize {
@@ -40,3 +38,6 @@ html
         img(src='/media/icon-chan.png' class="header-icon" style="border-radius: 50%" width="30em")
       h3= "Episode "+data.episode
       a(href=video_src) Download Link
+    script(src='https://cdn.plyr.io/3.6.2/plyr.js')
+    script.
+      const player = new Plyr('#player');
