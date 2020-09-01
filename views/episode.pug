@@ -51,8 +51,23 @@ html
       document.getElementById("my-video").addEventListener('touchstart', function (event) {
         document.getElementById("output").innerHTML = event.touches.length
         const curtime = (new Date()).getTime()
-        if(curtime-window.lastClick<200){
-          window.player.currentTime(window.player.currentTime()+10)
+        if(curtime-window.lastClick<250){
+          if(event.touches.length>1){
+            window.player.pause()
+          }
+          else{
+            const width = document.getElementById("my-video")
+            const x = event.touches[0].clientX
+            if(x > width*(0.5+0.125)){
+              window.player.currentTime(window.player.currentTime()+10)
+            }
+            else if(x < width*(0.5-0.125)){
+              window.player.currentTime(window.player.currentTime()-10)
+            }
+            else
+              window.player.pause()
+
+          }
         }
         window.lastClick = curtime
       });
