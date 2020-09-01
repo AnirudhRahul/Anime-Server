@@ -56,7 +56,7 @@ html
             window.player.pause()
           }
           else{
-            const width = document.getElementById("my-video")
+            const width = document.getElementById("my-video").offsetWidth
             const x = event.touches[0].clientX
             if(x > width*(0.5+0.125)){
               window.player.currentTime(window.player.currentTime()+10)
