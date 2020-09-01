@@ -39,11 +39,12 @@ html
       }).ready(function(){
         this.landscapeFullscreen();
         window.player = this
+        this.enableTouchActivity()
       });
       
       document.getElementById("my-video").addEventListener('click', function (event) {
         document.getElementById("output").innerHTML = event.detail
-        if(event.detail == 2){
+        if(event.detail >= 2){
           window.player.currentTime(window.player.currentTime()+10)
         }
       });
