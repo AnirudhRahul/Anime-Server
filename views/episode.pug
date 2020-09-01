@@ -49,6 +49,7 @@ html
         doubleClick: myDoubleClickHandler
       }
       });
+      window.player = player
       player.on('tap', function(){
         console.log("tap")
         document.getElementById('output').innerHTML="tap"
