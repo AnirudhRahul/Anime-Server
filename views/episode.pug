@@ -50,7 +50,7 @@ html
       });
       
       document.getElementById("my-video").addEventListener('touchstart', function (event) {
-        document.getElementById("output").innerHTML = event.detail
+        document.getElementById("output").innerHTML = JSON.stringify(event)
         if(event.detail >= 2){
           window.player.currentTime(window.player.currentTime()+10)
         }
