@@ -1,7 +1,6 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
-
 //TODO make this parse new_show_list.txt instead
 //The output format is fine though
 module.exports.get_shows = function(){
@@ -72,6 +71,11 @@ module.exports.get_shows = function(){
 
 function isNumeric(value) {
   return /^\d+$/.test(value)
+}
+
+//This means it was directly called from command line
+if (require.main === module) {
+    console.log(this.get_shows());
 }
 
 //TODO get rid of episode numbers and start using episode names
