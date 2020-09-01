@@ -5,10 +5,21 @@ html
       window.HELP_IMPROVE_VIDEOJS = false;
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='https://vjs.zencdn.net/7.8.4/video-js.css')
-    style.
-      .video-js.vjs-fullscreen{
-        width: 100% !important;
-        height: 100% !important;
+    style(type='text/css').
+      ::cue {
+        color: white;
+        font-size: 0.65em;
+        font-weight: 300;
+        background-color: rgba(0, 0, 0, 0);
+        text-shadow:
+          -1px -1px 0 #000,
+           0   -1px 0 #000,
+           1px -1px 0 #000,
+           1px  0   0 #000,
+           1px  1px 0 #000,
+           0    1px 0 #000,
+          -1px  1px 0 #000,
+          -1px  0   0 #000;
       }
   include header.pug
   body
