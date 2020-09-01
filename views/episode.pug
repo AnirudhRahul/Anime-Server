@@ -37,9 +37,10 @@ html
       document.getElementById("my-video").addEventListener('click', function (event) {
         console.log(event)
         if(event.detail == 2){
-          player.pause()
+          player.currentTime(player.currentTime()+10)
         }
       });
+      
       player.landscapeFullscreen();
     div(class="m-3")
       h2= data.show_name
