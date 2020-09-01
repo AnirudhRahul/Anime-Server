@@ -49,7 +49,6 @@ html
       });
       window.lastClick = 0
       document.getElementById("my-video").addEventListener('touchstart', function (event) {
-        document.getElementById("output").innerHTML = event.touches.length
         const curtime = (new Date()).getTime()
         if(curtime-window.lastClick<250){
           if(event.touches.length>1){
@@ -79,4 +78,4 @@ html
         img(src='/media/icon-chan.png' class="header-icon" style="border-radius: 50%" width="30em")
       h3= "Episode "+data.episode
       a(href=video_src) Download Link
-      p(id="output") Init
+      p(id="output")
