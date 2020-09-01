@@ -2,6 +2,8 @@ const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
 
+//TODO make this parse new_show_list.txt instead
+//The output format is fine though
 module.exports.get_shows = function(){
   lines = fs.readFileSync(path.join(__dirname,'show_list.txt'), 'utf-8')
       .split('\n')
@@ -72,13 +74,14 @@ function isNumeric(value) {
   return /^\d+$/.test(value)
 }
 
+//TODO get rid of episode numbers and start using episode names
+//useful for OVAs and movies
 module.exports.add_episode_numbers = function(input){
   assert(input.length>0)
   input.forEach(obj=>{
     assert('torrent_name' in obj)
   })
-  //TODO get rid of episode numbers and start using episode names
-  //useful for OVAs and movies
+
   if(input.length==1){
     input[0]['episode']=1
     return
@@ -113,25 +116,3 @@ module.exports.add_episode_numbers = function(input){
     }
   }
 }
-
-// function getImage(body, obj){
-//   img_start = body.indexOf('https://i.')
-//   min_index = -1
-//   if(img_start!=-1){
-//     endings = ['.png','.jpg','.webp','.jpeg']
-//     s = endings.length;
-//     for(i =0;i<s;i++)
-//       endings.push(endings[i].toUpperCase())
-//
-//     min_ending = ''
-//     endings.forEach(end=>{
-//       res = body.indexOf(end,img_start)
-//       if(min_index == -1)
-//         [min_index,min_ending] = [res,end]
-//       else if(res!=-1)
-//         [min_index,min_ending] = [min(min_index,res),end]
-//     })
-//   }
-//   if(min_index!=-1)
-//     obj['thumbnail_link']=body.substring(img_start, min_index)+min_ending
-// }
