@@ -34,6 +34,7 @@ html
     script.
       function myDoubleClickHandler(event){
         console.log(event)
+        document.getElementById(id).innerHTML = document.getElementById('my-video').offsetWidth + " " + event.clientX
         width = document.getElementById('my-video').offsetWidth
         if(event.clientX > width/2){
           this.currentTime(this.currentTime() + 10);
@@ -54,3 +55,4 @@ html
         img(src='/media/icon-chan.png' class="header-icon" style="border-radius: 50%" width="30em")
       h3= "Episode "+data.episode
       a(href=video_src) Download Link
+      p(id="output")
