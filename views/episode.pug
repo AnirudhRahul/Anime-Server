@@ -3,7 +3,7 @@ html
     title=data.show_name
     script.
       window.HELP_IMPROVE_VIDEOJS = false;
-
+    meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='https://vjs.zencdn.net/7.8.4/video-js.css')
   include header.pug
   body
@@ -13,7 +13,11 @@ html
       source(src=video_src, type='video/mp4')
       track(label="English" kind="subtitles" srclang="en" src=subtitle_src default)
       |   Your browser does not support the video tag.  
-    script(src='https://vjs.zencdn.net/7.8.4/video.js')
+    script(src='https://vjs.zencdn.net/7.8.4/video.min.js')
+    script(src='https://raw.githubusercontent.com/prateekrastogi/videojs-landscape-fullscreen/master/dist/videojs-landscape-fullscreen.min.js')
+    script.
+      player = videojs('my-video');
+      player.landscapeFullscreen();
     div(class="m-3")
       h2= data.show_name
         img(src='/media/icon-chan.png' class="header-icon" style="border-radius: 50%" width="30em")
