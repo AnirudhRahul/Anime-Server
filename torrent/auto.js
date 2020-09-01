@@ -48,7 +48,7 @@ function checkNyaa() {
     mkdir(path.join(video_dir, show['name']))
     if(!(show['name'] in visited_map))
       visited_map[show['name']]=0
-    if(visited_map[show['name']]!=0 && show['check_once'])
+    if(visited_map[show['name']]!=0 && !show['ongoing'])
       visited_map[show['name']] = Number.MAX_SAFE_INTEGER
   })
 
