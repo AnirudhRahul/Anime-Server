@@ -24,7 +24,7 @@ html
   body
     - video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name)
     - subtitle_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name.substring(0,data.file_name.lastIndexOf('.')+1)+'vtt')
-    video(id="my-video" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="1280" data-setup="{}")
+    video(id="my-video" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="auto" data-setup="{}")
       source(src=video_src, type='video/mp4')
       track(srclang="en" label="English" src=subtitle_src default)
     script(src='https://vjs.zencdn.net/7.8.4/video.min.js')
@@ -34,7 +34,13 @@ html
     script.
       function myDoubleClickHandler(event){
         console.log(event)
-        this.pause();
+        width = document.getElementById('my-video').offsetWidth
+        if(event.clientX > width/2){
+          this.currentTime(this.currentTime() + 10);
+        }
+        else{
+          this.currentTime(this.currentTime() - 10);
+        }
       };
       player = videojs('my-video', {
       userActions: {
