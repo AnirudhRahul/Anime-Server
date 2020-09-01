@@ -34,7 +34,7 @@ html
     script.
       function myDoubleClickHandler(event){
         console.log(event)
-        document.getElementById(id).innerHTML = document.getElementById('my-video').offsetWidth + " " + event.clientX
+        document.getElementById("output").innerHTML = document.getElementById('my-video').offsetWidth + " " + event.clientX
         width = document.getElementById('my-video').offsetWidth
         if(event.clientX > width/2){
           this.currentTime(this.currentTime() + 10);
