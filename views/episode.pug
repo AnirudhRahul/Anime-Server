@@ -42,9 +42,8 @@ html
         this.enableTouchActivity()
       });
       document.getElementById("my-video").addEventListener('click', function (event) {
-        console.log(event.detail)
-        if(event.detail >= 2){
-          window.player.currentTime(window.player.currentTime()+10)
+        if(event.detail == 2){
+          window.player.requestFullScreen();
         }
       });
       window.lastClick = 0
