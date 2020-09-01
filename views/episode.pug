@@ -5,6 +5,11 @@ html
       window.HELP_IMPROVE_VIDEOJS = false;
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='https://vjs.zencdn.net/7.8.4/video-js.css')
+    style.
+      .video-js.vjs-fullscreen{
+        width: 100% !important;
+        height: 100% !important;
+      }
   include header.pug
   body
     - video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name)
