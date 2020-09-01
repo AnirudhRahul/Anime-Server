@@ -68,8 +68,10 @@ html
               window.player.pause()
 
           }
+          window.lastClick = 0
         }
-        window.lastClick = curtime
+        else
+          window.lastClick = curtime
       });
       
     div(class="m-3")
