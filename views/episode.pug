@@ -42,7 +42,7 @@ html
       });
       
       document.getElementById("my-video").addEventListener('click', function (event) {
-        document.getElementById("output") = event.detail
+        document.getElementById("output").innerHTML = event.detail
         if(event.detail == 2){
           window.player.currentTime(window.player.currentTime()+10)
         }
