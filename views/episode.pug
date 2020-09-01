@@ -47,12 +47,6 @@ html
         doubleClick: myDoubleClickHandler
       }
       });
-      let tracks = player.textTracks();
-      console.log(tracks)
-      for (let i = 0; i < tracks.length; i++) {
-        let track = tracks[i];
-        player.removeRemoteTextTrack(track)
-      }
 
       player.landscapeFullscreen();
     div(class="m-3")
