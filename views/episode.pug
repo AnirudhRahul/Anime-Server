@@ -49,7 +49,10 @@ html
         doubleClick: myDoubleClickHandler
       }
       });
-
+      player.on('tap', function(){
+        console.log("tap")
+        document.getElementById('output').innerHTML="tap"
+      })
       player.landscapeFullscreen();
     div(class="m-3")
       h2= data.show_name
