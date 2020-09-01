@@ -33,13 +33,22 @@ html
 
     script.
       
-      player = videojs('my-video')
-      document.getElementById("my-video").addEventListener('click', function (event) {
-        console.log(event)
-        if(event.detail == 2){
-          player.currentTime(player.currentTime()+10)
+      player = videojs('my-video',{
+        userActions: {
+          doubleClick: false
         }
-      });
+      }).ready(function(){
+        document.getElementById("my-video").addEventListener('click', function (event) {
+          console.log(event)
+          if(event.detail == 2){
+            this.currentTime(this.currentTime()+10)
+            console.log(this)
+          }
+        });
+
+    });
+      
+
       
       player.landscapeFullscreen();
     div(class="m-3")
