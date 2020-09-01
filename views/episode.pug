@@ -36,11 +36,7 @@ html
         console.log(event)
       });
       
-      player = videojs('my-video', {
-      userActions: {
-        doubleClick: myDoubleClickHandler
-      }
-      });
+      player = videojs('my-video')
 
       player.landscapeFullscreen();
     div(class="m-3")
