@@ -41,19 +41,20 @@ html
         window.player = this
         this.enableTouchActivity()
       });
-      
       document.getElementById("my-video").addEventListener('click', function (event) {
         console.log(event.detail)
         if(event.detail >= 2){
           window.player.currentTime(window.player.currentTime()+10)
         }
       });
-      
+      window.lastClick = 0
       document.getElementById("my-video").addEventListener('touchstart', function (event) {
         document.getElementById("output").innerHTML = event.touches.length
-        if(event.detail >= 2){
+        const curtime = Math.round(Date.now() / 1000)
+        if(curtime-window.lastClick<500){
           window.player.currentTime(window.player.currentTime()+10)
         }
+        window.lastClick = curtime
       });
       
     div(class="m-3")
