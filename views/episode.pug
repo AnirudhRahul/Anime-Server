@@ -33,14 +33,15 @@ html
 
     script.
       function myDoubleClickHandler(event){
-        console.log(event)
-        document.getElementById("output").innerHTML = document.getElementById('my-video').offsetWidth + " " + event.clientX
         width = document.getElementById('my-video').offsetWidth
-        if(event.clientX > width/2){
+        if(event.clientX > width*(0.5+0.15)){
           this.currentTime(this.currentTime() + 10);
         }
-        else{
+        else if((event.clientX < width*(0.5-0.15)){
           this.currentTime(this.currentTime() - 10);
+        }
+        else{
+          this.pause()
         }
       };
       player = videojs('my-video', {
