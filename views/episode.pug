@@ -1,18 +1,21 @@
 html
   head
     title=data.show_name
+    script.
+      window.HELP_IMPROVE_VIDEOJS = false;
+
     link(rel='stylesheet', href='https://vjs.zencdn.net/7.8.4/video-js.css')
   include header.pug
   body
     - video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name)
     - subtitle_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name.substring(0,data.file_name.lastIndexOf('.')+1)+'vtt')
-    video(id="player" class="video-js" controls preload="auto" )
+    video(id="my-video" class="video-js" controls preload="auto" width="1280" data-setup="{}")
       source(src=video_src, type='video/mp4')
       track(label="English" kind="subtitles" srclang="en" src=subtitle_src default)
       |   Your browser does not support the video tag.  
+    script(src='https://vjs.zencdn.net/7.8.4/video.js')
     div(class="m-3")
       h2= data.show_name
         img(src='/media/icon-chan.png' class="header-icon" style="border-radius: 50%" width="30em")
       h3= "Episode "+data.episode
       a(href=video_src) Download Link
-    script(src='https://vjs.zencdn.net/7.8.4/video.js')
