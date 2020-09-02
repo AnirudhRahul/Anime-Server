@@ -45,16 +45,7 @@ html
       );
       
       //add big middle button to video player
-      var toggle = new PlayToggle(player, {
-        handleClick: function(event){
-          if(player.paused()) {
-            player.play();
-          }
-          else {
-            player.pause();
-          }
-        }
-      });
+      var toggle = new PlayToggle(player);
       
       window.player = player
       document.getElementById("my-video").addEventListener('click', function (event) {
