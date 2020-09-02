@@ -6,7 +6,7 @@ module.exports.get_shows = function(){
   lines = fs.readFileSync(path.join(__dirname,'show_list.txt'), 'utf-8')
       .split('\n')
       .filter(Boolean)
-      .map(s => s.trim())
+
 
   //initial values of attributes
   init = {
@@ -27,17 +27,21 @@ module.exports.get_shows = function(){
   out = []
   lines.forEach(line => {
 
-    //Don't parse comments
-    if(line.startsWith("#")){
+    //Don't parse comments or empty lines
+    if(line.startsWith("#") || line.trim().length === 0){
       return
     }
 
     //new show name
-    if(!line.startsWith("\t")) {
+    if(!line.startsWith("\t") && !line.startsWith(" ")) {
 
       //push information if there's any
       if(curr_attr["name"] !== "") {
-        out.push(curr_attr)
+        copy = {}
+        //Deep copy curr_attr map
+        for(i in init)
+          copy[i] = curr_attr[i]
+        out.push(copy)
       }
 
       //Deep Copy init map
@@ -48,8 +52,9 @@ module.exports.get_shows = function(){
     }
 
     //update listed attribute
-    line = line.replaceAll("\t","")
+    line = line.trim()
     spl = line.split(":")
+
     spl[0] = spl[0].trim().toLowerCase()
     spl[1] = spl[1].trim()
 
@@ -66,7 +71,7 @@ module.exports.get_shows = function(){
         break
 
       case "boolean":
-        curr_attr[spl[0]] = spl[1] === "True"
+        curr_attr[spl[0]] = spl[1].toLowerCase() === "true"
         break
 
       case "object":
@@ -74,6 +79,10 @@ module.exports.get_shows = function(){
         break
     }
   })
+
+  //add the last entry that wasn't previously added
+  out.push(curr_attr)
+
   return out
 }
 
