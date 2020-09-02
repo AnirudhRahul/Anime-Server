@@ -29,7 +29,7 @@ html
     - video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name)
     - subtitle_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name.substring(0,data.file_name.lastIndexOf('.')+1)+'vtt')
     div(align="center" class="limit embed-responsive px-3 pt-3")
-      video(id="my-video" class="embed-responsive-item video-js vjs-default-skin vjs-big-play-centered vjs-fluid" controls preload="auto" playsinline)
+      video(id="my-video" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" controls preload="auto" playsinline)
         source(src=video_src, type='video/mp4')
         track(srclang="en" label="English" src=subtitle_src default)
     script(src='https://vjs.zencdn.net/7.8.4/video.min.js')
