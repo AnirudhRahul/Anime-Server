@@ -23,40 +23,40 @@ if(files.length>0)
 else
   console.log("Nothing Happened in DB")
 
-const parser = require('../parser.js')
-list = parser.get_shows('../show_list.txt')
-query_to_delete = ''
-list.forEach((show) => {
-  if(show['name']==show_to_remove){
-    query_to_delete = show['query']
-  }
-});
-if(query_to_delete.length>0){
-  const fs = require('fs')
-  show_list_path = path.join(__dirname,'..','show_list.txt')
-  fs.readFile(show_list_path, 'utf8', function(err, data){
-      if (err){
-        console.log(err)
-        return
-      }
-
-      lines = data.split('\n');
-      output = []
-      for(i=0;i<lines.length;i++){
-        if(lines[i].trim().endsWith(query_to_delete.trim())){
-          console.log("Deleted "+lines[i])
-        }
-        else{
-          output.push(lines[i])
-        }
-      }
-
-      fs.writeFileSync(show_list_path, output.join('\n'));
-  });
-}
-else{
-  console.log("Nothing Happened in show_list.txt")
-}
+// const parser = require('../parser.js')
+// list = parser.get_shows('../show_list.txt')
+// query_to_delete = ''
+// list.forEach((show) => {
+//   if(show['name']==show_to_remove){
+//     query_to_delete = show['query']
+//   }
+// });
+// if(query_to_delete.length>0){
+//   const fs = require('fs')
+//   show_list_path = path.join(__dirname,'..','show_list.txt')
+//   fs.readFile(show_list_path, 'utf8', function(err, data){
+//       if (err){
+//         console.log(err)
+//         return
+//       }
+//
+//       lines = data.split('\n');
+//       output = []
+//       for(i=0;i<lines.length;i++){
+//         if(lines[i].trim().endsWith(query_to_delete.trim())){
+//           console.log("Deleted "+lines[i])
+//         }
+//         else{
+//           output.push(lines[i])
+//         }
+//       }
+//
+//       fs.writeFileSync(show_list_path, output.join('\n'));
+//   });
+// }
+// else{
+//   console.log("Nothing Happened in show_list.txt")
+// }
 
 remove_files = !(argv.keep_files)
 if(remove_files){
