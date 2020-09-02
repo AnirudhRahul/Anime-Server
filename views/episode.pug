@@ -28,7 +28,7 @@ html
   body
     - video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name)
     - subtitle_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name.substring(0,data.file_name.lastIndexOf('.')+1)+'vtt')
-    div(class="px-3 mt-3 limit")
+    div(class="px-3 mt-3")
       video(align="center" id="my-video" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" controls preload="auto" playsinline)
         source(src=video_src, type='video/mp4')
         track(srclang="en" label="English" src=subtitle_src default)
