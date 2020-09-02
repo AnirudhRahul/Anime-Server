@@ -14,8 +14,8 @@ module.exports.get_shows = function(){
     "query":"",
     "ongoing":false,
     "tags":[],
-    "download_latest":0,
-    "stream":0,
+    "download-latest":0,
+    "stream-latest":0,
     "offset":0
   }
 
