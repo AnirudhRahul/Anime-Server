@@ -93,12 +93,12 @@ function checkNyaa() {
         return itemB['time_uploaded']-itemA['time_uploaded']
       })
 
-      if(show['latest_only']!=0 && resp_json.length>1){
+      if(show['download-latest']!=0 && resp_json.length>1){
         //1 day in seconds
         max_diff = 1*60*60
         latest_json = []
         index = 0
-        for(weeks = 0; weeks<show['latest_only'] && index<resp_json.length; weeks++){
+        for(weeks = 0; weeks<show['download-latest'] && index<resp_json.length; weeks++){
           latest_json.push(resp_json[index])
           last = resp_json[index]
           index++
