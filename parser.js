@@ -77,6 +77,10 @@ module.exports.get_shows = function(){
   return out
 }
 
+if (require.main === module) {
+    console.log(this.get_shows());
+}
+
 function isNumeric(value) {
   return /^\d+$/.test(value)
 }
