@@ -36,45 +36,12 @@ html
         userActions: {
           doubleClick: false
         },
-        
         //attempt to fix oversized player
         fluid: true,
         aspectRatio:'16:9'
-        
-      }).ready(function(){
-        this.landscapeFullscreen();
-        window.player = this
-      });
-      document.getElementById("my-video").addEventListener('click', function (event) {
-        if(event.detail == 2){
-          window.player.requestFullscreen();
-        }
-      });
-      window.lastClick = 0
-      document.getElementById("my-video").addEventListener('touchstart', function (event) {
-        const curtime = (new Date()).getTime()
-        if(curtime-window.lastClick<250){
-          if(event.touches.length>1){
-            window.player.pause()
-          }
-          else{
-            const width = document.getElementById("my-video").offsetWidth
-            const x = event.touches[0].clientX
-            if(x > width*(0.5+0.125)){
-              window.player.currentTime(window.player.currentTime()+10)
-            }
-            else if(x < width*(0.5-0.125)){
-              window.player.currentTime(window.player.currentTime()-10)
-            }
-            else
-              window.player.pause()
-
-          }
-          window.lastClick = 0
-        }
-        else
-          window.lastClick = curtime
-      });
+      })
+      player.landscapeFullscreen()
+      
       
     div(class="m-3")
       h2= data.show_name
