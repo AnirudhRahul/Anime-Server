@@ -1,122 +1,164 @@
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
-//TODO make this parse new_show_list.txt instead
-//The output format is fine though
-module.exports.get_shows = function(){
-  lines = fs.readFileSync(path.join(__dirname,'show_list.txt'), 'utf-8')
-      .split('\n')
-      .filter(Boolean)
-      .map(s => s.trim())
 
-  out = []
-  tags = []
-  lines.forEach(line => {
-    //Don't parse comments
-    if(line.startsWith("#"))
-      return
-    if(line.startsWith("Tags:")){
-      line = line.substring("Tags:".length)
-      line = line.trim()
-      tags = []
-      if(line.length>1){
-        tags = line.split(', ')
-      }
-      return
-    }
-    latest_only = 0
-    while(line.startsWith("~")){
-      line = line.substring(1)
-      latest_only++
-    }
-    q = line
-    g = q.split('[').pop().split(']')[0];
-    rest = q.substring(q.indexOf(']')+1)
-    n = rest.trim()
-    //Extract the english name if its in parenthesis
-    if(rest.includes('(') && rest.includes(')')){
-      p = rest.split('(').pop().split(')')[0];
-      if (p.length / rest.length > 0.2)
-        n=p.trim()
-    }
-    season = ""
-    rest.split(" ").forEach(word =>{
-      if(word.length<5){
-        word = word.toUpperCase();
-        if(word.startsWith('S')){
-          if(!isNaN(word.substring(1)))
-            season = word
+
+        const assert = require('assert');
+        const fs = require('fs');
+        const path = require('path');
+         
+        module.exports.get_shows = function(){
+          lines = fs.readFileSync(path.join(__dirname,'show_list.txt'), 'utf-8')
+              .split('\n')
+              .filter(Boolean)
+              .map(s => s.trim())
+         
+          //list of valid attributes
+          attr_list = [
+            "name",
+            "query",
+            "ongoing",
+            "tags",
+            "download_latest",
+            "stream",
+            "offset"
+            ]
+         
+          //initial values of attributes
+          init = {
+            "name":"",
+            "query":"",
+            "ongoing":false,
+            "tags":[],
+            "download_latest":0,
+            "stream":0,
+            "offset":0
+          }
+         
+          curr_attr = {}
+          for(var i = 0; i < attr_list.length; i++){
+            curr_attr[attr_list[i]] = init[attr_list[i]]
+          }
+         
+          out = []
+          lines.forEach(line => {
+         
+            //Don't parse comments
+            if(line.startsWith("#")){
+              return
+            }
+         
+            //new show name
+            if(!line.startsWith("\t")) {
+         
+              //push information if there's any
+              if(curr_attr["name"] !== "") {
+                out.push(curr_attr)
+              }
+         
+              for(var i = 0; i < attr_list.length; i++){
+                curr_attr[attr_list[i]] = init[attr_list[i]]
+              }
+              curr_attr["name"] = line.trim()
+              return
+            }
+         
+            //update listed attribute
+            line = line.replaceAll("\t","")
+            spl = line.split(":")
+            spl[0] = spl[0].trim().toLowerCase()
+            spl[1] = spl[1].trim()
+         
+            //change update procedure based on data type
+            switch(typeof init[spl[0]]) {
+              case "string":
+                curr_attr[spl[0]] = spl[1]
+                break
+             
+              case "number":
+                if(spl[1] !== "all"){
+                  curr_attr[spl[0]] = parseInt(spl[1])
+                }
+                break
+             
+              case "boolean":
+                curr_attr[spl[0]] = spl[1] === "True"
+                break
+             
+              case "object":
+                curr_attr[spl[0]] = spl[1].split(", ")
+                break
+            }
+         
+          }
+         
+          })
+          return out
         }
-      }
-    })
-    if(!n.endsWith(season)){
-      n+=" - "+season
-    }
-    ongoing = true
-    if(tags.includes("Movie") || tags.includes("Completed"))
-      ongoing = false
+         
+        function isNumeric(value) {
+          return /^\d+$/.test(value)
+        }
+         
+        module.exports.add_episode_numbers = function(input){
+          assert(input.length>0)
+          input.forEach(obj=>{
+            assert('torrent_name' in obj)
+          })
+          //TODO get rid of episode numbers and start using episode names
+          //useful for OVAs and movies
+          if(input.length==1){
+            input[0]['episode']=1
+            return
+          }
+         
+          words = []
+          for(i=0;i<input.length;i++){
+            modified = input[i]['torrent_name'].replace(/[^\w\s]/gi," ")
+            words.push(modified.split(" "))
+          }
+         
+          common_words = new Set(words[0].filter(val => words[1].includes(val)))
+          for(i=0;i<input.length;i++){
+            input[i]['episode'] = -1
+            for(j=0;j<words[i].length;j++){
+              cur_word = words[i][j]
+              if(common_words.has(cur_word))
+                continue
+              else if(isNumeric(cur_word)){
+                input[i]['episode'] = parseInt(cur_word, 10)
+                break
+              }
+              else if(cur_word.includes('E')){
+                lastE = cur_word.lastIndexOf('E')
+                if(lastE == cur_word.length-1)
+                  continue
+                suffix = cur_word.substring(lastE+1)
+                if(isNumeric(suffix))
+                  input[i]['episode'] = parseInt(suffix, 10)
+                break
+              }
+            }
+          }
+        }
+         
+        // function getImage(body, obj){
+        //   img_start = body.indexOf('https://i.')
+        //   min_index = -1
+        //   if(img_start!=-1){
+        //     endings = ['.png','.jpg','.webp','.jpeg']
+        //     s = endings.length;
+        //     for(i =0;i<s;i++)
+        //       endings.push(endings[i].toUpperCase())
+        //
+        //     min_ending = ''
+        //     endings.forEach(end=>{
+        //       res = body.indexOf(end,img_start)
+        //       if(min_index == -1)
+        //         [min_index,min_ending] = [res,end]
+        //       else if(res!=-1)
+        //         [min_index,min_ending] = [min(min_index,res),end]
+        //     })
+        //   }
+        //   if(min_index!=-1)
+        //     obj['thumbnail_link']=body.substring(img_start, min_index)+min_ending
+        // }
 
-    out.push({
-      'name':n,
-      'subtitle_group':g,
-      'query':q,
-      'latest_only':latest_only,
-      'tags':tags,
-      'ongoing':ongoing
-    })
 
-  })
-  return out
-}
-
-function isNumeric(value) {
-  return /^\d+$/.test(value)
-}
-
-//This means it was directly called from command line
-if (require.main === module) {
-    console.log(this.get_shows());
-}
-
-//TODO get rid of episode numbers and start using episode names
-//useful for OVAs and movies
-module.exports.add_episode_numbers = function(input){
-  assert(input.length>0)
-  input.forEach(obj=>{
-    assert('torrent_name' in obj)
-  })
-
-  if(input.length==1){
-    input[0]['episode']=1
-    return
-  }
-
-  words = []
-  for(i=0;i<input.length;i++){
-    modified = input[i]['torrent_name'].replace(/[^\w\s]/gi," ")
-    words.push(modified.split(" "))
-  }
-
-  common_words = new Set(words[0].filter(val => words[1].includes(val)))
-  for(i=0;i<input.length;i++){
-    input[i]['episode'] = -1
-    for(j=0;j<words[i].length;j++){
-      cur_word = words[i][j]
-      if(common_words.has(cur_word))
-        continue
-      else if(isNumeric(cur_word)){
-        input[i]['episode'] = parseInt(cur_word, 10)
-        break
-      }
-      else if(cur_word.includes('E')){
-        lastE = cur_word.lastIndexOf('E')
-        if(lastE == cur_word.length-1)
-          continue
-        suffix = cur_word.substring(lastE+1)
-        if(isNumeric(suffix))
-          input[i]['episode'] = parseInt(suffix, 10)
-        break
-      }
-    }
-  }
-}
