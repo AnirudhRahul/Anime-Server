@@ -42,9 +42,9 @@ html
         aspectRatio:'16:9'
         
       }).ready(function(){
+        this.landscapeFullscreen();
         window.player = this
       });
-      window.player.landscapeFullscreen();
       document.getElementById("my-video").addEventListener('click', function (event) {
         if(event.detail == 2){
           window.player.requestFullscreen();
