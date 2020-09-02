@@ -35,21 +35,21 @@ html
       player = videojs('my-video',{
         userActions: {
           doubleClick: false
-        }
+        },
         
         //attempt to fix oversized player
-        fluid: true
+        fluid: true,
         aspectRatio:'16:9'
         
       }).ready(function(){
         window.player = this
       });
       player.landscapeFullscreen();
-      document.getElementById("my-video").addEventListener('click', function (event) {
+      /* document.getElementById("my-video").addEventListener('click', function (event) {
         if(event.detail == 2){
           window.player.requestFullscreen();
         }
-      });
+      }); */
       window.lastClick = 0
       document.getElementById("my-video").addEventListener('touchstart', function (event) {
         const curtime = (new Date()).getTime()
