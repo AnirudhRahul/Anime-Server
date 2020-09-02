@@ -126,25 +126,3 @@ module.exports.add_episode_numbers = function(input){
     }
   }
 }
-
-// function getImage(body, obj){
-//   img_start = body.indexOf('https://i.')
-//   min_index = -1
-//   if(img_start!=-1){
-//     endings = ['.png','.jpg','.webp','.jpeg']
-//     s = endings.length;
-//     for(i =0;i<s;i++)
-//       endings.push(endings[i].toUpperCase())
-//
-//     min_ending = ''
-//     endings.forEach(end=>{
-//       res = body.indexOf(end,img_start)
-//       if(min_index == -1)
-//         [min_index,min_ending] = [res,end]
-//       else if(res!=-1)
-//         [min_index,min_ending] = [min(min_index,res),end]
-//     })
-//   }
-//   if(min_index!=-1)
-//     obj['thumbnail_link']=body.substring(img_start, min_index)+min_ending
-// }
