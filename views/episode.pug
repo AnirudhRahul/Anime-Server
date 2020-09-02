@@ -37,10 +37,9 @@ html
           doubleClick: false
         }
       }).ready(function(){
-        this.landscapeFullscreen();
         window.player = this
-        this.enableTouchActivity()
       });
+      player.landscapeFullscreen();
       document.getElementById("my-video").addEventListener('click', function (event) {
         if(event.detail == 2){
           window.player.requestFullscreen();
