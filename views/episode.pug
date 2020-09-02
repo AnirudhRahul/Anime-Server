@@ -36,8 +36,16 @@ html
         userActions: {
           doubleClick: false
         }
+        
+        //attempt to fix oversized player
+        fluid: true
+        aspectRatio:'16:9'
+        
       }).ready(function(){
+        
+        //maybe try deleting this line?
         this.landscapeFullscreen();
+        
         window.player = this
         this.enableTouchActivity()
       });
