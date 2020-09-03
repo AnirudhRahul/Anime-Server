@@ -20,8 +20,33 @@ app.use("/media/icon-chan.png", express.static('./media/icon-chan.png'))
 app.use(favicon(path.join(__dirname, 'media', 'favicon.ico')))
 
 prefix = path.resolve('../')
+
 app.get('/', function (req, res) {
-  res.render('index', {prefix:prefix, list: json_map})
+  res.redirect('/shows');
+})
+
+app.get('/shows', function (req, res) {
+  res.render('shows', {prefix:prefix, list: json_map})
+})
+
+app.get('/movies', function (req, res) {
+  res.render('movies', {prefix:prefix, list: json_map})
+})
+
+app.get('/about', function (req, res) {
+  res.render('docs/about', {version: '1.01'})
+})
+
+app.get('/controls', function (req, res) {
+  res.render('docs/controls')
+})
+
+app.get('/controls', function (req, res) {
+  res.render('docs/controls')
+})
+
+app.get('/latest', function (req, res) {
+  res.render('latest', {prefix:prefix, list: json_map})
 })
 
 app.get('/show/:show/episode/:episode', function (req, res) {

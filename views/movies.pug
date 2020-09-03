@@ -1,0 +1,11 @@
+html
+  head
+  include header.pug
+  body
+    h3(class="ml-3 mt-1")="Movies"
+    each show in list
+      if show.length == 1
+        - var link = '/show/'+show[0].show_name+'/episode/'+show[0].episode
+        div(class="ml-3") 
+          a(href=link)
+           h4= show[0].show_name

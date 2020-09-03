@@ -1,9 +1,8 @@
 html
   head
-    title="Anime Server"
   include header.pug
   body
-    h1(class="ml-3 mt-1")="Anime Server"
+    h3(class="ml-3 mt-1")="Shows"
     each show in list
       if show.length > 0
         div(class="ml-3")= show[0].show_name
