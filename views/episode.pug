@@ -37,10 +37,9 @@ html
           source(src=video_src, type='video/mp4')
           track(srclang="en" label="English" src=subtitle_src default)
     div(class="m-3")
-      h2= data.show_name
-        img(src='/media/icon-chan.png' class="header-icon" style="border-radius: 50%" width="30em")
-      h3= "Episode "+data.episode
-      a(href=video_src) Download Link
+      h2(style="font-size:min(5vw,3em)")= data.show_name
+      h3(style="font-size:min(3.75vw,2.25em)")= "Episode "+data.episode
+      a(href=video_src style="font-size:min(3vw,1em)") Download Link
       p(id="output")
 
     script(src='https://vjs.zencdn.net/7.8.4/video.min.js')
