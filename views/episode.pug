@@ -67,24 +67,32 @@ html
       player.landscapeFullscreen();
       document.querySelector('.vjs-big-play-button').addEventListener('touchend', player.requestFullscreen)
       window.lastClick = 0
+      window.togglePlayer = function(){
+        if(window.player.paused()){
+          window.player.play()
+        }
+        else{
+          window.player.pause()
+        }
+      }
+      
       document.getElementById("my-video").addEventListener('touchstart', function (event) {
         const curtime = (new Date()).getTime()
-        if(curtime-window.lastClick<250){
-          if(event.touches.length>1){
-            window.player.pause()
+        if(event.touches.length>1){
+          window.togglePlayer()
+          window.lastClick = 0
+        }
+        else if(curtime-window.lastClick<250){
+          const width = document.getElementById("my-video").offsetWidth
+          const x = event.touches[0].clientX
+          if(x > width*(0.5+0.125)){
+            window.player.currentTime(window.player.currentTime()+10)
+          }
+          else if(x < width*(0.5-0.125)){
+            window.player.currentTime(window.player.currentTime()-10)
           }
           else{
-            const width = document.getElementById("my-video").offsetWidth
-            const x = event.touches[0].clientX
-            if(x > width*(0.5+0.125)){
-              window.player.currentTime(window.player.currentTime()+10)
-            }
-            else if(x < width*(0.5-0.125)){
-              window.player.currentTime(window.player.currentTime()-10)
-            }
-            else
-              window.player.pause()
-
+            window.togglePlayer()
           }
           window.lastClick = 0
         }
