@@ -3,14 +3,14 @@ html
     title="Anime Server"
   include header.pug
   body
-    h1(class="ml-2")="Anime Server"
+    h1(class="ml-3 mt-1")="Anime Server"
     
     each show in list
       if show.length > 0
-        div(class="ml-2")= show[0].show_name
-        ul
-          each item in show
-            - var link = '/show/'+item.show_name+'/episode/'+item.episode
-            //- if(link.startsWith("media"))
-            li
-              a(href=link) Episode #{item.episode}
+        div(class="ml-3")= show[0].show_name
+          ul
+            each item in show
+              - var link = '/show/'+item.show_name+'/episode/'+item.episode
+              //- if(link.startsWith("media"))
+              li
+                a(href=link) Episode #{item.episode}

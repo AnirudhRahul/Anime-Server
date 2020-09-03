@@ -1,16 +1,20 @@
 html
   link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/darkly/bootstrap.min.css', crossorigin='anonymous')
+  style(type='text/css').
+    .navbar {
+      height: 4em;
+    }
   nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
-    img(src='/media/icon-chan.png' class="header-icon" style="border-radius: 50%" width="30em" class="mr-2")
-    a.navbar-brand(href='/') AniServe
-    ul.navbar-nav.mr-auto
-      li.nav-item
-        a.nav-link(href='/') Home
-          //- | Home 
-          //- span.sr-only (current)
-      li.nav-item
-        a.nav-link(href='/show_list') Shows
-      li.nav-tiem
-        a.nav-link(href='/movies') Movies
-      li.nav-item
-        a.nav-link(href='/latest') Latest
+    a.navbar-brand(href='/' align='left')
+      img(src='/media/icon-chan.png' class="header-icon" style="border-radius: 50%" width="30em" class="mr-2 pb-1")  
+      |  Aniserve
+    button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarColor01', aria-controls='navbarColor01', aria-expanded='false', aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+    #navbarColor01.collapse.navbar-collapse
+      ul.navbar-nav.mr-auto
+        li.nav-item
+          a.nav-link(href='/show_list') Shows
+        li.nav-tiem
+          a.nav-link(href='/movies') Movies
+        li.nav-item
+          a.nav-link(href='/latest') Latest
