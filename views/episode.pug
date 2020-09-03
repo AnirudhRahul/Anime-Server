@@ -63,8 +63,7 @@ html
           window.player.requestFullscreen();
         }
       });
-      player.responsive(true);
-      player.landscapeFullscreen();
+      
       document.querySelector('.vjs-big-play-button').addEventListener('touchend', player.requestFullscreen)
       window.lastClick = 0
       window.togglePlayer = function(){
@@ -99,3 +98,6 @@ html
         else
           window.lastClick = curtime
       });
+
+      player.responsive(true);
+      player.landscapeFullscreen();
