@@ -40,10 +40,11 @@ html
       h3(style="font-size:min(3.75vw,2.25em)")= "Episode "+data.episode
       a(href=video_src style="font-size:min(3vw,1em)") Download Link
       p(id="output")
-
-      a(href= prev style="font-size:min(3vw,1em)") Previous Episode
+      if prev!=-1
+        a(href= prev style="font-size:min(3vw,1em)") Previous Episode
       p
-      a(href= next style="font-size:min(3vw,1em)") Next Episode
+      if next!=-1
+        a(href= next style="font-size:min(3vw,1em)") Next Episode
 
 
     script(src='https://vjs.zencdn.net/7.8.4/video.min.js')
