@@ -22,7 +22,7 @@ html
       }
       .embed-responsive{
         max-height: 81vh !important;
-        max-width: 140vh !important;
+        max-width: 144vh !important;
         width: 50%;
         margin: 0 auto;
       }
@@ -31,7 +31,7 @@ html
   body
     - video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name)
     - subtitle_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name.substring(0,data.file_name.lastIndexOf('.')+1)+'vtt')
-    div(class="px-3 mt-3 embed-responsive embed-responsive-16by9" align="center")
+    div(class="mx-3 mt-3 embed-responsive embed-responsive-16by9" align="center")
       video(align="center" id="my-video" class="video-js embed-responsive-item vjs-default-skin vjs-big-play-centered vjs-fill" controls preload="auto" playsinline )
         source(src=video_src, type='video/mp4')
         track(srclang="en" label="English" src=subtitle_src default)
