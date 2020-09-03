@@ -52,18 +52,29 @@ app.get('/latest', function (req, res) {
 app.get('/show/:show/episode/:episode', function (req, res) {
   if(!(req.params.show in json_map))
     res.send("Show not found")
-  episode_obj = -1
+
+  episode_index = -1
   for(index in json_map[req.params.show]){
     if(json_map[req.params.show][index]['episode']==req.params.episode){
-      episode_obj = json_map[req.params.show][index]
+      episode_index = parseInt(index)
       break
     }
   }
-  if(episode_obj===-1)
-    res.send("Episode not found")
+  if(episode_index===-1)
+    res.status(404).send("Episode not found")
 
+  cur_episode = json_map[req.params.show][episode_index]
+  prev_episode = -1
+  try{
+    prev_episode = json_map[req.params.show][episode_index+1]['episode']
+  }catch(err){}
 
-  res.render('episode', {data:episode_obj})
+  next_episode = -1
+  try{
+    next_episode = json_map[req.params.show][episode_index-1]['episode']
+  }catch(err){}
+
+  res.render('episode', {data:cur_episode,prev:prev_episode,next:next_episode})
 })
 
 
@@ -89,6 +100,9 @@ function sortMap(map){
   for(index in key_list){
     const key = key_list[index]['key']
     sorted_map[key] = map[key]
+    sorted_map[key].sort((showA,showB)=>
+      (showB['time_uploaded']-showA['time_uploaded'])
+    )
   }
   return sorted_map
 }
