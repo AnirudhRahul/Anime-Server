@@ -65,6 +65,7 @@ html
       });
       player.responsive(true);
       player.landscapeFullscreen();
+      document.querySelector('.vjs-big-play-button').addEventListener('touchend', player.requestFullscreen)
       window.lastClick = 0
       document.getElementById("my-video").addEventListener('touchstart', function (event) {
         const curtime = (new Date()).getTime()
@@ -90,4 +91,3 @@ html
         else
           window.lastClick = curtime
       });
-      document.querySelector('.vjs-big-play-button').addEventListener('touchstart', player.requestFullscreen)
