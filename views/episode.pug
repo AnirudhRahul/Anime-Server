@@ -31,6 +31,7 @@ html
   body
     - video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name)
     - subtitle_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.file_name.substring(0,data.file_name.lastIndexOf('.')+1)+'vtt')
+    - subtitle_ass_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.subtitle_file_name)
     div(class="mx-3")
       div(class="mt-3 embed-responsive embed-responsive-16by9" align="center")
         video(align="center" id="my-video" class="video-js embed-responsive-item vjs-default-skin vjs-big-play-centered vjs-fill" controls preload="auto" playsinline )
@@ -111,7 +112,7 @@ html
       player.responsive(true);
       player.landscapeFullscreen();
       var vjs_ass = player.ass({
-        'src': ['#{data.file_name}'],
+        'src': ['#{subtitle_ass_src}'],
         label: "engsub",
         videoWidth: 640,
         videoHeight: 360,
