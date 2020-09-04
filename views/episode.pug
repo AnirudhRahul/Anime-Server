@@ -52,6 +52,7 @@ html
     script(src='https://vjs.zencdn.net/7.8.4/video.min.js')
     script(src='/js/libjass.min.js')
     link(rel='stylesheet', href='/css/videojs-ass.css')
+    link(rel='stylesheet', id="font_styles" href='/css/sub_fonts.css')  
     script(src='/js/videojs-ass.js')
     script(src='/js/landscape.js')
 
@@ -108,7 +109,7 @@ html
         else
           window.lastClick = curtime
       });
-      libjass.renderers.RendererSettings.makeFontMapFromStyleElement("/css/sub_fonts.css");
+      libjass.renderers.RendererSettings.makeFontMapFromStyleElement(document.getElementById("font_styles"));
       player.responsive(true);
       player.landscapeFullscreen();
       var vjs_ass = player.ass({
