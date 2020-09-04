@@ -23,25 +23,28 @@ glob(path.join(video_dir,'**/*.'+old_ending), function (er, files) {
     // count++
 
     new_path = changeFileEnding(old_path, new_ending)
-    subtitle_path = changeFileEnding(old_path, 'vtt')
+    subtitle_path = changeFileEnding(old_path, 'ass')
     command =
     ffmpeg()
     .input(old_path)
     .output(new_path)
     .outputOptions('-c:v copy')
     .outputOptions('-c:a copy')
-    .outputOptions('-c:s mov_text')
+    // Encodes subtitles into video file may or may not use
+    // .outputOptions('-c:s mov_text')
     .output(subtitle_path)
+    .outputOptions('-c:s copy')
     .on('end', function() {
-      console.log("DONE "+old_path)
-      fs.unlinkSync(old_path)
+      console.log()
+      console.log()
+      // fs.unlinkSync(old_path)
       map = database.readSync(database_dir)
       for (show in map) {
         for(index in map[show]){
           old_filename = map[show][index]['file_name']
           if(old_path.endsWith(old_filename)){
-            map[show][index]['file_name'] = changeFileEnding(old_filename, new_ending)
-            map[show][index]['subtitle_file_name'] = path.basename(subtitle_path)
+            map[show][index]['file_name'] = path.basename(this._outputs[0].target)
+            map[show][index]['subtitle_file_name'] = path.basename(this._outputs[1].target)
           }
         }
       }
