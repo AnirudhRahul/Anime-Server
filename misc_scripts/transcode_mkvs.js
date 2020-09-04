@@ -35,9 +35,8 @@ glob(path.join(video_dir,'**/*.'+old_ending), function (er, files) {
     .output(subtitle_path)
     .outputOptions('-c:s copy')
     .on('end', function() {
-      console.log()
-      console.log()
-      // fs.unlinkSync(old_path)
+      console.log("Done "+this._outputs[0].target)
+      fs.unlinkSync(old_path)
       map = database.readSync(database_dir)
       for (show in map) {
         for(index in map[show]){
