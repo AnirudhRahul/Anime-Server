@@ -1,12 +1,12 @@
 The God Of High School S1
-  Query: [HorribleSubs] The God of High School [1080p]
+  Query: [HorribleSubs] The God of High School [720p]
   Ongoing: True
   Download-Latest: 3
   Stream-Latest: 2
   Tags: Action
 
 Re:Zero S2
-  Query: [HorribleSubs] Re Zero kara Hajimeru Isekai Seikatsu [1080p]
+  Query: [HorribleSubs] Re Zero kara Hajimeru Isekai Seikatsu [720p]
     Offset: -25
   Ongoing: true
   Download-Latest: 4
@@ -17,7 +17,13 @@ Fire Force S2
   Ongoing: True
   Download-Latest: 4
 
-Misfit Demon King Academy
+Misfit Demon King Academy 1080p
+  Query: [HorribleSubs] Maou Gakuin no Futekigousha [1080p]
+  Ongoing: True
+  Download-Latest: 1
+  Tags: Action
+
+Misfit Demon King Academy 720p
   Query: [HorribleSubs] Maou Gakuin no Futekigousha [720p]
   Ongoing: True
   Download-Latest: 4
