@@ -31,7 +31,6 @@ mkfile(time_dir)
 
 
 const requester = require('../requester.js')
-const download = require('./download.js')
 const database = require('../database.js')
 const web_parser = require('../web_parser')
 const PromisePool = require('es6-promise-pool')
@@ -117,22 +116,21 @@ function checkNyaa() {
 
       cur_json = database.readSync(database_dir)
 
-outer:for(j = 0; j < resp_json.length; j++){
-      resp_show = resp_json[j]['show_name']
-        if(resp_show in cur_json){
-          for(i = 0; i < cur_json[resp_show].length; i++)
-            if(resp_json[j]['torrent_name'] === cur_json[resp_show][i]['torrent_name'])
-              if(cur_json[resp_show][i]['ondisk'])
-                continue outer;
-        }
-        //Testing for memory leak
-        show_queue.push(resp_json[j])
-      }
+      outer:for(j = 0; j < resp_json.length; j++){
+            resp_show = resp_json[j]['show_name']
+            if(resp_show in cur_json)
+              for(i = 0; i < cur_json[resp_show].length; i++)
+                if(resp_json[j]['torrent_name'] === cur_json[resp_show][i]['torrent_name'] && 'time_downloaded' in cur_json[resp_show][i])
+                    continue outer;
+
+              show_queue.push(resp_json[j])
+            }
     }).catch((err)=>{
       console.log(err)
     })
   });
 
+  const download = require('./download.js')
   const generatePromises = function * (arr) {
     for (i = 0; i < arr.length; i++) {
       yield download(arr[i], path.join(video_dir, arr[i]['show_name']), database_dir)
@@ -158,13 +156,3 @@ outer:for(j = 0; j < resp_json.length; j++){
 
 checkNyaa()
 //Run a task every half hour
-
-// const sigs = ['SIGINT', 'SIGTERM', 'SIGQUIT']
-// sigs.forEach(sig => {
-//   process.on(sig, () => {
-//     // Stops gracefully
-//     console.log("\nNode process gracefully terminating")
-//     task.destroy()
-//     process.exit()
-//   })
-// })

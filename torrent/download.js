@@ -1,5 +1,6 @@
 //From: https://github.com/sayem314/torrenter/blob/master/download.js
 const WebTorrent = require("webtorrent");
+const Transcoder = require("../misc_scripts/transcode_mkvs.js")
 const path = require("path");
 const database = require('../database.js')
 
@@ -71,7 +72,7 @@ const download = (obj, downloadPath, database_dir) => {
     });
 
     // torrent
-    const torrent = client.add(torrentId, { path: path.join(downloadPath) });
+    const torrent = client.add(torrentId, { path: downloadPath });
 
     let st = setTimeout(() => {
       if (torrent.numPeers < 1) {
@@ -124,18 +125,18 @@ const download = (obj, downloadPath, database_dir) => {
         };
       });
 
-      obj['ondisk'] = true
       //Don't need magnet link anymore
       delete obj['magnet_link']
       obj['size'] = torrent.files[0]['length']
       obj['file_name'] = torrent.files[0]['name']
       obj['time_downloaded'] = Math.floor(new Date().getTime() / 1000)
       database.addSync(obj,database_dir)
-
-      client.destroy(() => {
-        console.log("");
+      console.log(path.join(torrent.path,obj['file_name']), database_dir)
+      client.destroy();
+      Transcoder.transcode_file(path.join(torrent.path,obj['file_name']), database_dir, () => {
         resolve();
-      });
+      })
+
     });
   });
 };
