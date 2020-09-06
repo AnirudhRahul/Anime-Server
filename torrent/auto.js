@@ -148,7 +148,7 @@ function checkNyaa() {
         checkNyaa()
        else
         setTimeout(checkNyaa,(interval_seconds-diff)*1000)
-       console.log('Completed all downloads')
+       console.log('Finished Checking nyaa.si')
      })
   })
 
