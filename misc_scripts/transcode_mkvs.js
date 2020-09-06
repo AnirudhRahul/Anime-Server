@@ -14,14 +14,14 @@ if (require.main === module){
   glob(path.join(video_dir,'**/*.'+old_ending), function (er, files) {
 
     files.forEach((old_path) => {
-      transcode_file(old_path)
+      transcode_file(old_path, database_dir)
     });
   })
 }
 
 const old_ending = 'mkv'
 const new_ending = 'mp4'
-module.exports = function transcode_file(old_path){
+module.exports.transcode_file = function transcode_file(old_path, database_dir, callback){
   if(!path.basename(old_path).startsWith('[HorribleSubs]'))
     return
   new_path = changeFileEnding(old_path, new_ending)
@@ -62,6 +62,11 @@ module.exports = function transcode_file(old_path){
       .outputOptions('thumbnail=250,scale=480:270')
       .outputOptions('-frames:v 1')
       .output(changeFileEnding(fname, 'png'))
+      .on('done', ()=>{
+        if(callback)
+          callback()
+        console.log("Finished extracting thumbnail")
+      })
       .run()
     });
 
