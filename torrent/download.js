@@ -109,33 +109,15 @@ const download = (obj, downloadPath, database_dir) => {
     torrent.on("done", () => {
       if (st) clearTimeout(st);
       torrentLog(torrent);
-      let info = {
-        title: torrent.name,
-        infohash: torrent.infoHash,
-        path: torrent.path
-      };
-      let files = torrent.files.map(item => {
-        let { name, length, downloaded, progress } = item;
-        return {
-          name,
-          path: path.join(downloadPath, item.path),
-          length,
-          downloaded,
-          progress
-        };
-      });
-
       //Don't need magnet link anymore
       delete obj['magnet_link']
       obj['size'] = torrent.files[0]['length']
       obj['file_name'] = torrent.files[0]['name']
       obj['time_downloaded'] = Math.floor(new Date().getTime() / 1000)
       database.addSync(obj,database_dir)
-      console.log(path.join(torrent.path,obj['file_name']), database_dir)
       client.destroy();
-      Transcoder.transcode_file(path.join(torrent.path,obj['file_name']), database_dir, () => {
-        resolve();
-      })
+      console.log("Finished Downloading "+obj['file_name'])
+      Transcoder.transcode_file(path.join(torrent.path,obj['file_name']), database_dir, resolve)
 
     });
   });
