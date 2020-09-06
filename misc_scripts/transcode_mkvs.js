@@ -2,6 +2,7 @@ const ffmpeg = require('fluent-ffmpeg');
 const path = require('path')
 const glob = require("glob")
 const fs = require("fs")
+const assert = require("assert")
 const database = require('../database.js')
 const {argv} = require('yargs')
 
@@ -11,7 +12,7 @@ if (require.main === module){
     env = 'production'
   const {root_dir, video_dir, database_dir} = require('../dirs.js').all(env)
 
-  glob(path.join(video_dir,'**/*.'+old_ending), function (er, files) {
+  glob(path.join(video_dir,'**/*'+'.mkv'), function (er, files) {
 
     files.forEach((old_path) => {
       transcode_file(old_path, database_dir)
@@ -19,13 +20,11 @@ if (require.main === module){
   })
 }
 
-const old_ending = 'mkv'
-const new_ending = 'mp4'
 module.exports.transcode_file = function transcode_file(old_path, database_dir, callback){
   if(!path.basename(old_path).startsWith('[HorribleSubs]'))
     return
-  new_path = changeFileEnding(old_path, new_ending)
-  subtitle_path = changeFileEnding(old_path, 'ass')
+  new_path = changeFileEnding(old_path, '.mp4')
+  subtitle_path = changeFileEnding(old_path, '.ass')
   ffmpeg()
   .input(old_path)
   .output(new_path)
@@ -34,16 +33,15 @@ module.exports.transcode_file = function transcode_file(old_path, database_dir, 
   .output(subtitle_path)
   .outputOptions('-c:s copy')
   .on('end', function() {
-    fs.unlinkSync(old_path)
+    fs.unlinkSync(this._inputs[0].source)
     map = database.readSync(database_dir)
     for (show in map) {
       for(index in map[show]){
-        old_filename = map[show][index]['file_name']
+        old_filename = map[show][index]['basename']+map[show][index]['video_ext']
         if(old_path.endsWith(old_filename)){
           cur = map[show][index]
-          cur['file_name'] = path.basename(this._outputs[0].target)
-          cur['subtitle_file_name'] = path.basename(this._outputs[1].target)
-          cur['thumbnail'] = changeFileEnding(cur['file_name'], 'png')
+          cur['subtitle_ext'] = '.ass'
+          cur['thumbnail_ext'] = '.png'
         }
       }
     }
@@ -57,7 +55,7 @@ module.exports.transcode_file = function transcode_file(old_path, database_dir, 
       .outputOptions('-vf')
       .outputOptions('thumbnail=250,scale=480:270')
       .outputOptions('-frames:v 1')
-      .output(changeFileEnding(fname, 'png'))
+      .output(changeFileEnding(fname, '.png'))
       .on('end', ()=>{
         console.log("Finished Processing "+path.basename(this._outputs[0].target))
         if(callback)
@@ -76,12 +74,6 @@ module.exports.transcode_file = function transcode_file(old_path, database_dir, 
 }
 
 function changeFileEnding(input, new_ending){
-    return input.substring(0,input.lastIndexOf('.')+1)+new_ending
+    assert(new_ending.startsWith('.'))
+    return input.substring(0,input.lastIndexOf('.'))+new_ending
 }
-// var command =
-// ffmpeg('../dev/videos/One Piece [1080p]/[HorribleSubs] One Piece - 936 [1080p].mkv')
-// .output('../dev/videos/One Piece [1080p]/[HorribleSubs] One Piece - 936 [1080p].mp4')
-// .on('end', function() {
-//   console.log('Finished processing');
-// })
-// .run()

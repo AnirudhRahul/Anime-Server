@@ -109,15 +109,19 @@ const download = (obj, downloadPath, database_dir) => {
     torrent.on("done", () => {
       if (st) clearTimeout(st);
       torrentLog(torrent);
-      //Don't need magnet link anymore
+      //Don't need magnet link anymore, and it's kind of long
       delete obj['magnet_link']
       obj['size'] = torrent.files[0]['length']
-      obj['file_name'] = torrent.files[0]['name']
+      obj['video_ext'] = path.extname(torrent.files[0]['name'])
+      // Removes the video extension from the filename
+      // This will make it a lot easier when we want to
+      // Store other files such as thumbnails/extracted subtitles
+      obj['basename'] = path.basename(torrent.files[0]['name'], obj['video_ext'])
       obj['time_downloaded'] = Math.floor(new Date().getTime() / 1000)
       database.addSync(obj,database_dir)
       client.destroy();
-      console.log("Finished Downloading "+obj['file_name'])
-      Transcoder.transcode_file(path.join(torrent.path,obj['file_name']), database_dir, resolve)
+      console.log("Finished Downloading "+obj['basename'])
+      Transcoder.transcode_file(path.join(torrent.path,obj['basename']+obj['video_ext']), database_dir, resolve)
 
     });
   });
