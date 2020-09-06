@@ -8,11 +8,6 @@ module.exports = function(body){
     if(this.attribs['href'].startsWith('/view/')){
       json_item={
             'torrent_name':this.attribs['title'],
-            //assumes the torrent is only 1 file large
-            // 'file_name':this.attribs['title'],
-            // 'time_uploaded':0,
-            // 'download_page':'https://nyaa.si' + this.attribs['href'],
-            // 'ondisk':false,
       }
       json_list.push(json_item)
     }
