@@ -8244,7 +8244,7 @@
                     return value.constructor === String;
                 }, "sans-serif");
                 this._fontSize = misc_1.valueOrDefault(template, "fontsize", parseFloat, function (value) {
-                    return Math.round(!isNan(value)*0.5)
+                    return Math.round(!isNan(value)*0.8)
                 }, "18");
                 this._fontScaleX = misc_1.valueOrDefault(template, "scalex", parseFloat, function (value) {
                     return value >= 0;
