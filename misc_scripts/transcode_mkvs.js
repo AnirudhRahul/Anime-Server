@@ -31,27 +31,23 @@ module.exports.transcode_file = function transcode_file(old_path, database_dir, 
   .output(new_path)
   .outputOptions('-c:v copy')
   .outputOptions('-c:a copy')
-  // Encodes subtitles into video file may or may not use
-  // .outputOptions('-c:s mov_text')
   .output(subtitle_path)
   .outputOptions('-c:s copy')
   .on('end', function() {
-    console.log("Done "+this._outputs[0].target)
     fs.unlinkSync(old_path)
     map = database.readSync(database_dir)
     for (show in map) {
       for(index in map[show]){
         old_filename = map[show][index]['file_name']
         if(old_path.endsWith(old_filename)){
-          map[show][index]['file_name'] = path.basename(this._outputs[0].target)
-          map[show][index]['subtitle_file_name'] = path.basename(this._outputs[1].target)
-          map[show][index]['thumbnail'] = changeFileEnding(path.basename(this._outputs[0].target), 'png')
-
+          cur = map[show][index]
+          cur['file_name'] = path.basename(this._outputs[0].target)
+          cur['subtitle_file_name'] = path.basename(this._outputs[1].target)
+          cur['thumbnail'] = changeFileEnding(cur['file_name'], 'png')
         }
       }
     }
     database.writeSync(map, database_dir)
-
     ffmpeg.ffprobe(this._outputs[0].target, (error, metadata) => {
       const halfway = Math.round(metadata.format.duration) / 2
       const fname = metadata.format.filename
@@ -62,10 +58,10 @@ module.exports.transcode_file = function transcode_file(old_path, database_dir, 
       .outputOptions('thumbnail=250,scale=480:270')
       .outputOptions('-frames:v 1')
       .output(changeFileEnding(fname, 'png'))
-      .on('done', ()=>{
+      .on('end', ()=>{
+        console.log("Finished Processing "+path.basename(this._outputs[0].target))
         if(callback)
           callback()
-        console.log("Finished extracting thumbnail")
       })
       .run()
     });
