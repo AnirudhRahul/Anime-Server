@@ -56,7 +56,7 @@ module.exports.transcode_file = function transcode_file(old_path, database_dir, 
       const width = metadata.streams[0].width
       const height = metadata.streams[0].height
       //Good hueuristic for making sure the process doesnt crash because of ram usage
-      let thumbnail_frames = Math.floor(RAM_LIMIT*1e8/(width*height))
+      let thumbnail_frames = Math.floor(RAM_LIMIT*1.25e8/(width*height))
 
       let cmd = ffmpeg()
         .input(fname)
