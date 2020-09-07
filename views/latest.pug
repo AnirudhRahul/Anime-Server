@@ -3,25 +3,32 @@ html
   include header.pug
   style.
     .grid-view {
+      max-width: 1600px;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-gap: 10px;
-      grid-auto-rows: minmax(100px, auto);
+      grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+      grid-auto-rows: auto;
+      margin: 0 auto;
+      gap:1.25rem
     }
-    .ignore-css {
-      all:unset;
+
+    .card[data-clickable=true]{
+      cursor: pointer;
     }
   div(class="m-3")
-    h3(class="ml-3 mt-1")="Latest"    
-    div(class="grid-view")
+    div(class="grid-view center")
       each episode in episode_list
         - thumbnail_src = '/prod-data/videos/'+encodeURIComponent(episode.show_name)+'/'+encodeURIComponent(episode.basename+episode.thumbnail_ext)
         - video_link = '/show/'+encodeURIComponent(episode.show_name)+'/episode/'+episode.episode
-        a(href=video_link class = "ignore-css")
-          div(class="card" style="width: 18rem;")
-            img(class="card-img-top" src=thumbnail_src alt="Image not Found")
-            div(class="card-body")
-              h5(class="card-title")= episode.show_name
-              h5(class="card-text")= "Episode "+episode.episode
-            
-    
+        div(class="card border border-secondary"  data-clickable="true" data-href=video_link)
+          img(class="card-img-top" src=thumbnail_src onerror="if (this.src != '/media/default-image.jpg') this.src = '/media/default-image.jpg';")
+          div(class="card-body")
+            h5(class="card-title")= episode.show_name
+            h5(class="card-text")= "Episode "+episode.episode
+          
+  script.
+    $(document).ready(() => {
+      $(document.body).on('click', '.card[data-clickable=true]', (e) => {
+        var href = $(e.currentTarget).data('href');
+        window.location = href;
+      });
+    });

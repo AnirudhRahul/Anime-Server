@@ -43,7 +43,7 @@ app.get('/controls', function (req, res) {
   res.render('docs/controls')
 })
 
-const length_per_page = 25
+const length_per_page = 100
 app.get('/latest', function (req, res) {
   let offset = 0
   if(req.query.offset && !isNaN(req.query.offset))
