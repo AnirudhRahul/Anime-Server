@@ -1,7 +1,27 @@
 html
   head
   include header.pug
+  style.
+    .grid-view {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 10px;
+      grid-auto-rows: minmax(100px, auto);
+    }
+    .ignore-css {
+      all:unset;
+    }
   div(class="m-3")
-    h2 Coming Soon
-
+    h3(class="ml-3 mt-1")="Latest"    
+    div(class="grid-view")
+      each episode in episode_list
+        - thumbnail_src = '/prod-data/videos/'+encodeURIComponent(episode.show_name)+'/'+encodeURIComponent(episode.basename+episode.thumbnail_ext)
+        - video_link = '/show/'+encodeURIComponent(episode.show_name)+'/episode/'+episode.episode
+        a(href=video_link class = "ignore-css")
+          div(class="card" style="width: 18rem;")
+            img(class="card-img-top" src=thumbnail_src alt="Image not Found")
+            div(class="card-body")
+              h5(class="card-title")= episode.show_name
+              h5(class="card-text")= "Episode "+episode.episode
+            
     

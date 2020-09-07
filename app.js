@@ -10,9 +10,11 @@ const {root_dir, video_dir, database_dir} = require('./dirs.js').all(env)
 
 json_map = database.readSync(database_dir)
 json_map = sortMap(json_map)
+episode_list = getEpisodes(json_map)
 fs.watchFile(database_dir,{interval: 10000}, (cur) => {
   json_map = database.readSync(database_dir)
   json_map = sortMap(json_map)
+  episode_list = getEpisodes(json_map)
 });
 
 app.set('view engine', 'pug')
@@ -41,12 +43,14 @@ app.get('/controls', function (req, res) {
   res.render('docs/controls')
 })
 
-app.get('/controls', function (req, res) {
-  res.render('docs/controls')
-})
-
+const length_per_page = 16
 app.get('/latest', function (req, res) {
-  res.render('latest', {prefix:prefix, list: json_map})
+  let offset = 0
+  if(req.offset && !isNaN(req.offset))
+    offset = parseInt(req.offset)
+  if(offset<0)
+    offset = 0
+  res.render('latest', {episode_list: episode_list.slice(offset, offset+length_per_page)})
 })
 
 app.get('/show/:show/episode/:episode', function (req, res) {
@@ -105,4 +109,17 @@ function sortMap(map){
     )
   }
   return sorted_map
+}
+
+function getEpisodes(map){
+  let output = []
+  for(key in map){
+    output.push(...map[key])
+  }
+  output.sort((episodeA,episodeB)=>
+    (episodeB['time_uploaded']-episodeA['time_uploaded'])
+  )
+
+  return output
+
 }
