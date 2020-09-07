@@ -35,7 +35,7 @@ module.exports.select_and_replace = function(filter, replace, database_dir){
         replace(cur)
     }
   }
-  database.writeSync(json_map, database_dir)
+  this.writeSync(json_map, database_dir)
 }
 
 module.exports.removeSync =function(show, database_dir){
