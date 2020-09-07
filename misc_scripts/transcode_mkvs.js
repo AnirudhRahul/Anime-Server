@@ -20,6 +20,10 @@ if (require.main === module){
   })
 }
 
+//Max ram limit as set in pm2
+// In GB
+const RAM_LIMIT = 1
+
 module.exports.transcode_file = function transcode_file(old_path, database_dir, callback){
   if(!path.basename(old_path).startsWith('[HorribleSubs]'))
     return
@@ -49,29 +53,24 @@ module.exports.transcode_file = function transcode_file(old_path, database_dir, 
     ffmpeg.ffprobe(this._outputs[0].target, (error, metadata) => {
       const halfway = Math.round(metadata.format.duration) / 2
       const fname = metadata.format.filename
-      let thumbnail_frames = 240
-      while(true){
-        try{
-          let cmd = ffmpeg()
-            .input(fname)
-            .inputOptions('-ss ' + halfway)
-            .outputOptions('-vf')
-            .outputOptions('thumbnail='+thumbnail_frames+',scale=480:270')
-            .outputOptions('-frames:v 1')
-            .output(changeFileEnding(fname, '.png'))
-            .on('end', ()=>{
-              console.log("Finished Processing "+path.basename(this._outputs[0].target))
-              if(callback)
-                callback()
-            });
-          cmd.run()
-          break
-        }catch(err){
-          thumbnail_frames = Math.floor(thumbnail_frames/4)
-          if(thumbnail_frames<1)
-            thumbnail_frames = 1
-        }
-      }
+      const width = metadata.streams[0].width
+      const height = metadata.streams[0].height
+      //Good hueuristic for making sure the process doesnt crash because of ram usage
+      let thumbnail_frames = Math.floor(RAM_LIMIT*1e8/(width*height))
+
+      let cmd = ffmpeg()
+        .input(fname)
+        .inputOptions('-ss ' + halfway)
+        .outputOptions('-vf')
+        .outputOptions('thumbnail='+thumbnail_frames+',scale=480:270')
+        .outputOptions('-frames:v 1')
+        .output(changeFileEnding(fname, '.png'))
+        .on('end', ()=>{
+          console.log("Finished Processing "+path.basename(this._outputs[0].target))
+          if(callback)
+            callback()
+        });
+        cmd.run()
 
 
     });
