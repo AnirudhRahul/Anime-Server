@@ -46,7 +46,7 @@ module.exports.transcode_file = function transcode_file(old_path, database_dir, 
       },
       database_dir
     )
-
+    let thumbnail_frames = 240
     ffmpeg.ffprobe(this._outputs[0].target, (error, metadata) => {
       const halfway = Math.round(metadata.format.duration) / 2
       const fname = metadata.format.filename
@@ -54,9 +54,14 @@ module.exports.transcode_file = function transcode_file(old_path, database_dir, 
       .input(fname)
       .inputOptions('-ss ' + halfway)
       .outputOptions('-vf')
-      .outputOptions('thumbnail=250,scale=480:270')
+      .outputOptions('thumbnail='+thumbnail_frames+',scale=480:270')
       .outputOptions('-frames:v 1')
       .output(changeFileEnding(fname, '.png'))
+      .on('error',(err)=>{
+        console.error(err)
+        thumbnail_frames = Math.floor(thumbnail_frames/4)
+        cmd.run()
+      })
       .on('end', ()=>{
         console.log("Finished Processing "+path.basename(this._outputs[0].target))
         if(callback)
