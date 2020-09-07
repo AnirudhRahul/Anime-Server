@@ -97,7 +97,7 @@ function checkNyaa() {
         max_diff = 1*60*60
         latest_json = []
         index = 0
-        for(weeks = 0; weeks<show['download-latest'] && index<resp_json.length; weeks++){
+        for(let weeks = 0; weeks<show['download-latest'] && index<resp_json.length; weeks++){
           latest_json.push(resp_json[index])
           last = resp_json[index]
           index++
@@ -116,10 +116,10 @@ function checkNyaa() {
 
       cur_json = database.readSync(database_dir)
 
-      outer:for(j = 0; j < resp_json.length; j++){
+      outer:for(let j = 0; j < resp_json.length; j++){
             resp_show = resp_json[j]['show_name']
             if(resp_show in cur_json)
-              for(i = 0; i < cur_json[resp_show].length; i++)
+              for(let i = 0; i < cur_json[resp_show].length; i++)
                 if(resp_json[j]['torrent_name'] === cur_json[resp_show][i]['torrent_name'] && 'time_downloaded' in cur_json[resp_show][i])
                     continue outer;
 
@@ -132,7 +132,7 @@ function checkNyaa() {
 
   const download = require('./download.js')
   const generatePromises = function * (arr) {
-    for (i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
       yield download(arr[i], path.join(video_dir, arr[i]['show_name']), database_dir)
     }
   }

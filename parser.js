@@ -107,15 +107,15 @@ module.exports.add_episode_numbers = function(input){
   }
 
   words = []
-  for(i=0;i<input.length;i++){
+  for(let i=0;i<input.length;i++){
     modified = input[i]['torrent_name'].replace(/[^\w\s]/gi," ")
     words.push(modified.split(" "))
   }
 
   common_words = new Set(words[0].filter(val => words[1].includes(val)))
-  for(i=0;i<input.length;i++){
+  for(let i=0;i<input.length;i++){
     input[i]['episode'] = -1
-    for(j=0;j<words[i].length;j++){
+    for(let j=0;j<words[i].length;j++){
       cur_word = words[i][j]
       if(common_words.has(cur_word))
         continue

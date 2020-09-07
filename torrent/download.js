@@ -4,57 +4,55 @@ const Transcoder = require("../misc_scripts/transcode_mkvs.js")
 const path = require("path");
 const database = require('../database.js')
 
+const _formatBytes = bytes => {
+  if (bytes < 1024) return bytes + " Bytes";
+  else if (bytes < 1048576) return (bytes / 1024).toFixed(2) + " KB";
+  else return (bytes / 1048576).toFixed(2) + " MB";
+};
 
+const _formatTime = millis => {
+  let sec = Math.floor(millis / 1000);
+  let hrs = Math.floor(sec / 3600);
+  sec -= hrs * 3600;
+  let min = Math.floor(sec / 60);
+  sec -= min * 60;
 
-const download = (obj, downloadPath, database_dir) => {
-  const _formatBytes = bytes => {
-    if (bytes < 1024) return bytes + " Bytes";
-    else if (bytes < 1048576) return (bytes / 1024).toFixed(2) + " KB";
-    else return (bytes / 1048576).toFixed(2) + " MB";
-  };
+  sec = "" + sec;
+  sec = ("00" + sec).substring(sec.length);
 
-  const _formatTime = millis => {
-    let sec = Math.floor(millis / 1000);
-    let hrs = Math.floor(sec / 3600);
-    sec -= hrs * 3600;
-    let min = Math.floor(sec / 60);
-    sec -= min * 60;
+  if (hrs > 0) {
+    min = "" + min;
+    min = ("00" + min).substring(min.length);
+    return `${hrs}h ${min}m ${sec}s`;
+  } else {
+    return `${min}m ${sec}s`;
+  }
+};
 
-    sec = "" + sec;
-    sec = ("00" + sec).substring(sec.length);
+const torrentLog = torrent => {
+  let progress = Number(torrent.progress * 100).toFixed(2);
+  let progressBar = "";
+  let bars = ~~(progress / 4);
 
-    if (hrs > 0) {
-      min = "" + min;
-      min = ("00" + min).substring(min.length);
-      return `${hrs}h ${min}m ${sec}s`;
-    } else {
-      return `${min}m ${sec}s`;
-    }
-  };
+  for (let i = 0; i < bars; i++) {
+    progressBar += "=";
+  }
+  progressBar = progressBar + Array(26 - progressBar.length).join("-");
 
-  const torrentLog = torrent => {
-    let progress = Number(torrent.progress * 100).toFixed(2);
-    let progressBar = "";
-    let bars = ~~(progress / 4);
+  // prettier-ignore
+  // console.log(
+  //   '\n Name  : ' + torrent.name +
+  //   'Connected  : ' + torrent.numPeers + ' peers\n' +
+  //   ' Downloaded : ' + _formatBytes(torrent.downloaded) + ' (' + _formatBytes(torrent.downloadSpeed) + '/s)\n' +
+  //   ' Size       : ' + _formatBytes(torrent.length) + '\n' +
+  //   ' ETA        : ' +  _formatTime(torrent.timeRemaining) + '\n' +
+  //   ' [' + progressBar + '] ' + progress + '%\n'
+  // );
+};
 
-    for (let i = 0; i < bars; i++) {
-      progressBar += "=";
-    }
-    progressBar = progressBar + Array(26 - progressBar.length).join("-");
-
-    // prettier-ignore
-    console.log(
-      '\n Name  : ' + torrent.name +
-      'Connected  : ' + torrent.numPeers + ' peers\n' +
-      ' Downloaded : ' + _formatBytes(torrent.downloaded) + ' (' + _formatBytes(torrent.downloadSpeed) + '/s)\n' +
-      ' Size       : ' + _formatBytes(torrent.length) + '\n' +
-      ' ETA        : ' +  _formatTime(torrent.timeRemaining) + '\n' +
-      ' [' + progressBar + '] ' + progress + '%\n'
-    );
-  };
-
-  torrentId = obj['magnet_link']
+module.exports = (obj, downloadPath, database_dir) => {
   return new Promise((resolve, reject) => {
+    let torrentId = obj['magnet_link']
     // check if torrentId exist
     if (!torrentId) {
       console.log(obj)
@@ -89,12 +87,12 @@ const download = (obj, downloadPath, database_dir) => {
       });
     });
 
-    torrent.on("metadata", () => {
-      console.log("\n " + torrent.name);
-      torrent.files.forEach(file => {
-        console.log(` ├── ${file.name} (${_formatBytes(file.length)})`);
-      });
-    });
+    // torrent.on("metadata", () => {
+    //   console.log("\n " + torrent.name);
+    //   torrent.files.forEach(file => {
+    //     console.log(` ├── ${file.name} (${_formatBytes(file.length)})`);
+    //   });
+    // });
 
     let time = Date.now() + 1000;
 
@@ -126,5 +124,3 @@ const download = (obj, downloadPath, database_dir) => {
     });
   });
 };
-
-module.exports = download;

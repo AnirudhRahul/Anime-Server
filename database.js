@@ -11,7 +11,7 @@ module.exports.addSync =function(obj, database_dir){
   show = obj['show_name']
   if(!(show in json_map))
     json_map[show]=[]
-  for(i=0;i<json_map[show].length;i++){
+  for(let i=0;i<json_map[show].length;i++){
     if(json_map[show][i]['torrent_name'] === obj['torrent_name']){
       json_map[show][i] = obj
       this.writeSync(json_map, database_dir)
