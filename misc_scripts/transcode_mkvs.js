@@ -52,18 +52,18 @@ module.exports.transcode_file = function transcode_file(old_path, database_dir, 
       let thumbnail_frames = 240
       while(true){
         try{
-        let cmd = ffmpeg()
-          .input(fname)
-          .inputOptions('-ss ' + halfway)
-          .outputOptions('-vf')
-          .outputOptions('thumbnail='+thumbnail_frames+',scale=480:270')
-          .outputOptions('-frames:v 1')
-          .output(changeFileEnding(fname, '.png'))
-          .on('end', ()=>{
-            console.log("Finished Processing "+path.basename(this._outputs[0].target))
-            if(callback)
-              callback()
-          });
+          let cmd = ffmpeg()
+            .input(fname)
+            .inputOptions('-ss ' + halfway)
+            .outputOptions('-vf')
+            .outputOptions('thumbnail='+thumbnail_frames+',scale=480:270')
+            .outputOptions('-frames:v 1')
+            .output(changeFileEnding(fname, '.png'))
+            .on('end', ()=>{
+              console.log("Finished Processing "+path.basename(this._outputs[0].target))
+              if(callback)
+                callback()
+            });
           cmd.run()
           break
         }catch(err){
