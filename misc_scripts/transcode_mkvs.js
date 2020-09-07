@@ -35,12 +35,14 @@ module.exports.transcode_file = function transcode_file(old_path, database_dir, 
   .on('end', function() {
     const old_filename = this._inputs[0].source
     fs.unlinkSync(old_filename)
+    console.log(path.basename(old_filename,path.extname(old_filename)))
     database.select_and_replace(
-      (obj)=>(obj['basename'] === path.basename(old_filename)),
+      (obj)=>( obj['basename'] === path.basename(old_filename,path.extname(old_filename)) ),
       (obj)=>{
         obj['video_ext'] = '.mp4'
         obj['subtitle_ext'] = '.ass'
         obj['thumbnail_ext'] = '.png'
+        return obj
       },
       database_dir
     )
