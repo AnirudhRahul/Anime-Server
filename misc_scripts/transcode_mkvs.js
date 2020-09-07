@@ -38,6 +38,7 @@ module.exports.transcode_file = function transcode_file(old_path, database_dir, 
     database.select_and_replace(
       (obj)=>(obj['basename'] === path.basename(old_filename)),
       (obj)=>{
+        obj['video_ext'] = '.mp4'
         obj['subtitle_ext'] = '.ass'
         obj['thumbnail_ext'] = '.png'
       },
