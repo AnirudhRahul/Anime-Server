@@ -8,7 +8,7 @@ html
       grid-template-columns: repeat(auto-fill, minmax(22.5rem, 1fr));
       grid-auto-rows: auto;
       margin: 0 auto;
-      gap:1.25rem
+      gap:0.75rem;
     }
 
     .card[data-clickable=true]{
@@ -19,7 +19,7 @@ html
       each episode in episode_list
         - thumbnail_src = '/prod-data/videos/'+encodeURIComponent(episode.show_name)+'/'+encodeURIComponent(episode.basename+episode.thumbnail_ext)
         - video_link = '/show/'+encodeURIComponent(episode.show_name)+'/episode/'+episode.episode
-        div(class="card border border-secondary"  data-clickable="true" data-href=video_link)
+        div(class="card border border-secondary mx-1"  data-clickable="true" data-href=video_link)
           img(class="card-img-top" src=thumbnail_src onerror="if (this.src != '/media/default-image.jpg') this.src = '/media/default-image.jpg';")
           div(class="card-body")
             h5(class="card-title")= episode.show_name
