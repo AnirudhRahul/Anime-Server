@@ -40,14 +40,14 @@ const torrentLog = torrent => {
   progressBar = progressBar + Array(26 - progressBar.length).join("-");
 
   // prettier-ignore
-  // console.log(
-  //   '\n Name  : ' + torrent.name +
-  //   'Connected  : ' + torrent.numPeers + ' peers\n' +
-  //   ' Downloaded : ' + _formatBytes(torrent.downloaded) + ' (' + _formatBytes(torrent.downloadSpeed) + '/s)\n' +
-  //   ' Size       : ' + _formatBytes(torrent.length) + '\n' +
-  //   ' ETA        : ' +  _formatTime(torrent.timeRemaining) + '\n' +
-  //   ' [' + progressBar + '] ' + progress + '%\n'
-  // );
+  console.log(
+    '\n Name  : ' + torrent.name +
+    'Connected  : ' + torrent.numPeers + ' peers\n' +
+    ' Downloaded : ' + _formatBytes(torrent.downloaded) + ' (' + _formatBytes(torrent.downloadSpeed) + '/s)\n' +
+    ' Size       : ' + _formatBytes(torrent.length) + '\n' +
+    ' ETA        : ' +  _formatTime(torrent.timeRemaining) + '\n' +
+    ' [' + progressBar + '] ' + progress + '%\n'
+  );
 };
 
 module.exports = (obj, downloadPath, database_dir) => {
