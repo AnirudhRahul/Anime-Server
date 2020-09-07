@@ -24,7 +24,7 @@ app.use(favicon(path.join(__dirname, 'public', 'media', 'favicon.ico')))
 prefix = path.resolve('../')
 
 app.get('/', function (req, res) {
-  res.redirect('/shows');
+  res.redirect('/latest');
 })
 
 app.get('/shows', function (req, res) {
@@ -43,11 +43,11 @@ app.get('/controls', function (req, res) {
   res.render('docs/controls')
 })
 
-const length_per_page = 16
+const length_per_page = 25
 app.get('/latest', function (req, res) {
   let offset = 0
-  if(req.offset && !isNaN(req.offset))
-    offset = parseInt(req.offset)
+  if(req.query.offset && !isNaN(req.query.offset))
+    offset = parseInt(req.query.offset)
   if(offset<0)
     offset = 0
   res.render('latest', {episode_list: episode_list.slice(offset, offset+length_per_page)})
