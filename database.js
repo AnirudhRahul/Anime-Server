@@ -26,6 +26,18 @@ module.exports.addSync =function(obj, database_dir){
   // fs.writeSync(database_dir,JSON.stringify(json_map))
 }
 
+module.exports.select_and_replace = function(filter, replace, database_dir){
+  json_map = this.readSync(database_dir)
+  for (show in json_map) {
+    for(index in json_map[show]){
+      cur = json_map[show][index]
+      if(filter(cur))
+        replace(cur)
+    }
+  }
+  database.writeSync(json_map, database_dir)
+}
+
 module.exports.removeSync =function(show, database_dir){
   json_map = this.readSync(database_dir)
   out = []
