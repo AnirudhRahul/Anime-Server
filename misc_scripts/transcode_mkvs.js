@@ -6,25 +6,11 @@ const assert = require("assert")
 const database = require('../database.js')
 const {argv} = require('yargs')
 
-if (require.main === module){
-  var env = process.env.NODE_ENV || 'development';
-  if(argv.prod)
-    env = 'production'
-  const {root_dir, video_dir, database_dir} = require('../dirs.js').all(env)
-
-  glob(path.join(video_dir,'**/*'+'.mkv'), function (er, files) {
-
-    files.forEach((old_path) => {
-      this.transcode_file(old_path, database_dir)
-    });
-  })
-}
-
 //Max ram limit as set in pm2
 // In GB
 const RAM_LIMIT = 1
 
-module.exports.transcode_file = function transcode_file(old_path, database_dir, callback){
+function transcode_file(old_path, database_dir, callback){
   if(!path.basename(old_path).startsWith('[HorribleSubs]'))
     return
   new_path = changeFileEnding(old_path, '.mp4')
@@ -84,7 +70,24 @@ module.exports.transcode_file = function transcode_file(old_path, database_dir, 
 
 }
 
+module.exports.transcode_file = transcode_file
+
 function changeFileEnding(input, new_ending){
     assert(new_ending.startsWith('.'))
     return input.substring(0,input.lastIndexOf('.'))+new_ending
+}
+
+
+if (require.main === module){
+  var env = process.env.NODE_ENV || 'development';
+  if(argv.prod)
+    env = 'production'
+  const {root_dir, video_dir, database_dir} = require('../dirs.js').all(env)
+
+  glob(path.join(video_dir,'**/*'+'.mkv'), function (er, files) {
+
+    files.forEach((old_path) => {
+      transcode_file(old_path, database_dir)
+    });
+  })
 }
