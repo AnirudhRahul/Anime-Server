@@ -20,12 +20,29 @@ html
         - thumbnail_src = '/prod-data/videos/'+encodeURIComponent(episode.show_name)+'/'+encodeURIComponent(episode.basename+episode.thumbnail_ext)
         - video_link = '/show/'+encodeURIComponent(episode.show_name)+'/episode/'+episode.episode
         div(class="card border border-secondary mx-1"  data-clickable="true" data-href=video_link)
-          img(class="card-img-top" src=thumbnail_src onerror="if (this.src != '/media/default-image.jpg') this.src = '/media/default-image.jpg';")
+          img(class="card-img-top lazy" data-lazy=thumbnail_src src='/media/default-image.jpg' onerror="if (this.src != '/media/default-image.jpg') this.src = '/media/default-image.jpg';")
           div(class="card-body")
             h5(class="card-title")= episode.show_name
             h5(class="card-text")= "Episode "+episode.episode
           
   script.
+    const targets = document.querySelectorAll('img.lazy');
+    const lazyLoad = target => {
+      const io = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            const src = img.getAttribute('data-lazy');
+            img.setAttribute('src', src);
+            observer.disconnect();
+          }
+        });
+      });
+
+      io.observe(target)
+    };
+
+    targets.forEach(lazyLoad);
     $(document).ready(() => {
       $(document.body).on('click', '.card[data-clickable=true]', (e) => {
         var href = $(e.currentTarget).data('href');
