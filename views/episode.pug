@@ -50,10 +50,6 @@ html
 
     script(src='/js/subtitles-octopus.js')
     script(src='https://vjs.zencdn.net/7.8.4/video.min.js')
-    //- script(src='/js/libjass.js')
-    //- link(rel='stylesheet', href='/css/videojs-ass.css')
-    //- link(rel='stylesheet', id="font_styles" href='/css/sub_fonts.css')  
-    //- script(src='/js/videojs-ass.js')
     script(src='/js/landscape.js')
 
     script.
@@ -106,7 +102,31 @@ html
         else{
           window.player.pause()
         }
+      }    
+      window.seekForward = function(){
+        window.player.currentTime(window.player.currentTime()+10)
       }
+      window.seekBackward = function(){
+        window.player.currentTime(window.player.currentTime()-10)
+      }
+      
+      // Keyboard shortcuts
+      document.addEventListener("keypress", function(event) {
+        const code = event.keyCode
+        //Space bar or K
+        if (code == 32 || code == 75) {
+            window.togglePlayer()
+        }
+        // Right arrow or L
+        if (code == 39 || code == 76) {
+            window.seekForward()
+        }
+        //Left arrow or J
+        if (code == 37 || code == 74) {
+            window.seekBackward()
+        }
+        
+      });
       
       document.getElementById("my-video").addEventListener('touchstart', function (event) {
         const curtime = (new Date()).getTime()
@@ -118,10 +138,10 @@ html
           const width = document.getElementById("my-video").offsetWidth
           const x = event.touches[0].clientX
           if(x > width*(0.5+0.125)){
-            window.player.currentTime(window.player.currentTime()+10)
+            window.seekForward()
           }
           else if(x < width*(0.5-0.125)){
-            window.player.currentTime(window.player.currentTime()-10)
+            window.seekBackward()
           }
           else{
             window.togglePlayer()
@@ -131,6 +151,6 @@ html
         else
           window.lastClick = curtime
       });
-      // libjass.renderers.RendererSettings.makeFontMapFromStyleElement(document.getElementById("font_styles"));
+
       player.responsive(true);
       player.landscapeFullscreen();
