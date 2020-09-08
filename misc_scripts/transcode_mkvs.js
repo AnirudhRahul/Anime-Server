@@ -15,7 +15,7 @@ if (require.main === module){
   glob(path.join(video_dir,'**/*'+'.mkv'), function (er, files) {
 
     files.forEach((old_path) => {
-      transcode_file(old_path, database_dir)
+      this.transcode_file(old_path, database_dir)
     });
   })
 }
