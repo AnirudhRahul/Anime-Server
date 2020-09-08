@@ -10,7 +10,6 @@ html
       margin: 0 auto;
       gap:0.75rem;
     }
-
     .card[data-clickable=true]{
       cursor: pointer;
     }
@@ -20,7 +19,7 @@ html
         - thumbnail_src = '/prod-data/videos/'+encodeURIComponent(episode.show_name)+'/'+encodeURIComponent(episode.basename+episode.thumbnail_ext)
         - video_link = '/show/'+encodeURIComponent(episode.show_name)+'/episode/'+episode.episode
         div(class="card border border-secondary mx-1"  data-clickable="true" data-href=video_link)
-          img(class="card-img-top lazy" data-lazy=thumbnail_src src='/media/default-image.jpg' onerror="if (this.src != '/media/default-image.jpg') this.src = '/media/default-image.jpg';")
+          img(class="card-img-top lazy" data-lazy=thumbnail_src src='/media/blank.png' onerror="if (this.src != '/media/default-image.jpg') this.src = '/media/default-image.jpg';")
           div(class="card-body")
             h5(class="card-title")= episode.show_name
             h5(class="card-text")= "Episode "+episode.episode
