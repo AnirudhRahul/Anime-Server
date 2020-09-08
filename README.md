@@ -115,6 +115,8 @@ Private Key File: `/etc/letsencrypt/live/aniserveani.com/privkey.pem`
 
 Certificate File: `/etc/letsencrypt/live/aniserveani.com/fullchain.pem`
 
+Select yes for chained certificate
+
 Test to see if https works, by going to https://{DOMAIN_NAME}/
 
 ### Forward all traffic to HTTPS
