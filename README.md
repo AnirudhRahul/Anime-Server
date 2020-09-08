@@ -63,8 +63,22 @@ https://s8.gifyu.com/images/vhost_context_exapanded.png
 
 https://s8.gifyu.com/images/vhost_app_routing.png
 
-## Tune Server for large file serving
+## General Server-wide Settings
+### Tune Server for large file serving
+Go to Server Configuration > Tuning
+
 https://s8.gifyu.com/images/server_tuning.png
+
+### Configure MIME types
+Server Configuration > General
+
+Click on conf/mime.properties
+
+Add the following MIME types
+| Suffixes      | Type             |
+| ------------- |:----------------:|
+| wasm          | application/wasm |
+
 
 ## Enable SSL(if you have domain)
 `yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm`
