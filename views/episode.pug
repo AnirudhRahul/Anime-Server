@@ -118,14 +118,19 @@ html
             window.togglePlayer()
         }
         // Right arrow or L
-        if (code == 39 || code == 76) {
+        else if (code == 39 || code == 76) {
             window.seekForward()
         }
         // Left arrow or J
-        if (code == 37 || code == 74) {
+        else if (code == 37 || code == 74) {
             window.seekBackward()
         }
-        
+        else{
+          return
+        }
+        //Prevent defualt action if keypress was caught
+        event.preventDefault();
+
       });
       
       document.getElementById("my-video").addEventListener('touchstart', function (event) {
