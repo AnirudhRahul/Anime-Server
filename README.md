@@ -36,10 +36,6 @@ rm -rf cgi-bin fcgi-bin
 
 `pm2 --version`
 
-`pm2 start ecosystem.config.js`
-
-`pm2 log`
-
 # Install ffmpeg
 `sudo yum install epel-release`
 
@@ -48,6 +44,12 @@ rm -rf cgi-bin fcgi-bin
 `sudo yum install ffmpeg ffmpeg-devel`
 
 `ffmpeg -version`
+
+# Start torrenter
+
+`pm2 start ecosystem.config.js`
+
+`pm2 log`
 
 ## Setup Virtual Host Confs for openLitespeed
 ### Set the correct root directory
