@@ -120,9 +120,4 @@ Select yes for chained certificate
 Test to see if https works, by going to https://{DOMAIN_NAME}/
 
 ### Forward all traffic to HTTPS
-https://s8.gifyu.com/images/vhost_rewrite.png
-```
-rewriteCond %{HTTPS} !on
-rewriteCond %{HTTP:X-Forwarded-Proto} !https
-rewriteRule ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
-```
+https://www.question-defense.com/2008/08/20/how-to-redirect-all-litespeed-http-traffic-to-https#:~:text=Login%20to%20the%20Litespeed%20web,from%20the%20sub%20top%20navifation.
