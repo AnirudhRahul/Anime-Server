@@ -20,13 +20,7 @@ Fire Force S2
 Misfit Demon King Academy 1080p
   Query: [HorribleSubs] Maou Gakuin no Futekigousha [1080p]
   Ongoing: True
-  Download-Latest: 1
-  Tags: Action
-
-Misfit Demon King Academy 720p
-  Query: [HorribleSubs] Maou Gakuin no Futekigousha [720p]
-  Ongoing: True
-  Download-Latest: 4
+  Download-Latest: 2
   Tags: Action
 
 Shokugeki no Soma S5
@@ -48,7 +42,7 @@ One Piece
 Black Clover
   Query: [HorribleSubs] Black Clover [720p]
   Ongoing: True
-  Download-Latest: 5
+  Download-Latest: 7
   Tags: Long
 
 Weathering with You
