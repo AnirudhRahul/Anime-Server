@@ -48,12 +48,12 @@ html
       if next!=-1
         a(href= next style="font-size:min(3vw,1em)") Next Episode
 
-
+    script(src='/js/subtitles-octopus.js')
     script(src='https://vjs.zencdn.net/7.8.4/video.min.js')
-    script(src='/js/libjass.js')
-    link(rel='stylesheet', href='/css/videojs-ass.css')
-    link(rel='stylesheet', id="font_styles" href='/css/sub_fonts.css')  
-    script(src='/js/videojs-ass.js')
+    //- script(src='/js/libjass.js')
+    //- link(rel='stylesheet', href='/css/videojs-ass.css')
+    //- link(rel='stylesheet', id="font_styles" href='/css/sub_fonts.css')  
+    //- script(src='/js/videojs-ass.js')
     script(src='/js/landscape.js')
 
     script.
@@ -61,9 +61,29 @@ html
           userActions: {
             doubleClick: false
           },
-          
         }
       );
+      player.ready(function () {
+            // This would look more nice as a plugin but is's just as showcase of using with custom players
+            var video = this.tech_.el_;
+            window.SubtitlesOctopusOnLoad = function () {
+                var options = {
+                    video: video,
+                    // lossyRender: true,
+                    subUrl: '#{subtitle_src}',
+                    fonts: ['/fonts/OpenSans-Semibold.ttf'],
+                    //onReady: onReadyFunction,
+                    debug: true,
+                    workerUrl: '/js/subtitles-octopus-worker.js'
+                };
+                window.octopusInstance = new SubtitlesOctopus(options); // You can experiment in console
+            };
+            if (SubtitlesOctopus) {
+                SubtitlesOctopusOnLoad();
+            }
+        });
+      
+      
       player.poster('#{thumbnail_src}')
       //Useful for console debugging
       window.player = player
