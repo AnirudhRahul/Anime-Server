@@ -1,6 +1,7 @@
 - video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.basename+data.video_ext)
 - subtitle_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.basename+data.subtitle_ext)
 - thumbnail_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.basename+data.thumbnail_ext)
+- nice_thumbnail_src = '/prod-data/videos/'+data.show_name+'/'+data.basename+data.thumbnail_ext
 doctype html
 html
   head
@@ -9,7 +10,7 @@ html
     meta(property='og:description', content='Episode ' + data.episode)  
     meta(property='og:title', content=data.show_name)
     meta(property='og:url', content='')
-    meta(property='og:image', content='/media/joe.png')
+    meta(property='og:image', content=nice_thumbnail_src)
     meta(property='og:type', content='video.episode')
 
     title= data.show_name
