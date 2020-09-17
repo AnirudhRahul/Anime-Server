@@ -1,15 +1,15 @@
 doctype html
-- video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.basename+data.video_ext)
-- subtitle_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.basename+data.subtitle_ext)
-- thumbnail_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.basename+data.thumbnail_ext)
 html
+  - video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.basename+data.video_ext)
+  - subtitle_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.basename+data.subtitle_ext)
+  - thumbnail_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.basename+data.thumbnail_ext)
   head
     meta(name='viewport', content='width=device-width, initial-scale=1')
-      //- meta(name='description', content='Episode ' + data.episode)
-      //- meta(property='og:description', content='Episode ' + data.episode)  
-      //- meta(property='og:title', content=data.show_name)
-      //- meta(property='og:url', content='')
-      //- meta(property='og:image', content=thumbnail_src)
+      meta(name='description', content='Episode ' + data.episode)
+      meta(property='og:description', content='Episode ' + data.episode)  
+      meta(property='og:title', content=data.show_name)
+      meta(property='og:url', content='')
+      meta(property='og:image', content=thumbnail_src)
       meta(property='og:type', content='video.episode')
 
     title= data.show_name
