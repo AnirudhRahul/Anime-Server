@@ -5,12 +5,12 @@ html
   - thumbnail_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.basename+data.thumbnail_ext)
   head
     meta(name='viewport', content='width=device-width, initial-scale=1')
-      meta(name='description', content='Episode ' + data.episode)
-      meta(property='og:description', content='Episode ' + data.episode)  
-      meta(property='og:title', content=data.show_name)
-      meta(property='og:url', content='')
-      meta(property='og:image', content=thumbnail_src)
-      meta(property='og:type', content='video.episode')
+    meta(name='description', content='Episode ' + data.episode)
+    meta(property='og:description', content='Episode ' + data.episode)  
+    meta(property='og:title', content=data.show_name)
+    meta(property='og:url', content='')
+    meta(property='og:image', content=thumbnail_src)
+    meta(property='og:type', content='video.episode')
 
     title= data.show_name
     script.
