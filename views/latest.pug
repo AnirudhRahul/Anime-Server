@@ -19,15 +19,25 @@ html
       margin: 0 auto;
       gap:0.75rem;
     }
-    .card[data-clickable=true]{
-      cursor: pointer;
+    span {
+      position:absolute; 
+      width:100%;
+      height:100%;
+      top:0;
+      left: 0;
+      z-index: 1;
+    }
+    .card {
+      position:relative;
     }
   div(class="m-3")
     div(class="grid-view center")
       each episode in episode_list
         - thumbnail_src = '/prod-data/videos/'+encodeURIComponent(episode.show_name)+'/'+encodeURIComponent(episode.basename+episode.thumbnail_ext)
         - video_link = '/show/'+encodeURIComponent(episode.show_name)+'/episode/'+episode.episode
-        div(class="card border border-secondary mx-1"  data-clickable="true" data-href=video_link)
+        div(class="card border border-secondary mx-1")
+          a(href=video_link)
+            span()
           img(class="card-img-top lazy" data-lazy=thumbnail_src src='/media/blank.png' onerror="if (this.src != '/media/default-image.jpg') this.src = '/media/default-image.jpg';")
           div(class="card-body")
             h5(class="card-title")= episode.show_name
@@ -51,9 +61,3 @@ html
     };
 
     targets.forEach(lazyLoad);
-    $(document).ready(() => {
-      $(document.body).on('click', '.card[data-clickable=true]', (e) => {
-        var href = $(e.currentTarget).data('href');
-        window.location = href;
-      });
-    });
