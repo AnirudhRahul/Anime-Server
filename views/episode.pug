@@ -1,7 +1,17 @@
 doctype html
+- video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.basename+data.video_ext)
+- subtitle_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.basename+data.subtitle_ext)
+- thumbnail_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.basename+data.thumbnail_ext)
 html
   head
     meta(name='viewport', content='width=device-width, initial-scale=1')
+      meta(name='description', content='Episode ' + data.episode)
+      meta(property='og:description', content='Episode ' + data.episode)  
+      meta(property='og:title', content=data.show_name)
+      meta(property='og:url', content='')
+      meta(property='og:image', content=thumbnail_src)
+      meta(property='og:type', content='video.episode')
+
     title= data.show_name
     script.
       window.HELP_IMPROVE_VIDEOJS = false;
@@ -31,9 +41,6 @@ html
 
   include header.pug
   body
-    - video_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.basename+data.video_ext)
-    - subtitle_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.basename+data.subtitle_ext)
-    - thumbnail_src = '/prod-data/videos/'+encodeURIComponent(data.show_name)+'/'+encodeURIComponent(data.basename+data.thumbnail_ext)
     div(class="mx-3")
       div(class="mt-3 embed-responsive embed-responsive-16by9" align="center")
         video(align="center" id="my-video" class="video-js embed-responsive-item vjs-default-skin vjs-big-play-centered vjs-fill" controls preload="auto" playsinline )
