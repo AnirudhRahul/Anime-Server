@@ -20,20 +20,6 @@ html
     link(rel='stylesheet', href='https://vjs.zencdn.net/7.8.4/video-js.css')
     link(rel='stylesheet', href='/css/libjass.css')
     style(type='text/css').
-      .video-js .vjs-text-track-display > div > div > div {
-        font-size: 0.75em !important; 
-        font-weight: 300 !important;
-        text-shadow:
-          -1px -1px 0 #000,
-           0   -1px 0 #000,
-           1px -1px 0 #000,
-           1px  0   0 #000,
-           1px  1px 0 #000,
-           0    1px 0 #000,
-          -1px  1px 0 #000,
-          -1px  0   0 #000;
-      	background:transparent !important;
-      }
       .embed-responsive{
         max-height: 81vh !important;
         width: 50%;
@@ -70,6 +56,7 @@ html
         br
         link(rel='prerender', href=prev)
         a(href= next) Next Episode
+      p(id='stats') Dropped Frames: None
 
     script(src='/js/subtitles-octopus.js')
     script(src='https://vjs.zencdn.net/7.8.4/video.min.js')
