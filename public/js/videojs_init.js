@@ -10,11 +10,11 @@ player.ready(function () {
       window.SubtitlesOctopusOnLoad = function () {
           var options = {
               video: video,
-              // lossyRender: true,
-              subUrl: document.currentScript.getAttribute('subtitle_src');,
+              lossyRender: true,
+              subUrl: document.currentScript.getAttribute('subtitle_src'),
               fonts: ['/fonts/OpenSans-Semibold.ttf'],
               //onReady: onReadyFunction,
-              debug: false,
+              debug: true,
               workerUrl: '/js/subtitles-octopus-worker.js'
           };
           window.octopusInstance = new SubtitlesOctopus(options); // You can experiment in console
