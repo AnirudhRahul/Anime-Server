@@ -4,6 +4,7 @@ var player = videojs('my-video',{
     },
   }
 );
+
 player.ready(function () {
       // This would look more nice as a plugin but is's just as showcase of using with custom players
       var video = this.tech_.el_;
@@ -11,7 +12,7 @@ player.ready(function () {
           var options = {
               video: video,
               lossyRender: true,
-              subUrl: document.currentScript.getAttribute('subtitle_src'),
+              subUrl: document.getElementById("init_script").getAttribute("subtitle_src"),
               fonts: ['/fonts/OpenSans-Semibold.ttf'],
               //onReady: onReadyFunction,
               debug: true,
