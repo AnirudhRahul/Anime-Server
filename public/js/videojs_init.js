@@ -105,7 +105,7 @@ document.getElementById("my-video").addEventListener('touchstart', function (eve
 
 player.responsive(true);
 player.landscapeFullscreen();
-var videoElem = document.getElementById("my-video");
+var videoElem = document.getElementById("my-video_html5_api");
 var quality = videoElem.getVideoPlaybackQuality();
 var dropPercent = (quality.droppedVideoFrames/quality.totalVideoFrames)*100;
 window.droppedFrames = quality.droppedVideoFrames
