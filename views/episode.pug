@@ -20,7 +20,7 @@ html
     link(rel='stylesheet', href='https://vjs.zencdn.net/7.8.4/video-js.css')
     link(rel='stylesheet', href='/css/libjass.css')
     style(type='text/css').
-      .embed-responsive{
+      .vid-container{
         max-height: 81vh !important;
         width: 50%;
         margin: 0 auto;
@@ -38,9 +38,9 @@ html
   include header.pug
   body
     div(class="mx-3")
-      div(class="mt-3 embed-responsive embed-responsive-16by9" align="center")
+      div(class="mt-3 vid-container" align="center")
         video(align="center" id="my-video" 
-        class="video-js embed-responsive-item vjs-default-skin vjs-big-play-centered vjs-fill" controls 
+        class="video-js vjs-default-skin vjs-big-play-centered vjs-fill" controls 
         preload="auto" poster=thumbnail_src)
           source(src=video_src, type='video/mp4')
           //- track(srclang="en" label="English" src=subtitle_src default)

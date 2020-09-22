@@ -81,8 +81,8 @@ document.addEventListener("keydown", function(event) {
 
 document.getElementById("my-video").addEventListener('touchstart', function (event) {
   const curtime = Date.now()
-  const x_norm = event.touches[0].clientX / document.getElementById("my-video").offsetWidth
-  const y_norm = event.touches[0].clientY / document.getElementById("my-video").offsetHeight
+  const x_norm = event.touches[0].clientX / document.getElementById("my-video").width
+  const y_norm = event.touches[0].clientY / document.getElementById("my-video").height
   console.log('X: '+x_norm)
   console.log('Y: '+y_norm)
   // Ignore tops on the top and bottom
