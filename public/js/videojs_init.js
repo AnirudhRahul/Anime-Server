@@ -78,7 +78,7 @@ document.addEventListener("keydown", function(event) {
   event.preventDefault();
 
 });
-const vid_element = document.getElementById("my-video_html5_api")
+const vid_element = document.getElementById("my-video")
 vid_element.addEventListener('touchstart', function (event) {
   const curtime = Date.now()
   const x_norm = event.touches[0].clientX / vid_element.width
