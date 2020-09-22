@@ -80,22 +80,24 @@ document.addEventListener("keydown", function(event) {
 });
 
 document.getElementById("my-video").addEventListener('touchstart', function (event) {
-  const curtime = (new Date()).getTime()
-  if(event.touches.length>1){
+  const curtime = Date.now()
+  const x_norm = event.touches[0].clientX / document.getElementById("my-video").offsetWidth
+  const y_norm = event.touches[0].clientY / document.getElementById("my-video").offsetHeight
+  // Ignore tops on the top and bottom
+  if(y_norm>0.9 || y_norm<0.1)
+    return
+
+  if(event.touches.length>1 || (x_norm < 0.5+0.125 && x_norm > 0.5-0.125)){
     window.togglePlayer()
     window.lastClick = 0
   }
   else if(curtime-window.lastClick<250){
-    const width = document.getElementById("my-video").offsetWidth
-    const x = event.touches[0].clientX
-    if(x > width*(0.5+0.125)){
+
+    if(x_norm > 0.5+0.125){
       window.seekForward()
     }
-    else if(x < width*(0.5-0.125)){
+    else if(x_norm < 0.5-0.125){
       window.seekBackward()
-    }
-    else{
-      window.togglePlayer()
     }
     window.lastClick = 0
   }
