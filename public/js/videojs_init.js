@@ -5,13 +5,26 @@ var player = videojs('my-video',{
   }
 );
 
+function iOS() {
+  return [
+    'iPad Simulator',
+    'iPhone Simulator',
+    'iPod Simulator',
+    'iPad',
+    'iPhone',
+    'iPod'
+  ].includes(navigator.platform)
+  // iPad on iOS 13 detection
+  || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+}
+
 player.ready(function () {
       // This would look more nice as a plugin but is's just as showcase of using with custom players
       var video = this.tech_.el_;
       window.SubtitlesOctopusOnLoad = function () {
           var options = {
               video: video,
-              lossyRender: true,
+              lossyRender: !iOS(),
               subUrl: document.getElementById("init_script").getAttribute("subtitle_src"),
               fonts: ['/fonts/OpenSans-Semibold.ttf'],
               //onReady: onReadyFunction,
