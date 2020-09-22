@@ -78,11 +78,11 @@ document.addEventListener("keydown", function(event) {
   event.preventDefault();
 
 });
-
-document.getElementById("my-video").addEventListener('touchstart', function (event) {
+const vid_element = document.getElementById("my-video_html5_api")
+vid_element.addEventListener('touchstart', function (event) {
   const curtime = Date.now()
-  const x_norm = event.touches[0].clientX / document.getElementById("my-video").width
-  const y_norm = event.touches[0].clientY / document.getElementById("my-video").height
+  const x_norm = event.touches[0].clientX / vid_element.width
+  const y_norm = event.touches[0].clientY / vid_element.height
   console.log('X: '+x_norm)
   console.log('Y: '+y_norm)
   // Ignore tops on the top and bottom
