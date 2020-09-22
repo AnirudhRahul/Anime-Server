@@ -83,10 +83,10 @@ document.getElementById("my-video").addEventListener('touchstart', function (eve
   const curtime = Date.now()
   const x_norm = event.touches[0].clientX / document.getElementById("my-video").offsetWidth
   const y_norm = event.touches[0].clientY / document.getElementById("my-video").offsetHeight
+  console.log(y_norm)
   // Ignore tops on the top and bottom
   if(y_norm>0.9 || y_norm<0.1)
     return
-  console.log(y_norm)
   if(event.touches.length>1 || (x_norm < 0.5+0.125 && x_norm > 0.5-0.125)){
     window.togglePlayer()
     window.lastClick = 0
