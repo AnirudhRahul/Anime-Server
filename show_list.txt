@@ -1,19 +1,19 @@
 The God Of High School S1
-  Query: [HorribleSubs] The God of High School [720p]
+  Query: [HorribleSubs] The God of High School [1080p]
   Ongoing: True
   Download-Latest: 3
   Stream-Latest: 2
   Tags: Action
 
 Re:Zero S2
-  Query: [HorribleSubs] Re Zero kara Hajimeru Isekai Seikatsu [720p]
+  Query: [HorribleSubs] Re Zero kara Hajimeru Isekai Seikatsu [1080p]
     Offset: -25
   Ongoing: true
   Download-Latest: 4
   Tags: Action
 
 Fire Force S2
-  Query: [HorribleSubs] Enen no Shouboutai S2 [720p]
+  Query: [HorribleSubs] Enen no Shouboutai S2 [1080p]
   Ongoing: True
   Download-Latest: 4
 
@@ -24,37 +24,23 @@ Misfit Demon King Academy 1080p
   Tags: Action
 
 Shokugeki no Soma S5
-  Query: [HorribleSubs] Shokugeki no Soma S5 [720p]
+  Query: [HorribleSubs] Shokugeki no Soma S5 [1080p]
   Ongoing: True
   Tags: Food
 
 Oregairu S3
-  Query: [HorribleSubs] Yahari Ore no Seishun Love Come wa Machigatteiru Kan [720p]
+  Query: [HorribleSubs] Yahari Ore no Seishun Love Come wa Machigatteiru Kan [1080p]
   Ongoing: True
   Tags: Action
 
 One Piece
-  Query: [HorribleSubs] One Piece [720p]
+  Query: [HorribleSubs] One Piece [1080p]
   Ongoing: True
   Download-Latest: 3
   Tags: Long
 
 Black Clover
-  Query: [HorribleSubs] Black Clover [720p]
+  Query: [HorribleSubs] Black Clover [1080p]
   Ongoing: True
   Download-Latest: 7
   Tags: Long
-
-Weathering with You
-  Query: [NoobSubs] Tenki no Ko~Weathering with You 2019 1080p
-  Ongoing: false
-  Tags: Movie
-
-Fate Stay Night Heaven's Feel I
-  Query: [SmoothAnime] Fate stay night - Heaven's Feel I.presage flower
-  Ongoing: false
-  Tags: Movie
-
-Lapis ReLiGHTs
-  Query: [HorribleSubs] Lapis ReLiGHTs [720p]
-  Download-Latest: 1
