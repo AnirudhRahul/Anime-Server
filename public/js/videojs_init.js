@@ -1,4 +1,3 @@
-const vid_element = document.getElementById("my-video")
 var player = videojs('my-video',{
     userActions: {
       doubleClick: false
@@ -79,14 +78,15 @@ document.addEventListener("keydown", function(event) {
   event.preventDefault();
 
 });
+const vid_element = document.getElementById("my-video")
 vid_element.addEventListener('touchstart', function (event) {
   const curtime = Date.now()
   const x_norm = event.touches[0].clientX / vid_element.offsetWidth
   const y_norm = event.touches[0].clientY / vid_element.offsetHeight
-  console.log('X: '+x_norm)
-  console.log('Y: '+y_norm)
+  // console.log('X: '+x_norm)
+  // console.log('Y: '+y_norm)
   // Ignore tops on the top and bottom
-  if(y_norm>0.9 || y_norm<0.1)
+  if(y_norm>1)
     return
   if(event.touches.length>1 || (x_norm < 0.5+0.125 && x_norm > 0.5-0.125)){
     window.togglePlayer()
