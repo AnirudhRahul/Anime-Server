@@ -38,6 +38,16 @@ module.exports.select_and_replace = function(filter, replace, database_dir){
   this.writeSync(json_map, database_dir)
 }
 
+module.exports.filter = function(map_filter, database_dir){
+  let json_map = this.readSync(database_dir)
+  for (show in json_map) {
+    for(index in json_map[show]){
+      json_map[show] = json_map[show].filter(map_filter)
+    }
+  }
+  this.writeSync(json_map, database_dir)
+}
+
 module.exports.removeSync =function(show, database_dir){
   json_map = this.readSync(database_dir)
   out = []
