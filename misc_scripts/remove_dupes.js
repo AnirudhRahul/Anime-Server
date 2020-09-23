@@ -17,7 +17,6 @@ glob(path.join(video_dir,'**/*'), function (er, files) {
     if(file.toString().includes('720p')){
       console.log(file)
       remove_file(file)
-      break;
     }
   }
 
