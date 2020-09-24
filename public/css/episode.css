@@ -1,0 +1,22 @@
+.embed-responsive{
+  max-height: 81vh !important;
+  width: 50%;
+  margin: 0 auto;
+}
+.embed-responsive .embed-responsive-item, .embed-responsive iframe, .embed-responsive embed, .embed-responsive object, .embed-responsive video {
+    border: none !important;
+}
+
+.vjs-poster{
+  image-rendering: crisp-edges !important;
+}
+
+a{
+  font-size:min(3vw,1em);
+}
+h2{
+  font-size:min(5vw,3em);
+}
+h3{
+  font-size:min(3.75vw,2.25em);
+}
