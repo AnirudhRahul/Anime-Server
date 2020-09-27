@@ -1,11 +1,3 @@
-.background {
-  background: center no-repeat url('/media/default-image.jpg');
-}
-
 .logo {
   background-image: url('/media/icon-chan.png');
-}
-
-.progressBar {
-  background-color: rgb(238, 255, 65);
 }
