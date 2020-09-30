@@ -8,9 +8,12 @@
   function load(){
     const url = document.getElementById('url').value
     const myVid = document.getElementById('video')
+    myVid.src = url;
     var r = new XMLHttpRequest();
     r.onload = function() {
+        const time =  myVid.currentTime;
         myVid.src = URL.createObjectURL(r.response);
+        myVid.currentTime = time;
         myVid.play();
     };
     r.open("GET", url)
