@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test</title>
+</head>
+<body>
+    <h1> Testing video loading</h1>
+    <video id="video"></video>
+    <script>
+      const url = '/prod-data/videos/Black%20Clover/%5BHorribleSubs%5D%20Black%20Clover%20-%20145%20%5B1080p%5D.mp4'
+      var r = new XMLHttpRequest();
+      r.onload = function() {
+          myVid.src = URL.createObjectURL(r.response);
+          myVid.play();
+      };
+      r.open("GET", url)
+
+      r.responseType = "blob";
+      r.send();
+    </script>
+</body>
+</html>
