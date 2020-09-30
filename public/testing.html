@@ -8,6 +8,7 @@
     <video id="video"></video>
     <script>
       const url = '/prod-data/videos/Black%20Clover/%5BHorribleSubs%5D%20Black%20Clover%20-%20145%20%5B1080p%5D.mp4'
+      const myVid = document.getElementById('video')
       var r = new XMLHttpRequest();
       r.onload = function() {
           myVid.src = URL.createObjectURL(r.response);
