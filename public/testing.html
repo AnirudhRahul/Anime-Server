@@ -6,7 +6,7 @@
 
 <script>
   function load(){
-    const url = document.getElementById('url')
+    const url = document.getElementById('url').value
     const myVid = document.getElementById('video')
     var r = new XMLHttpRequest();
     r.onload = function() {
@@ -23,8 +23,10 @@
 
 <body>
     <h1>Testing video loading</h1>
-    <input type="text" id="url">
+    <input type="text" id="url" size="300">
+    <br>
     <button onclick="load()">Load Video</button>
+    <br>
     <video id="video" style="max-width:800px" controls></video>
 </body>
 </html>
