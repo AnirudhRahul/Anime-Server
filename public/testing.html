@@ -19,7 +19,7 @@
 
     function sourceOpen(e) {
       URL.revokeObjectURL(vidElement.src);
-      var mime = 'video/mp4; codecs="h264, avc"';
+      var mime = 'video/mp4; codecs="avc1.4D401E, mp4a.40.2"';
       var mediaSource = e.target;
       var sourceBuffer = mediaSource.addSourceBuffer(mime);
       var videoUrl = document.getElementById('url').value;
