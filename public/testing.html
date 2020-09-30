@@ -5,6 +5,40 @@
 </head>
 
 <script>
+
+  function other_load(){
+    const vidElement = document.getElementById('video')
+
+    if (window.MediaSource) {
+      var mediaSource = new MediaSource();
+      vidElement.src = URL.createObjectURL(mediaSource);
+      mediaSource.addEventListener('sourceopen', sourceOpen);
+    } else {
+      console.log("The Media Source Extensions API is not supported.")
+    }
+
+    function sourceOpen(e) {
+      URL.revokeObjectURL(vidElement.src);
+      var mime = 'video/mp4; codecs="h264, avc"';
+      var mediaSource = e.target;
+      var sourceBuffer = mediaSource.addSourceBuffer(mime);
+      var videoUrl = document.getElementById('url').value;
+      fetch(videoUrl)
+        .then(function(response) {
+          return response.arrayBuffer();
+        })
+        .then(function(arrayBuffer) {
+          sourceBuffer.addEventListener('updateend', function(e) {
+            if (!sourceBuffer.updating && mediaSource.readyState === 'open') {
+              mediaSource.endOfStream();
+            }
+          });
+          sourceBuffer.appendBuffer(arrayBuffer);
+        });
+    }
+  }
+
+
   function load(){
     const url = document.getElementById('url').value
     const myVid = document.getElementById('video')
@@ -17,7 +51,6 @@
         myVid.play();
     };
     r.open("GET", url)
-
     r.responseType = "blob";
     r.send();
   }
@@ -28,7 +61,7 @@
     <h1>Testing video loading</h1>
     <input type="text" id="url" size="300">
     <br>
-    <button onclick="load()">Load Video</button>
+    <button onclick="other_load()">Load Video</button>
     <br>
     <video id="video" style="max-width:800px" controls></video>
 </body>
