@@ -133,7 +133,7 @@ player.landscapeFullscreen();
 
 const LoadingAggroButton =
 `
-<button class="btn btn-primary" type="button" disabled>
+<button class="btn btn-primary" type="button" id="loading" disabled>
   <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
   Loading 0%
 </button>
@@ -187,8 +187,9 @@ function loadSource(){
       }
   };
   xhr.onprogress = function (event) {
-    if(aggroDiv.firstChild.text.endsWith('%')){
-      aggroDiv.firstChild.text = 'Loading ' + Math.floor(event.loaded / event.total * 100) + '%';
+    const button = document.getElementById('loading')
+    if(button){
+      button.text = 'Loading ' + Math.floor(event.loaded / event.total * 100) + '%';
     }
   };
   xhr.onerror = function(){
