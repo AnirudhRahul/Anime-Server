@@ -189,7 +189,7 @@ function loadSource(){
   xhr.onprogress = function (event) {
     const button = document.getElementById('loading')
     if(button){
-      button.text = 'Loading ' + Math.floor(event.loaded / event.total * 100) + '%';
+      button.innerText = 'Loading ' + Math.floor(event.loaded / event.total * 100) + '%';
     }
   };
   xhr.onerror = function(){
