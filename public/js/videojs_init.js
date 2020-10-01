@@ -52,8 +52,10 @@ document.getElementById("my-video").addEventListener('click', function (event) {
   }
 });
 
-document.getElementById("my-video").addEventListener('touchend', function (event) {
+// Expand to full screen on the users first tap
+const fullScreenOnTap = document.getElementById("my-video").addEventListener('touchend', function (event) {
     window.player.requestFullscreen();
+    e.currentTarget.removeEventListener(e.type, fullScreenOnTap);
 });
 
 window.lastClick = 0
