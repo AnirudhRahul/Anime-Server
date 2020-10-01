@@ -52,10 +52,13 @@ document.getElementById("my-video").addEventListener('click', function (event) {
   }
 });
 
+window.tappedVideo = false;
 // Expand to full screen on the users first tap
 const fullScreenOnTap = document.getElementById("my-video").addEventListener('touchend', function (event) {
-    window.player.requestFullscreen();
-    document.getElementById("my-video").removeEventListener('touchend', fullScreenOnTap);
+    if(!window.tappedVideo){
+      window.player.requestFullscreen();
+      window.tappedVideo = true;
+    }
 });
 
 window.lastClick = 0
@@ -167,7 +170,7 @@ if(isChrome){
 function loadSource(){
   const url = document.getElementById("init_script").getAttribute("video_src")
   const xhr = new XMLHttpRequest()
-  aggroDiv.innerHTML = LoadingAggroButton(0);
+  aggroDiv.innerHTML = LoadingAggroButton
   xhr.onload = function() {
       aggroDiv.innerHTML = DoneAggroButton;
       const wasPaused = window.player.paused()
