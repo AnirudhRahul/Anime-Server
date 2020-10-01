@@ -55,7 +55,7 @@ document.getElementById("my-video").addEventListener('click', function (event) {
 // Expand to full screen on the users first tap
 const fullScreenOnTap = document.getElementById("my-video").addEventListener('touchend', function (event) {
     window.player.requestFullscreen();
-    e.currentTarget.removeEventListener(e.type, fullScreenOnTap);
+    document.getElementById("my-video").removeEventListener('touchend', fullScreenOnTap);
 });
 
 window.lastClick = 0
@@ -128,10 +128,11 @@ vid_element.addEventListener('touchstart', function (event) {
 player.responsive(true);
 player.landscapeFullscreen();
 
-const LoadingAggroButton = (progress) =>`
+const LoadingAggroButton =
+`
 <button class="btn btn-primary" type="button" disabled>
   <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-  Loading ${progress}%
+  Loading 0%
 </button>
 `
 
@@ -183,7 +184,9 @@ function loadSource(){
       }
   };
   xhr.onprogress = function (event) {
-    aggroDiv.innerHTML = LoadingAggroButton(Math.floor(event.loaded / event.total * 100));
+    if(aggroDiv.firstChild.text.endsWith('%')){
+      aggroDiv.firstChild.text = 'Loading ' + Math.floor(event.loaded / event.total * 100) + '%';
+    }
   };
   xhr.onerror = function(){
     aggroDiv.innerHTML = FailedAggroButton
