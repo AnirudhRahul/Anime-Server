@@ -160,12 +160,12 @@ const FailedAggroButton =
 </button>
 `
 
-const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+// const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 const aggroDiv = document.getElementById('aggro')
 
-if(isChrome){
+// if(isChrome){
   aggroDiv.innerHTML = AggroButton
-}
+// }
 
 function loadSource(){
   const url = document.getElementById("init_script").getAttribute("video_src")
