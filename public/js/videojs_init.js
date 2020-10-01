@@ -28,7 +28,7 @@ player.ready(function () {
               subUrl: document.getElementById("init_script").getAttribute("subtitle_src"),
               fonts: ['/fonts/OpenSans-Semibold.ttf'],
               //onReady: onReadyFunction,
-              debug: true,
+              // debug: true,
               workerUrl: '/js/subtitles-octopus-worker.js'
           };
           window.octopusInstance = new SubtitlesOctopus(options); // You can experiment in console
@@ -52,7 +52,10 @@ document.getElementById("my-video").addEventListener('click', function (event) {
   }
 });
 
-document.querySelector('.vjs-big-play-button').addEventListener('touchend', player.requestFullscreen)
+document.getElementById("my-video").addEventListener('touchend', function (event) {
+    window.player.requestFullscreen();
+});
+
 window.lastClick = 0
 window.togglePlayer = function(){
   if(window.player.paused()){
@@ -71,6 +74,7 @@ window.seekBackward = function(){
 
 // Keyboard shortcuts
 document.addEventListener("keydown", function(event) {
+  event = event || window.event
   const code = event.keyCode
   // Space bar or K
   if (code == 32 || code == 75) {
@@ -121,10 +125,70 @@ vid_element.addEventListener('touchstart', function (event) {
 
 player.responsive(true);
 player.landscapeFullscreen();
-var videoElem = document.getElementById("my-video_html5_api");
-var quality = videoElem.getVideoPlaybackQuality();
-var dropPercent = (quality.droppedVideoFrames/quality.totalVideoFrames)*100;
-window.droppedFrames = quality.droppedVideoFrames
-window.dropPercent = dropPercent
-window.quality = quality
-document.getElementById("stats").innerText = 'Dropped Frames: ' + dropPercent
+
+const LoadingAggroButton = (progress) =>`
+<button class="btn btn-primary" type="button" disabled>
+  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+  Loading ${progress}%
+</button>
+`
+
+const AggroButton =
+`
+<button class="btn btn-primary" type="button" onclick=loadSource()>
+  Aggresively Load Video
+</button>
+`
+
+const DoneAggroButton =
+`
+<button class="btn btn-success" type="button" disabled>
+  Done!
+</button>
+`
+
+const FailedAggroButton =
+`
+<button class="btn btn-danger" type="button" disabled>
+  Failed :(
+</button>
+`
+
+const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+const aggroDiv = document.getElementById('aggro')
+
+if(isChrome){
+  aggroDiv.innerHTML = AggroButton
+}
+
+function loadSource(){
+  const url = document.getElementById("init_script").getAttribute("video_src")
+  const xhr = new XMLHttpRequest()
+  aggroDiv.innerHTML = LoadingAggroButton(0);
+  xhr.onload = function() {
+      aggroDiv.innerHTML = DoneAggroButton;
+      const wasPaused = window.player.paused()
+      const time =  window.player.currentTime()
+      window.player.src({type:'video/mp4', src: URL.createObjectURL(xhr.response)});
+
+      if(wasPaused){
+        window.player.pause();
+        window.player.currentTime(time);
+      }
+      else{
+        window.player.currentTime(time-1);
+        window.player.play();
+      }
+  };
+  xhr.onprogress = function (event) {
+    aggroDiv.innerHTML = LoadingAggroButton(Math.floor(event.loaded / event.total * 100));
+  };
+  xhr.onerror = function(){
+    aggroDiv.innerHTML = FailedAggroButton
+  }
+
+  xhr.responseType = "blob";
+  xhr.open("GET", url)
+  xhr.send();
+
+}

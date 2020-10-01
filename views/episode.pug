@@ -33,6 +33,7 @@ html
           source(src=video_src, type='video/mp4')
           //- track(srclang="en" label="English" src=subtitle_src default)
     div(class="m-3")
+      div(id="aggro")
       h2= data.show_name
       h3= "Episode "+data.episode
       a(href=video_src download) Download Link
@@ -49,4 +50,4 @@ html
     script(src='/js/subtitles-octopus.js')
     script(src='https://vjs.zencdn.net/7.8.4/video.min.js')
     script(src='/js/landscape.js')
-    script(src='/js/videojs_init.js' id='init_script' subtitle_src=subtitle_src)      
+    script(src='/js/videojs_init.js' id='init_script' subtitle_src=subtitle_src video_src=video_src)      
