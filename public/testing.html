@@ -5,64 +5,40 @@
 </head>
 
 <script>
-
-  function other_load(){
-    const vidElement = document.getElementById('video')
-
-    if (window.MediaSource) {
-      var mediaSource = new MediaSource();
-      vidElement.src = URL.createObjectURL(mediaSource);
-      mediaSource.addEventListener('sourceopen', sourceOpen);
-    } else {
-      console.log("The Media Source Extensions API is not supported.")
-    }
-
-    function sourceOpen(e) {
-      URL.revokeObjectURL(vidElement.src);
-      var mime = 'video/mp4; codecs="avc1.4D401E, mp4a.40.2"';
-      var mediaSource = e.target;
-      var sourceBuffer = mediaSource.addSourceBuffer(mime);
-      var videoUrl = document.getElementById('url').value;
-      fetch(videoUrl)
-        .then(function(response) {
-          return response.arrayBuffer();
-        })
-        .then(function(arrayBuffer) {
-          sourceBuffer.addEventListener('updateend', function(e) {
-            if (!sourceBuffer.updating && mediaSource.readyState === 'open') {
-              mediaSource.endOfStream();
-            }
-          });
-          sourceBuffer.appendBuffer(arrayBuffer);
-        });
-    }
-  }
-
-
   function load(){
     const url = document.getElementById('url').value
-    const myVid = document.getElementById('video')
-    myVid.src = url;
-    var r = new XMLHttpRequest();
-    r.onload = function() {
-        const time =  myVid.currentTime;
-        myVid.src = URL.createObjectURL(r.response);
-        myVid.currentTime = time;
-        myVid.play();
+    const vid = document.getElementById('video')
+    vid.src = url;
+    const progressElem = document.getElementById('progress')
+
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        const wasPaused = vid.paused
+        const time =  vid.currentTime;
+        vid.src = URL.createObjectURL(xhr.response);
+        vid.currentTime = time;
+        if(!wasPaused)
+          vid.play();
     };
-    r.open("GET", url)
-    r.responseType = "blob";
-    r.send();
+    xhr.onprogress = onprogress = function (event) {
+      progressElem.innerText = 'Download Progress: ' + (event.loaded / event.total);
+    };
+
+    xhr.responseType = "blob";
+    xhr.open("GET", url)
+    xhr.send();
   }
 </script>
 
 
-<body>
+<body style="padding-left: 30px">
     <h1>Testing video loading</h1>
-    <input type="text" id="url" size="300">
+    <input type="text" id="url" size="200">
     <br>
-    <button onclick="other_load()">Load Video</button>
+    <button onclick="load()">Load Video</button>
     <br>
-    <video id="video" style="max-width:800px" controls></video>
+    <h3 id="progress"></h3>
+    <br>
+    <video id="video" style="max-width:min(800px, 100vw)" controls></video>
 </body>
 </html>
