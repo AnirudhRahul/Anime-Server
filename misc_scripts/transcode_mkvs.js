@@ -11,9 +11,12 @@ const {argv} = require('yargs')
 const RAM_LIMIT = 1
 const SUB_GROUPS_TO_TRANSCODE = ['[HorribleSubs]', '[Erai-raws]']
 function transcode_file(old_path, database_dir, callback){
+  valid = false
   for(group of SUB_GROUPS_TO_TRANSCODE)
     if(!path.basename(old_path).startsWith(group))
-      return
+      valid = true
+  if(!valid)
+    return
   new_path = changeFileEnding(old_path, '.mp4')
   subtitle_path = changeFileEnding(old_path, '.ass')
   ffmpeg()
