@@ -26,6 +26,7 @@
     "fluent-ffmpeg": "^2.1.2",
     "fs": "0.0.1-security",
     "glob": "^7.1.6",
+    "lowdb": "^1.0.0",
     "ndjson": "^1.5.0",
     "needle": "^2.5.0",
     "pm2": "^4.4.0",
