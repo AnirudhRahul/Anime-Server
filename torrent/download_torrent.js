@@ -1,6 +1,5 @@
 //From: https://github.com/sayem314/torrenter/blob/master/download.js
 const WebTorrent = require("webtorrent");
-const Transcoder = require("../misc_scripts/transcode_mkvs.js")
 const path = require("path");
 const database = require('../database.js')
 
@@ -42,7 +41,7 @@ const torrentLog = torrent => {
   // prettier-ignore
   console.log(
     '\n Name  : ' + torrent.name +
-    'Connected  : ' + torrent.numPeers + ' peers\n' +
+    '\n Connected  : ' + torrent.numPeers + ' peers\n' +
     ' Downloaded : ' + _formatBytes(torrent.downloaded) + ' (' + _formatBytes(torrent.downloadSpeed) + '/s)\n' +
     ' Size       : ' + _formatBytes(torrent.length) + '\n' +
     ' ETA        : ' +  _formatTime(torrent.timeRemaining) + '\n' +
@@ -50,23 +49,13 @@ const torrentLog = torrent => {
   );
 };
 
-module.exports = (obj, downloadPath, database_dir) => {
+module.exports = (torrentId, downloadPath) => {
   return new Promise((resolve, reject) => {
-    let torrentId = obj['magnet_link']
-    // check if torrentId exist
-    if (!torrentId) {
-      console.log(obj)
-      console.log("No torrent id provided")
-      return resolve();
-    }
-
     // client
-    const client = new WebTorrent({ maxConns: 200 });
+    const client = new WebTorrent({ maxConns: 300 });
 
     client.on("error", err => {
-      client.destroy(() => {
-        return reject(err);
-      });
+      client.destroy(() => reject(err));
     });
 
     // torrent
@@ -74,9 +63,7 @@ module.exports = (obj, downloadPath, database_dir) => {
 
     let st = setTimeout(() => {
       if (torrent.numPeers < 1) {
-        client.destroy(() => {
-          return reject("Cannot find any peers!");
-        });
+        client.destroy(() => reject("Cannot find any peers!"));
       }
     }, 1000 * 10);
 
@@ -87,18 +74,18 @@ module.exports = (obj, downloadPath, database_dir) => {
       });
     });
 
-    // torrent.on("metadata", () => {
-    //   console.log("\n " + torrent.name);
-    //   torrent.files.forEach(file => {
-    //     console.log(` ├── ${file.name} (${_formatBytes(file.length)})`);
-    //   });
-    // });
+    torrent.on("metadata", () => {
+      console.log("\n " + torrent.name);
+      torrent.files.forEach(file => {
+        console.log(` ├── ${file.name} (${_formatBytes(file.length)})`);
+      });
+    });
 
     let time = Date.now() + 1000;
 
     torrent.on("download", bytes => {
-      let t = Date.now();
-      if (t - time >= 60*1000) {
+      const t = Date.now();
+      if (t - time >= 30*1000) {
         time = t;
         torrentLog(torrent);
       }
@@ -107,20 +94,8 @@ module.exports = (obj, downloadPath, database_dir) => {
     torrent.on("done", () => {
       if (st) clearTimeout(st);
       torrentLog(torrent);
-      //Don't need magnet link anymore, and it's kind of long
-      delete obj['magnet_link']
-      obj['size'] = torrent.files[0]['length']
-      obj['video_ext'] = path.extname(torrent.files[0]['name'])
-      // Removes the video extension from the filename
-      // This will make it a lot easier when we want to
-      // Store other files such as thumbnails/extracted subtitles
-      obj['basename'] = path.basename(torrent.files[0]['name'], obj['video_ext'])
-      obj['time_downloaded'] = Math.floor(new Date().getTime() / 1000)
-      database.addSync(obj,database_dir)
+      resolve({path: torrent.path, files: torrent.files})
       client.destroy();
-      console.log("Finished Downloading "+obj['basename'])
-      Transcoder.transcode_file(path.join(torrent.path,obj['basename']+obj['video_ext']), database_dir, resolve)
-
     });
   });
 };
