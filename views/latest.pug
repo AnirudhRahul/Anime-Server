@@ -44,6 +44,9 @@ html
             h5(class="card-text")= "Episode "+episode.episode
           
   script.
+    const config = {
+      rootMargin: '50vh 0px',
+    };
     const targets = document.querySelectorAll('img.lazy');
     const lazyLoad = target => {
       const io = new IntersectionObserver((entries, observer) => {
@@ -55,7 +58,7 @@ html
             observer.disconnect();
           }
         });
-      });
+      }, config);
 
       io.observe(target)
     };
