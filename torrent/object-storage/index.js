@@ -73,7 +73,6 @@ function uploadFile(file_path, mimeType, metadata){
         reject(err)
       else
         resolve(data.Location)
-      console.log(err, data);
     });
   })
 
