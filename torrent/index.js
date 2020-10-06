@@ -3,6 +3,8 @@ const Download = require('./download_torrent.js')
 const Probe = require("./transcode/probe_video.js")
 const Thumbnail = require("./transcode/extract_thumbnail.js")
 const Transcoder = require("./transcode/transcode_video.js")
+const ObjectStorage = require("./object-storage")
+
 // Returns a promise that resolves when the inputted object
 // is done being downloaded, transcoded, and sent to S3
 // Should resolve with the modified value of the input obj
@@ -22,8 +24,6 @@ module.exports = (obj, downloadPath, database_dir) =>
     // Return video metadata to inform future promises
     return Probe.extract_metadata(path.join(torrent.path, mainFile['name']))
   })
-  // Save metadata after initial probe
-  .then((metadata) => updateDatabase(obj, metadata, database_dir))
   .then((metadata) => Thumbnail.extract(metadata))
   .then((metadata) => {
     metadata.transcoded = false
@@ -33,16 +33,19 @@ module.exports = (obj, downloadPath, database_dir) =>
       return metadata
   })
   .then((metadata) => {
-    //Don't want to keep entire magnet link its too long
-    obj.magnet_hash = hash(obj.magnet_link)
+    //Adding hash of magnet link to metadata
+    //before we send it to ObjectStorage
+    metadata.magnet_hash = hash(obj.magnet_link)
     delete obj.magnet_link
-    updateDatabase(obj, metadata, database_dir)
-    console.log("FINISHED torrent promise")
-    resolve()
+    return updateDatabase(obj, metadata, database_dir)
   })
-  .catch((err) =>{
-    reject(err)
+  .then((metadata) => ObjectStorage.upload(metadata))
+  .then((metadata) => updateDatabase(obj, metadata, database_dir))
+  .then(() => {
+      console.log("Finished Torrent promise")
+      resolve(obj)
   })
+  .catch(reject)
 });
 
 const database = require('../database.js')
