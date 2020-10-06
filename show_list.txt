@@ -1,51 +1,35 @@
-The God Of High School S1
-  Query: [HorribleSubs] The God of High School [1080p]
+Re Zero S2
+  Query: [Erai-raws] Re.Zero kara Hajimeru Isekai Seikatsu 2nd Season [720p]
   Ongoing: false
-  Download-Latest: 3
-  Stream-Latest: 2
-  Tags: Action
-
-Re:Zero S2
-  Query: [HorribleSubs] Re Zero kara Hajimeru Isekai Seikatsu [1080p]
-    Offset: -25
-  Ongoing: false
-  Download-Latest: 4
   Tags: Action
 
 Fire Force S2
-  Query: [HorribleSubs] Enen no Shouboutai S2 [1080p]
+  Query: [Erai-raws] Enen no Shouboutai - Ni no Shou [720p]
   Ongoing: True
-  Download-Latest: 4
-
-Misfit Demon King Academy 1080p
-  Query: [HorribleSubs] Maou Gakuin no Futekigousha [1080p]
-  Ongoing: false
-  Download-Latest: 2
-  Tags: Action
-
-Shokugeki no Soma S5
-  Query: [HorribleSubs] Shokugeki no Soma S5 [1080p]
-  Ongoing: false
-  Tags: Food
+  Download-Latest: 1
 
 Oregairu S3
-  Query: [HorribleSubs] Yahari Ore no Seishun Love Come wa Machigatteiru Kan [1080p]
+  Query: [HorribleSubs] Yahari Ore no Seishun Love Come wa Machigatteiru Kan [720p]
   Ongoing: false
   Tags: Action
 
 One Piece
-  Query: [HorribleSubs] One Piece [1080p]
+  Query: [Erai-raws] One Piece [720p]
   Ongoing: True
-  Download-Latest: 3
+  Download-Latest: 5
   Tags: Long
 
 Black Clover
-  Query: [HorribleSubs] Black Clover [1080p]
+  Query: [Erai-raws] Black Clover [720p]
   Ongoing: True
-  Download-Latest: 7
+  Download-Latest: 10
   Tags: Long
 
 Haikyuu!! To the Top
-  Query: [Erai-raws] Haikyuu!! To the Top 2nd Season [1080p]
+  Query: [Erai-raws] Haikyuu!! To the Top 2nd Season [720p]
   Ongoing: True
   Tags: Sports
+
+Tonikaku Kawaii
+  Query: [Erai-raws] Tonikaku Kawaii [720p]
+  Ongoing: True

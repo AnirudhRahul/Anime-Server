@@ -33,7 +33,7 @@ html
   div(class="m-3")
     div(class="grid-view center")
       each episode in episode_list
-        - thumbnail_src = '/prod-data/videos/'+encodeURIComponent(episode.show_name)+'/'+encodeURIComponent(episode.basename+episode.thumbnail_ext)
+        - thumbnail_src = episode.metadata.thumbnail_path
         - video_link = '/show/'+encodeURIComponent(episode.show_name)+'/episode/'+episode.episode
         div(class="card border border-secondary mx-1")
           a(href=video_link)
