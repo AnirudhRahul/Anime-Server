@@ -122,9 +122,9 @@ Enter ssl certificate into virtual host config
 
 https://s8.gifyu.com/images/vhost_ssl.png
 
-Private Key File: `/etc/letsencrypt/live/aniserveani.com/privkey.pem`
+Private Key File: `/etc/letsencrypt/live/DOMAIN_NAME/privkey.pem`
 
-Certificate File: `/etc/letsencrypt/live/aniserveani.com/fullchain.pem`
+Certificate File: `/etc/letsencrypt/live/DOMAIN_NAME/fullchain.pem`
 
 Select yes for chained certificate
 
