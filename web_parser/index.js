@@ -39,7 +39,6 @@ exports.parseBody = function(body, to_JSON, database_dir, show){
           if(!found)
             toDownload.push(resp_json[j])
       }
-      console.log("To Download", toDownload)
       for(item of toDownload)
         item['show_name'] = show_name
       resolve(toDownload)

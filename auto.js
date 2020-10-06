@@ -96,15 +96,15 @@ function checkNyaa() {
 
     database.writeSync(last_visited, time_dir)
     pool.start()
-    .then(() =>{
-       end_time = getTime()
-       diff = end_time-start_time
-       if(diff>interval_seconds)
+    .then(() => {
+      console.log('Finished Checking nyaa.si')
+      end_time = getTime()
+      diff = end_time-start_time
+      if(diff>interval_seconds)
         checkNyaa()
-       else
+      else
         setTimeout(checkNyaa,(interval_seconds-diff)*1000)
-       console.log('Finished Checking nyaa.si')
-     })
+    })
   })
 
 }

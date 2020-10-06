@@ -33,8 +33,8 @@ module.exports = (obj, downloadPath, database_dir) =>
       return metadata
   })
   .then((metadata) => {
-    obj.magnet_hash = hash(obj.magnet_link)
     //Don't want to keep entire magnet link its too long
+    obj.magnet_hash = hash(obj.magnet_link)
     delete obj.magnet_link
     updateDatabase(obj, metadata, database_dir)
     console.log("FINISHED torrent promise")
