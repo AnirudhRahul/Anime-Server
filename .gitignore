@@ -3,3 +3,6 @@ media/*
 !media/.gitkeep
 !media/icon-chan.png
 !media/favicon.ico
+torrent/object-storage/*.env
+!torrent/object-storage/template.env
+
