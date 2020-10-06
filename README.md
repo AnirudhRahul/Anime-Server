@@ -45,6 +45,17 @@ rm -rf cgi-bin fcgi-bin
 
 `ffmpeg -version`
 
+# Configure S3
+Make sure to add a .env file with the following attributes:
+```
+AWS_accessKeyId=SECRET
+AWS_secretAccessKey=SECRET
+AWS_Endpoint=s3.us-east-2.wasabisys.com
+AWS_Region=us-east-2
+AWS_Bucket=aniserve-dev(can pick any bucket name just make sure it exists)
+```
+
+
 # Start torrenter
 
 `pm2 start ecosystem.config.js`
