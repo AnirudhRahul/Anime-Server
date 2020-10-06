@@ -8,6 +8,10 @@ Fire Force S2
   Ongoing: True
   Download-Latest: 1
 
+Dungeon ni Deai wo Motomeru S3
+  Query: [Erai-raws] Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka III [720p][Multiple Subtitle]
+  Ongoing: True
+
 Oregairu S3
   Query: [HorribleSubs] Yahari Ore no Seishun Love Come wa Machigatteiru Kan [720p]
   Ongoing: false
