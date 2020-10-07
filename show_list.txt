@@ -8,10 +8,6 @@ Fire Force S2
   Ongoing: True
   Download-Latest: 1
 
-Dungeon ni Deai wo Motomeru S3
-  Query: [Erai-raws] Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka III [720p][Multiple Subtitle]
-  Ongoing: True
-
 Oregairu S3
   Query: [HorribleSubs] Yahari Ore no Seishun Love Come wa Machigatteiru Kan [720p]
   Ongoing: false
@@ -37,7 +33,19 @@ Haikyuu!! To the Top
 Tonikaku Kawaii
   Query: [Erai-raws] Tonikaku Kawaii [720p]
   Ongoing: True
-  
+
 Majo no Tabitabi
   Query: [Erai-raws] Majo no Tabitabi [720p]
+  Ongoing: True
+
+Dungeon ni Deai wo Motomeru S3
+  Query: [Erai-raws] Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka III [720p][Multiple Subtitle]
+  Ongoing: True
+
+Burn the Witch
+  Query: [WhoWillReplaceHS] Burn the Witch [1080p]
+  Ongoing: True
+
+Jujutsu Kaisen
+  Query: [Erai-raws] Jujutsu Kaisen [720p][Multiple Subtitle]
   Ongoing: True
