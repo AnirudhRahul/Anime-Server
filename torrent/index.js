@@ -2,6 +2,7 @@ const path = require('path')
 const Download = require('./download_torrent.js')
 const Probe = require("./transcode/probe_video.js")
 const Thumbnail = require("./transcode/extract_thumbnail.js")
+const Downscale = require("./transcode/downscale.js")
 const Transcoder = require("./transcode/transcode_video.js")
 const ObjectStorage = require("./object-storage")
 
@@ -25,6 +26,7 @@ module.exports = (obj, downloadPath, database_dir) =>
     return Probe.extract_metadata(path.join(torrent.path, mainFile['name']))
   })
   .then((metadata) => Thumbnail.extract(metadata))
+  .then((metadata) => Downscale.thumbnail(metadata))
   .then((metadata) => {
     metadata.transcoded = false
     if(metadata.video_codec == 'h264' && !metadata.video_path.endsWith('.mp4'))
@@ -45,7 +47,9 @@ module.exports = (obj, downloadPath, database_dir) =>
       console.log("Finished Torrent promise")
       resolve(obj)
   })
-  .catch(reject)
+  .catch((err) =>{
+    console.error(err)
+  })
 });
 
 const database = require('../database.js')

@@ -1,7 +1,7 @@
 - video_src = data.metadata.video_path
 - subtitle_src = data.metadata.subtitle_path
 - thumbnail_src = data.metadata.thumbnail_path
-- nice_thumbnail_src = decodeURIComponent(data.metadata.thumbnail_path)
+- nice_thumbnail_src = data.metadata.small_thumbnail_path || decodeURIComponent(data.metadata.thumbnail_path)
 doctype html
 html
   head

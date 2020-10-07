@@ -9,7 +9,7 @@ module.exports.extract = (metadata) =>{
       .input(metadata.video_path)
       .inputOptions('-ss ' + seekPoint)
       .outputOptions('-vf')
-      .outputOptions('thumbnail=' + thumbnail_frames + ',scale=640:360')
+      .outputOptions('thumbnail=' + thumbnail_frames)
       .outputOptions('-frames:v 1')
       .output(metadata.base_path + '.png')
       .on('end', ()=>{
