@@ -17,7 +17,7 @@ Oregairu S3(Good Subs)
   Ongoing: false
 
 Oregairu S2 OVA
-  Query: [YnK] Yahari Ore no Seishun Love Comedy wa Machigatteiru. Zoku - OVA [BD 720p] [CC8D1B8E].mkv
+  Query: [SallySubs] Yahari Ore no Seishun Love Comedy wa Machigatteiru Zoku - OVA [BD 720p AAC] [BB68ADBB].mkv
   Ongoing: false
 
 Noblesse
