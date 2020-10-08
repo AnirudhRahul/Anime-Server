@@ -16,6 +16,18 @@ Oregairu S3(Good Subs)
   Query: [MTBB] Yahari Ore no Seishun Love Comedy wa Machigatteiru. Kan – My Teen Romantic Comedy SNAFU Climax
   Ongoing: false
 
+Oregairu S2 OVA
+  Query: [YnK] Yahari Ore no Seishun Love Comedy wa Machigatteiru. Zoku - OVA [BD 720p] [CC8D1B8E].mkv
+  Ongoing: false
+
+Noblesse
+  Query: [Erai-raws] Noblesse [720p][Multiple Subtitle].mkv
+  Ongoing: true
+
+The Irregular at Magic High School S2
+  Query: [Erai-raws] Mahouka Koukou no Rettousei - Raihousha Hen [720p]
+  Ongoing: true
+
 One Piece
   Query: [Erai-raws] One Piece [720p]
   Ongoing: True
