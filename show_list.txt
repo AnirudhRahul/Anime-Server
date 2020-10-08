@@ -11,7 +11,10 @@ Fire Force S2
 Oregairu S3
   Query: [HorribleSubs] Yahari Ore no Seishun Love Come wa Machigatteiru Kan [720p]
   Ongoing: false
-  Tags: Action
+
+Oregairu S3(Good Subs)
+  Query: [MTBB] Yahari Ore no Seishun Love Comedy wa Machigatteiru. Kan – My Teen Romantic Comedy SNAFU Climax
+  Ongoing: false
 
 One Piece
   Query: [Erai-raws] One Piece [720p]
