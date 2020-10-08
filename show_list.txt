@@ -28,6 +28,14 @@ The Irregular at Magic High School S2
   Query: [Erai-raws] Mahouka Koukou no Rettousei - Raihousha Hen [720p]
   Ongoing: true
 
+Kimi no Na wa
+  Query: [MTBB] Kimi no Na wa. – Your Name. (1080p BD)
+  Ongoing: false
+
+Weathering with You
+  Query: [Anime Land] Tenki no Ko (Weathering with You) (BDRip 1080p Hi10P DTS-HD) [78849D34].mkv
+  Ongoing: false
+
 One Piece
   Query: [Erai-raws] One Piece [720p]
   Ongoing: True
