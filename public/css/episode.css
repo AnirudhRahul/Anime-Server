@@ -3,8 +3,19 @@
   width: 50%;
   margin: 0 auto;
 }
+
 .embed-responsive .embed-responsive-item, .embed-responsive iframe, .embed-responsive embed, .embed-responsive object, .embed-responsive video {
     border: none !important;
+    box-shadow: none !important;
+
+}
+.video-js .vjs-volume-panel .vjs-volume-control.vjs-slider-active.vjs-volume-vertical .vjs-volume-bar,
+.video-js .vjs-big-play-button,
+.vjs-flat-skin .vjs-fullscreen-control,
+.vjs-flat-skin .vjs-subtitles-button,
+.video-js.vjs-default-skin.vjs-paused .vjs-big-play-button {
+    border: none !important;
+    box-shadow: none !important;
 }
 
 .vjs-poster{
