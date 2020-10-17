@@ -17,6 +17,12 @@ fs.watchFile(database_dir,{interval: 10000}, (cur) => {
   episode_list = getEpisodes(json_map)
 });
 
+show_list = require('./parser.js').get_shows()
+name_map = {}
+for(show of show_list){
+  name_map[show.name] = show.official_name
+}
+
 app.set('view engine', 'pug')
 app.use(express.static('public'))
 app.use(favicon(path.join(__dirname, 'public', 'media', 'favicon.ico')))
@@ -78,7 +84,16 @@ app.get('/show/:show/episode/:episode', function (req, res) {
     next_episode = json_map[req.params.show][episode_index-1]['episode']
   }catch(err){}
 
-  res.render('episode', {data:cur_episode,prev:prev_episode,next:next_episode})
+  let official_name = cur_episode.show_name
+  if(official_name in name_map && name_map[official_name].length > 0)
+    official_name = name_map[official_name]
+
+  res.render('episode', {
+    data:cur_episode,
+    prev:prev_episode,
+    next:next_episode,
+    official_name: official_name
+  })
 })
 
 

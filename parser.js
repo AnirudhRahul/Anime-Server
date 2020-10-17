@@ -11,6 +11,7 @@ module.exports.get_shows = function(){
   //initial values of attributes
   init = {
     "name":"",
+    "official_name":"",
     "query":"",
     "ongoing":false,
     "tags":[],

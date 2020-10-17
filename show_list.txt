@@ -1,23 +1,23 @@
 Re Zero S2
   Query: [Erai-raws] Re.Zero kara Hajimeru Isekai Seikatsu 2nd Season [720p]
+  Official_Name: ReZero kara Hajimeru Isekai Seikatsu Season 2
   Ongoing: false
   Tags: Action
 
 Fire Force S2
   Query: [Erai-raws] Enen no Shouboutai - Ni no Shou [720p][Multiple Subtitle]
+  Official_Name: Enen no Shouboutai: Ni no Shou
   Ongoing: True
   Download-Latest: 1
 
 Oregairu S3
   Query: [HorribleSubs] Yahari Ore no Seishun Love Come wa Machigatteiru Kan [720p]
+  Official_Name: Yahari Ore no Seishun Love Comedy wa Machigatteiru. Kan
   Ongoing: false
 
 Oregairu S3(Good Subs)
   Query: [MTBB] Yahari Ore no Seishun Love Comedy wa Machigatteiru. Kan – My Teen Romantic Comedy SNAFU Climax
-  Ongoing: false
-
-Oregairu S2 OVA
-  Query: [SallySubs] Yahari Ore no Seishun Love Comedy wa Machigatteiru Zoku - OVA [BD 720p AAC] [BB68ADBB].mkv
+  Official_Name: Yahari Ore no Seishun Love Comedy wa Machigatteiru. Kan
   Ongoing: false
 
 Noblesse
@@ -26,6 +26,7 @@ Noblesse
 
 The Irregular at Magic High School S2
   Query: [Erai-raws] Mahouka Koukou no Rettousei - Raihousha Hen [720p]
+  Official_Name: Mahouka Koukou no Rettousei - Raihousha Hen
   Ongoing: true
 
 Kimi no Na wa
@@ -50,6 +51,7 @@ Black Clover
 
 Haikyuu!! To the Top
   Query: [Erai-raws] Haikyuu!! To the Top 2nd Season [720p]
+  Official_Name: Haikyuu!! To the Top 2nd Season
   Ongoing: True
   Tags: Sports
 
@@ -63,6 +65,7 @@ Majo no Tabitabi
 
 Dungeon ni Deai wo Motomeru S3
   Query: [Erai-raws] Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka III [720p][Multiple Subtitle]
+  Official_Name: Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka III
   Ongoing: True
 
 Burn the Witch
