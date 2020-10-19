@@ -37,6 +37,10 @@ Weathering with You
   Query: [Anime Land] Tenki no Ko (Weathering with You) (BDRip 1080p Hi10P DTS-HD) [78849D34].mkv
   Ongoing: false
 
+The Moment You Fall in Love
+  Query: [Astral] Suki ni Naru Sono Shunkan wo. Kokuhaku Jikkou Iinkai (BD 1080p FLAC)
+  Ongoing: false
+
 One Piece
   Query: [Erai-raws] One Piece [720p]
   Ongoing: True
