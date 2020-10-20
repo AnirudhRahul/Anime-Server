@@ -35,13 +35,14 @@ html
       each episode in episode_list
         - thumbnail_src = episode.metadata.small_thumbnail_path || episode.metadata.thumbnail_path
         - video_link = '/show/'+encodeURIComponent(episode.show_name)+'/episode/'+episode.episode
-        div(class="card border border-secondary mx-1")
-          a(href=video_link)
-            span()
-          img(class="card-img-top lazy" data-lazy=thumbnail_src src='/media/blank.png' onerror="if (this.src != '/media/default-image.jpg') this.src = '/media/default-image.jpg';")
-          div(class="card-body")
-            h5(class="card-title")= episode.show_name
-            h5(class="card-text")= "Episode "+episode.episode
+        if episode.episode!=-1
+          div(class="card border border-secondary mx-1")
+            a(href=video_link)
+              span()
+            img(class="card-img-top lazy" data-lazy=thumbnail_src src='/media/blank.png' onerror="if (this.src != '/media/default-image.jpg') this.src = '/media/default-image.jpg';")
+            div(class="card-body")
+              h5(class="card-title")= episode.show_name
+              h5(class="card-text")= "Episode "+episode.episode
           
   script.
     const config = {
