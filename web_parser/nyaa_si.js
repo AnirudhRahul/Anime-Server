@@ -45,5 +45,7 @@ module.exports = function(body){
     })
   })
 
+  json_list = json_list.filter(obj => obj.episode!=-1 && obj.episode!='-1')
+
   return json_list
 }
