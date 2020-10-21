@@ -68,7 +68,8 @@ function uploadFile(file_path, mimeType, metadata){
       ContentType: mimeType,
       Metadata: formatted_metadata,
     };
-    s3.upload(params, function(err, data) {
+    const options = {partSize: 10 * 1024 * 1024, queueSize: 20}
+    s3.upload(params, options, function(err, data) {
       if(err)
         reject(err)
       else
