@@ -2,6 +2,7 @@
 - subtitle_src = data.metadata.subtitle_path
 - thumbnail_src = data.metadata.thumbnail_path
 - nice_thumbnail_src = data.metadata.small_thumbnail_path || decodeURIComponent(data.metadata.thumbnail_path)
+- playable = data.metadata.video_path.endsWith('.mp4')
 doctype html
 html
   head
@@ -30,16 +31,26 @@ html
   body
     div(class="mx-3 mt-3")
       div(class="embed-responsive embed-responsive-16by9" align="center")
-        video(align="center" id="my-video" 
-        class="video-js embed-responsive-item vjs-default-skin vjs-big-play-centered vjs-fill"
-        controls 
-        playsinline
-        preload="auto"
-        poster=thumbnail_src)
-          source(src=video_src, type='video/mp4')
-          //- track(srclang="en" label="English" src=subtitle_src default)
+        if playable
+          video(align="center" id="my-video" 
+          class="video-js embed-responsive-item vjs-default-skin vjs-big-play-centered vjs-fill"
+          controls 
+          playsinline
+          preload="auto"
+          poster=thumbnail_src)
+            source(src=video_src, type='video/mp4')
+        else
+          a(href='potplayer://' + video_src)
+            video(align="center" id="my-video" 
+            class="video-js embed-responsive-item vjs-default-skin vjs-big-play-centered vjs-fill"
+            poster=thumbnail_src)
+      if !playable
+          h2 Video format not supported, 
+            a(href='potplayer://' + video_src) open in PotPlayer
+    
     div(class="m-3")
-      div(id="aggro")
+      if playable
+        div(id="aggro")
       h2= data.show_name
       h3= "Episode "+data.episode
       a(href=video_src download) Download Link
@@ -51,7 +62,7 @@ html
         br
         link(rel='prerender', href=prev)
         a(href= next) Next Episode
-      p(id='stats') Dropped Frames: None
+
       div(class="reddit-embed center" style="max-width:1000px" id="embed-div")
 
     script(src='/js/subtitles-octopus.js')
