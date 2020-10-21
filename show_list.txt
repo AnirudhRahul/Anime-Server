@@ -34,11 +34,27 @@ Kimi no Na wa
   Ongoing: false
 
 Weathering with You
-  Query: [Anime Land] Tenki no Ko (Weathering with You) (BDRip 1080p Hi10P DTS-HD) [78849D34].mkv
+  Query: [EMBER] Weathering With You (2019) [BDRip] [1080p Dual Audo HEVC 10 bits] (Tenki no Ko)
   Ongoing: false
 
 SAO Ordinal Scale
   Query: [Judas] Sword Art Online - Movie 01 (Ordinal Scale) [UNCENSORED BD 1080p][HEVC x265 10bit][Dual-Audio][Eng-Subs]
+  Ongoing: false
+
+Penguin Highway
+  Query: [PAS] Penguin Highway (BD 1080p AAC) [DFF2C35A].mkv
+  Ongoing: false
+
+MHA Heroes Rising
+  Query: [EMBER] My Hero Academia: Heroes Rising-Movie (2019) [BDRip] [1080p HEVC 10 bits] (Boku no Hero Academia the Movie 2: Heroes:Rising) ~Dual
+  Ongoing: false
+
+Fate Stay Night Heaven's Feel I
+  Query: [Yūrei] Fate/stay night Movie: Heaven's Feel - I. Presage Flower [BD 1080p x265 10bit Opus 5.1 Dual Audio]
+  Ongoing: false
+
+Fate Stay Night Heaven's Feel II
+  Query: [Yūrei] Fate/stay night Movie: Heaven's Feel - II. Lost Butterfly [BD 1080p x265 10bit Opus 5.1 Dual Audio]
   Ongoing: false
 
 One Piece
