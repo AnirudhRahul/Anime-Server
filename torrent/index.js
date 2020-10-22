@@ -23,7 +23,7 @@ module.exports = (obj, downloadPath, database_dir) =>
     // Store data about video file into obj
     obj.time_downloaded = Math.floor(new Date().getTime() / 1000)
     // Return video metadata to inform future promises
-    return Probe.extract_metadata(path.join(torrent.path, mainFile['name']))
+    return Probe.extract_metadata(path.join(torrent.path, mainFile['path']))
   })
   .then((metadata) => Thumbnail.extract(metadata))
   .then((metadata) => Downscale.thumbnail(metadata))
