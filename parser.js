@@ -54,29 +54,28 @@ module.exports.get_shows = function(){
 
     //update listed attribute
     line = line.trim()
-    spl = line.split(":")
+    spl = line.indexOf(":")
 
-    spl[0] = spl[0].trim().toLowerCase()
-    spl[1] = spl[1].trim()
-
+    attr = line.substring(0,spl).trim().toLowerCase()
+    value = line.substring(spl+1).trim()
     //change update procedure based on data type
-    switch(typeof init[spl[0]]) {
+    switch(typeof init[attr]) {
       case "string":
-        curr_attr[spl[0]] = spl[1]
+        curr_attr[attr] = value
         break
 
       case "number":
-        if(spl[1] !== "all"){
-          curr_attr[spl[0]] = parseInt(spl[1])
+        if(value !== "all"){
+          curr_attr[attr] = parseInt(value)
         }
         break
 
       case "boolean":
-        curr_attr[spl[0]] = spl[1].toLowerCase() === "true"
+        curr_attr[attr] = value.toLowerCase() === "true"
         break
 
       case "object":
-        curr_attr[spl[0]] = spl[1].split(", ")
+        curr_attr[attr] = value.split(", ")
         break
     }
   })
