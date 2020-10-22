@@ -30,6 +30,30 @@ html
     .card {
       position:relative;
     }
+    
+    /* Position child elements relative to this element */
+    .aspect-ratio-box {
+        position: relative;
+    }
+
+    /* Create a pseudo element that uses padding-bottom to take up space */
+    .aspect-ratio-box::after {
+        display: block;
+        content: '';
+        /* 16:9 aspect ratio */
+        padding-bottom: 56.25%;
+    }
+
+    /* Image is positioned absolutely relative to the parent element */
+    .aspect-ratio-box img {
+        /* Image should match parent box size */
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+    
   div(class="m-3")
     div(class="grid-view center")
       each episode in episode_list
@@ -39,7 +63,8 @@ html
           div(class="card border border-secondary mx-1")
             a(href=video_link)
               span()
-            img(class="card-img-top lazy" data-lazy=thumbnail_src src='/media/blank.png' onerror="if (this.src != '/media/default-image.jpg') this.src = '/media/default-image.jpg';")
+            div(class="aspect-ratio-box")
+                img(class="card-img-top lazy" data-lazy=thumbnail_src src='/media/blank.png' onerror="if (this.src != '/media/default-image.jpg') this.src = '/media/default-image.jpg';")
             div(class="card-body")
               h5(class="card-title")= episode.show_name
               h5(class="card-text")= "Episode "+episode.episode
