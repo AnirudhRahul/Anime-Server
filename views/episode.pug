@@ -14,17 +14,16 @@ html
     meta(property='og:image', content=nice_thumbnail_src)
     meta(property='og:type', content='video.episode')
 
-    link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/reddit-embed@1.0.6/css/red.css')
-    script(src='https://cdn.jsdelivr.net/npm/he@1.2.0/he.js')
-    script(src='https://cdn.jsdelivr.net/npm/reddit-embed@1.0.6/red.js')
-    script(src='https://cdn.jsdelivr.net/npm/reddit.js@0.1.4/reddit.min.js')
+    link(rel='stylesheet' href='/js/red.css')
+    script(src='/js/red.js')
+    script(src='/js/reddit.min.js')
 
 
     title= data.show_name
     script.
       window.HELP_IMPROVE_VIDEOJS = false;
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel='stylesheet', href='https://vjs.zencdn.net/7.8.4/video-js.css')
+    link(rel='stylesheet', href='/css/video-js.css')
     link(rel='stylesheet', href='/css/libjass.css')
     link(rel='stylesheet', href='/css/episode.css')
   include header.pug

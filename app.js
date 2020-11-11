@@ -1,4 +1,6 @@
 const express = require('express')
+express.static.mime.define({'application/wasm': ['wasm']});
+
 const app = express()
 const favicon = require('serve-favicon');
 const path = require('path')
