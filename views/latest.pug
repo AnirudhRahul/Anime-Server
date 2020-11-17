@@ -54,6 +54,12 @@ html
         height: 100%;
     }
     
+    .card-title{
+      text-overflow: ellipsis; 
+      overflow: hidden; 
+      white-space: nowrap;
+    }
+    
   div(class="m-3")
     div(class="grid-view center")
       each episode in episode_list

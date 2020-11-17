@@ -24,6 +24,10 @@ Noblesse
   Query: [Erai-raws] Noblesse [720p][Multiple Subtitle].mkv
   Ongoing: true
 
+Kimi to Boku no Saigo no Senjou
+  Query: [SubsPlease] Kimi to Boku no Saigo no Senjou, Arui wa Sekai ga Hajimaru Seisen (1080p)
+  Ongoing: true
+
 The Irregular at Magic High School S2
   Query: [Erai-raws] Mahouka Koukou no Rettousei - Raihousha Hen [720p]
   Official_Name: Mahouka Koukou no Rettousei - Raihousha Hen
