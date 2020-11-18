@@ -61,6 +61,10 @@ Fate Stay Night Heaven's Feel II
   Query: [Yūrei] Fate/stay night Movie: Heaven's Feel - II. Lost Butterfly [BD 1080p x265 10bit Opus 5.1 Dual Audio]
   Ongoing: false
 
+DanMachi Orion no Ya
+  Query: [Erai-raws] Gekijouban Dungeon ni Deai o Motomeru no wa Machigatte Iru Darouka - Orion no Ya [1080p][Multiple Subtitle].mkv
+  Ongoing: false
+
 One Piece
   Query: [Erai-raws] One Piece [720p]
   Ongoing: True
