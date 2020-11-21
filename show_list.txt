@@ -84,22 +84,22 @@ Haikyuu!! To the Top
   Tags: Sports
 
 Tonikaku Kawaii
-  Query: [Erai-raws] Tonikaku Kawaii [720p]
+  Query: [SubsPlease] Tonikaku Kawaii (1080p)
   Ongoing: True
 
 Majo no Tabitabi
-  Query: [Erai-raws] Majo no Tabitabi [720p]
+  Query: [SubsPlease] Majo no Tabitabi (720p)
   Ongoing: True
 
 Dungeon ni Deai wo Motomeru S3
-  Query: [Erai-raws] Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka III [720p][Multiple Subtitle]
+  Query: [SubsPlease] Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka S3 (1080p)
   Official_Name: Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka III
   Ongoing: True
 
 Burn the Witch
   Query: [WhoWillReplaceHS] Burn the Witch [1080p]
-  Ongoing: True
+  Ongoing: False
 
 Jujutsu Kaisen
-  Query: [Erai-raws] Jujutsu Kaisen [720p][Multiple Subtitle]
+  Query: [SubsPlease] Jujutsu Kaisen (1080p)
   Ongoing: True
