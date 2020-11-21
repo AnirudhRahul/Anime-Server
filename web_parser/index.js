@@ -32,7 +32,7 @@ exports.parseBody = function(body, to_JSON, database_dir, show){
           let found = false
           if(show_name in cur_json)
             for(let i = 0; i < cur_json[show_name].length; i++)
-              if(resp_json[j]['torrent_name'] === cur_json[show_name][i]['torrent_name'] && 'time_downloaded' in cur_json[show_name][i]){
+              if(resp_json[j]['episode'] === cur_json[show_name][i]['episode'] && 'time_downloaded' in cur_json[show_name][i]){
                   found = true
                   break
               }
