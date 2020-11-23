@@ -108,6 +108,10 @@ Munou na Nana
   Query: [SubsPlease] Munou na Nana (720p)
   Ongoing: True
 
+Akudama Drive
+  Query: [SubsPlease] Akudama Drive (1080p)
+  Ongoing: True
+
 Jujutsu Kaisen
   Query: [SubsPlease] Jujutsu Kaisen (1080p)
   Ongoing: True
