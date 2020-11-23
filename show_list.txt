@@ -96,6 +96,10 @@ Dungeon ni Deai wo Motomeru S3
   Official_Name: Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka III
   Ongoing: True
 
+Yuukoku no Moriarty
+  Query: [SubsPlease] Yuukoku no Moriarty (720p)
+  Ongoing: True
+
 Burn the Witch
   Query: [WhoWillReplaceHS] Burn the Witch [1080p]
   Ongoing: False
