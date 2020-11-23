@@ -59,7 +59,10 @@ function checkNyaa() {
     return show['last_checked']<Number.MAX_SAFE_INTEGER
   })
   list = list.sort((itemA,itemB)=>(itemA['last_checked']-itemB['last_checked']))
-
+  if(list.length==0){
+    console.log("Program Terminating no shows found")
+    return
+  }
 
   console.log('Checking Nyaa.si')
 
