@@ -1,5 +1,5 @@
 //From: https://github.com/sayem314/torrenter/blob/master/download.js
-const WebTorrent = require("webtorrent");
+var WebTorrent = require("webtorrent");
 
 const _formatBytes = bytes => {
   if (bytes < 1024) return bytes + " Bytes";
