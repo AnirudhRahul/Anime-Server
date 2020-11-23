@@ -115,3 +115,7 @@ Akudama Drive
 Jujutsu Kaisen
   Query: [SubsPlease] Jujutsu Kaisen (1080p)
   Ongoing: True
+
+Adachi to Shimamura
+  Query: [SubsPlease] Adachi to Shimamura (720p)
+  Ongoing: True
