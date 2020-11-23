@@ -33,6 +33,8 @@ const requester = require('./requester.js')
 const database = require('./database.js')
 const web_parser = require('./web_parser')
 const PromisePool = require('es6-promise-pool')
+const torrent = require('./torrent')
+
 //Interval at which we want to poll nyaa(in seconds)
 const interval_seconds = 5*60
 const max_concurrent_downloads = 1
@@ -65,6 +67,7 @@ function checkNyaa() {
   }
 
   console.log('Checking Nyaa.si')
+  console.log(process.memoryUsage());
 
   let download_queue = []
   const show = list[0]
@@ -83,7 +86,6 @@ function checkNyaa() {
     }
   );
 
-  const torrent = require('./torrent')
   const generatePromises = function * (arr) {
     for (let i = 0; i < arr.length; i++) {
       yield torrent(arr[i], path.join(video_dir, arr[i].show_name), database_dir)
