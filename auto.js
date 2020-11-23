@@ -67,7 +67,6 @@ function checkNyaa() {
   }
 
   console.log('Checking Nyaa.si')
-  console.log(process.memoryUsage());
 
   let download_queue = []
   const show = list[0]
@@ -103,6 +102,11 @@ function checkNyaa() {
     pool.start()
     .then(() => {
       console.log('Finished Checking nyaa.si')
+      try {
+        if (global.gc) {global.gc();}
+      } catch (e) {
+        console.log('node --expose-gc index.js');
+      }
       end_time = getTime()
       diff = end_time-start_time
       if(diff>interval_seconds)

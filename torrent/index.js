@@ -24,12 +24,14 @@ module.exports = (obj, downloadPath, database_dir) =>
     }
     // Store data about video file into obj
     obj.time_downloaded = Math.floor(new Date().getTime() / 1000)
+    runGC();
     // Return video metadata to inform future promises
     return Probe.extract_metadata(path.join(torrent.path, mainFile['path']))
   })
   .then((metadata) => Thumbnail.extract(metadata))
   .then((metadata) => Downscale.thumbnail(metadata))
   .then((metadata) => {
+    runGC();
     metadata.transcoded = false
     if(metadata.video_codec == 'h264' && !metadata.video_path.endsWith('.mp4'))
       return Transcoder.transcode_file(metadata)
@@ -41,12 +43,14 @@ module.exports = (obj, downloadPath, database_dir) =>
     //before we send it to ObjectStorage
     metadata.magnet_hash = hash(obj.magnet_link)
     delete obj.magnet_link
+    runGC();
     return updateDatabase(obj, metadata, database_dir)
   })
   .then((metadata) => ObjectStorage.upload(metadata))
   .then((metadata) => updateDatabase(obj, metadata, database_dir))
   .then(() => {
       console.log("Finished Torrent promise")
+      runGC();
       resolve(obj)
   })
   .catch((err) =>{
@@ -66,4 +70,12 @@ function hash(string){
   return crypto.createHash("sha256")
           .update(string)
           .digest("base64");
+}
+
+function runGC(){
+  try {
+    if (global.gc) {global.gc();}
+  } catch (e) {
+    console.log('--expose-gc flag not enabled');
+  }
 }
