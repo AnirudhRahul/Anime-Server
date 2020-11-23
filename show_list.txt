@@ -104,6 +104,10 @@ Burn the Witch
   Query: [WhoWillReplaceHS] Burn the Witch [1080p]
   Ongoing: False
 
+Munou na Nana
+  Query: [SubsPlease] Munou na Nana (720p)
+  Ongoing: True
+
 Jujutsu Kaisen
   Query: [SubsPlease] Jujutsu Kaisen (1080p)
   Ongoing: True
