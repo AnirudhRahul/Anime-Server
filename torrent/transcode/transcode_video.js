@@ -1,7 +1,5 @@
-const ffmpeg = require('fluent-ffmpeg');
+ffmpeg = require('fluent-ffmpeg');
 const fs = require("fs")
-const assert = require("assert")
-const {argv} = require('yargs')
 
 function transcode_file(metadata){
   return new Promise(function(resolve, reject){
@@ -35,7 +33,8 @@ module.exports.transcode_file = transcode_file
 
 
 if (require.main === module){
-  var env = process.env.NODE_ENV || 'development';
+  const {argv} = require('yargs')
+  let env = process.env.NODE_ENV || 'development';
   if(argv.prod)
     env = 'production'
   const {root_dir, video_dir, database_dir} = require('../../dirs.js').all(env)

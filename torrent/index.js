@@ -11,10 +11,12 @@ const ObjectStorage = require("./object-storage")
 // Should resolve with the modified value of the input obj
 module.exports = (obj, downloadPath, database_dir) =>
  new Promise((resolve, reject) => {
-  if(!('magnet_link' in obj))
-    reject('Magnet Link is not in input Object!!!\n'+obj)
+  if(!('magnet_link' in obj)){
+    return reject('Magnet Link is not in input Object!!!\n'+obj)
+  }
   Download(obj.magnet_link, downloadPath)
   .then((torrent) => {
+    console.log(torrent)
     let mainFile = torrent.files[0]
     for(file of torrent.files){
       if(file.length > mainFile.length)

@@ -1,7 +1,5 @@
 //From: https://github.com/sayem314/torrenter/blob/master/download.js
 const WebTorrent = require("webtorrent");
-const path = require("path");
-const database = require('../database.js')
 
 const _formatBytes = bytes => {
   if (bytes < 1024) return bytes + " Bytes";
@@ -106,7 +104,7 @@ module.exports = (torrentId, downloadPath) => {
       client = undefined;
       st = undefined;
 
-      resolve({path: torrent.path, files: torrent_files})
+      return resolve({path: torrent.path, files: torrent_files})
     });
   });
 };

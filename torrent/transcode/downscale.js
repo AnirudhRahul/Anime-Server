@@ -1,4 +1,4 @@
-const ffmpeg = require('fluent-ffmpeg');
+ffmpeg = require('fluent-ffmpeg');
 const path = require('path');
 module.exports.thumbnail = (metadata) =>{
   return new Promise((resolve, reject) => {

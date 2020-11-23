@@ -1,4 +1,4 @@
-const ffmpeg = require('fluent-ffmpeg');
+ffmpeg = require('fluent-ffmpeg');
 const RAM_LIMIT = 1.5
 module.exports.extract = (metadata) =>{
   //Good hueuristic for making sure the process doesnt crash because of ram usage

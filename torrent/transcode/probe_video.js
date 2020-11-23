@@ -1,9 +1,10 @@
-const ffmpeg = require('fluent-ffmpeg');
+ffmpeg = require('fluent-ffmpeg');
 module.exports.extract_metadata = (video_path) =>
   new Promise((resolve, reject) => {
     ffmpeg.ffprobe(video_path, (error, metadata) => {
-      if(error)
-        reject(error)
+      if(error){
+        return reject(error)
+      }
       else{
         let video_stream = false
         for(stream of metadata.streams)
@@ -11,8 +12,9 @@ module.exports.extract_metadata = (video_path) =>
             video_stream = stream
             break
           }
-        if(!video_stream)
-          reject("No video stream found :(")
+        if(!video_stream){
+          return reject("No video stream found :(")
+        }
         resolve({
           duration: metadata.format.duration,
           file_size: metadata.format.size,
