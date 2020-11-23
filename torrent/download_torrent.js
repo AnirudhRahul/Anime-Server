@@ -52,7 +52,7 @@ const torrentLog = torrent => {
 module.exports = (torrentId, downloadPath) => {
   return new Promise((resolve, reject) => {
     // client
-    const client = new WebTorrent({ maxConns: 300 });
+    let client = new WebTorrent({ maxConns: 300 });
 
     client.on("error", err => {
       client.destroy(() => reject(err));
@@ -94,8 +94,19 @@ module.exports = (torrentId, downloadPath) => {
     torrent.on("done", () => {
       if (st) clearTimeout(st);
       torrentLog(torrent);
-      resolve({path: torrent.path, files: torrent.files})
+      //Extract subset of file data before it is destroyed
+      const torrent_files = []
+      for(file of torrent.files){
+        torrent_files.push({
+          path: file.path,
+          length: file.length
+        })
+      }
       client.destroy();
+      client = undefined;
+      st = undefined;
+
+      resolve({path: torrent.path, files: torrent_files})
     });
   });
 };
