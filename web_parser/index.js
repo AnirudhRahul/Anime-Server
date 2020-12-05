@@ -3,12 +3,12 @@ exports.parseBody = function(body, to_JSON, database_dir, show){
     return new Promise(function(resolve, reject) {
       let resp_json = to_JSON(body)
 
-      if(show['download-latest']!=0 && resp_json.length>1){
+      if(show.download_latest!=0 && resp_json.length>1){
         //1 day in seconds
         max_diff = 1*60*60
         latest_json = []
         index = 0
-        for(let weeks = 0; weeks<show['download-latest'] && index<resp_json.length; weeks++){
+        for(let weeks = 0; weeks<show.download_latest && index<resp_json.length; weeks++){
           latest_json.push(resp_json[index])
           last = resp_json[index]
           index++
