@@ -8,7 +8,7 @@ Fire Force S2:
   Query: "[SubsPlease] Enen no Shouboutai S2 1080p"
   Official_Name: "Enen no Shouboutai: Ni no Shou"
   Ongoing: True
-  Download-Latest: 1
+  Download_Latest: 1
 
 Oregairu S3:
   Query: "[HorribleSubs] Yahari Ore no Seishun Love Come wa Machigatteiru Kan [720p]"
@@ -68,13 +68,13 @@ DanMachi Orion no Ya:
 One Piece:
   Query: "[Erai-raws] One Piece [720p]"
   Ongoing: True
-  Download-Latest: 5
+  Download_Latest: 5
   Tags: Long
 
 Black Clover:
   Query: "[Erai-raws] Black Clover [720p]"
   Ongoing: True
-  Download-Latest: 10
+  Download_Latest: 10
   Tags: Long
 
 Haikyuu!! To the Top:
