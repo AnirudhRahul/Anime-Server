@@ -7,15 +7,6 @@ module.exports.get_shows = function(){
   const file = fs.readFileSync(path.join(__dirname,'show_list.yaml'), 'utf8')
   const res = YAML.load(file)
   const output_list = []
-  init = {
-    "name":"",
-    "official_name":"",
-    "query":"",
-    "ongoing":false,
-    "tags":[],
-    "download_latest":0,
-    "offset":0
-  }
   for(const show of Object.keys(res)){
     const item = res[show]
     output_list.push({
