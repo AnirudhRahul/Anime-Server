@@ -37,10 +37,10 @@ module.exports.add_episode_numbers = function(input){
   })
   //TODO get rid of episode numbers and start using episode names
   //useful for OVAs and movies
-  if(input.length==1){
-    input[0]['episode']=1
-    return
-  }
+  // if(input.length==1){
+  //   input[0]['episode']=1
+  //   return
+  // }
 
   words = []
   for(let i=0;i<input.length;i++){
@@ -64,9 +64,10 @@ module.exports.add_episode_numbers = function(input){
         if(lastE == cur_word.length-1)
           continue
         suffix = cur_word.substring(lastE+1)
-        if(isNumeric(suffix))
+        if(isNumeric(suffix)){
           input[i]['episode'] = parseInt(suffix, 10)
-        break
+          break
+        }
       }
     }
   }
