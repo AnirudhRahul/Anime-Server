@@ -1,8 +1,29 @@
+# Non Non Biyori:
+#   Link: https://nyaa.si/view/1254532
+#   Ongoing: false
+#   Tags:
+#     - Slice of life
+#   Files:
+#     - Folder: Non Non Biyori
+#       Episode_prefix: 'S1'
+#     - Folder: Non Non Biyori OVA
+#       Episode_names:
+#         - 'S1 OVA'
+#     - Folder: Non Non Biyori Repeat
+#       Episode_prefix: 'S2'
+#     - Folder: Non Non Biyori Repeat OVA
+#       Episode_names:
+#         - 'S2 OVA'
+#     - Folder: Non Non Biyori Movie Vacation
+#       Episode_names:
+#         - 'Movie Vacation'
+
 Re Zero S2:
   Query: "[Erai-raws] Re Zero kara Hajimeru Isekai Seikatsu 2nd Season [720p]"
   Official_Name: "ReZero kara Hajimeru Isekai Seikatsu Season 2"
   Ongoing: false
-  Tags: Action
+  Tags:
+    - Action
 
 Fire Force S2:
   Query: "[SubsPlease] Enen no Shouboutai S2 1080p"
@@ -69,19 +90,22 @@ One Piece:
   Query: "[Erai-raws] One Piece [720p]"
   Ongoing: True
   Download_Latest: 5
-  Tags: Long
+  Tags:
+    - Long
 
 Black Clover:
   Query: "[Erai-raws] Black Clover [720p]"
   Ongoing: True
   Download_Latest: 10
-  Tags: Long
+  Tags:
+    - Long
 
 Haikyuu!! To the Top:
   Query: "[Erai-raws] Haikyuu!! To the Top 2nd Season [720p]"
   Official_Name: "Haikyuu!! To the Top Part 2"
   Ongoing: True
-  Tags: Sports
+  Tags:
+    - Sports
 
 Tonikaku Kawaii:
   Query: "[SubsPlease] Tonikaku Kawaii (1080p)"
@@ -118,4 +142,8 @@ Jujutsu Kaisen:
 
 Adachi to Shimamura:
   Query: "[SubsPlease] Adachi to Shimamura (720p)"
+  Ongoing: True
+
+Attack on Titan:
+  Query: "[SubsPlease] Shingeki no Kyojin (The Final Season)(1080p)"
   Ongoing: True
