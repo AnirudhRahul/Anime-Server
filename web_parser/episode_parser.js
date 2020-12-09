@@ -18,6 +18,21 @@ function removeLeadZeros(str){
   return str.trim().replace(/^0+/g,'')
 }
 
+function matchStr(strA, strB){
+  if(isNumeric(strA) && isNumeric(strB)){
+    return parseFloat(strA, 10) == parseFloat(strB, 10)
+  }
+  const keywords = ['360', '480', '540', '720', '1080', 'mkv', 'mp4']
+  if(strA.length!=strB.length){
+    for(word of keywords){
+      if((strA==word && strB.startsWith(word)) || (strB==word && strA.startsWith(word)))
+        return true
+    }
+    return false
+  }
+  return strA==strB
+}
+
 //Mutates elements of input and adds episode number deduced from torrent name
 module.exports.add_episode_numbers = function(input, show){
   assert(input.length>0)
@@ -51,7 +66,7 @@ module.exports.add_episode_numbers = function(input, show){
     let last_start_match = start_index
     let before_index = 0
     while(before_index<before_episode.length && start_index<word_list.length){
-      if(word_list[start_index]==before_episode[before_index]){
+      if(matchStr(word_list[start_index], before_episode[before_index])){
         start_index+=1
         before_index+=1
         last_start_match = start_index
@@ -65,12 +80,14 @@ module.exports.add_episode_numbers = function(input, show){
     let last_end_match = end_index
     let after_index = after_episode.length-1
     while(after_index>=0 && end_index>=0){
-      if(word_list[end_index]==after_episode[after_index]){
+      if(matchStr(word_list[end_index], after_episode[after_index])){
         end_index-=1
         after_index-=1
         last_end_match = end_index
+        // console.log(word_list[end_index], after_episode[after_index], 'match')
       }
       else{
+        // console.log(word_list[end_index], after_episode[after_index], 'no match')
         end_index-=1
       }
     }
@@ -79,9 +96,13 @@ module.exports.add_episode_numbers = function(input, show){
       console.error('Unexpected episode parsing error')
       return
     }
+    console.log(query_words)
+    console.log(word_list)
+    console.log(last_start_match)
+    console.log(last_end_match)
 
     let result = word_list.slice(last_start_match, last_end_match+1).join(" ").trim()
-
+    console.log(result)
     // Append episode if result is a single word or if the result starts with a number
     if(last_start_match==last_end_match || isNumeric(word_list[last_start_match])){
       result = 'Episode ' + removeLeadZeros(result)
