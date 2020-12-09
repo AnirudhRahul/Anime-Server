@@ -25,7 +25,10 @@ function matchStr(strA, strB){
   const keywords = ['360', '480', '540', '720', '1080', 'mkv', 'mp4']
   if(strA.length!=strB.length){
     for(word of keywords){
-      if((strA==word && strB.startsWith(word)) || (strB==word && strA.startsWith(word)))
+      if(
+      (strA==word && strB.length/word.length>0.5 && strB.includes(word)) ||
+      (strB==word && strA.length/word.length>0.5 && strA.includes(word))
+      )
         return true
     }
     return false
@@ -42,7 +45,6 @@ module.exports.add_episode_numbers = function(input, show){
 
   if(show.type=='Movie' && input.length==1){
     input[0]['episode'] = show.name
-    console.log("Movie case", show.name)
     return
   }
 
@@ -96,13 +98,8 @@ module.exports.add_episode_numbers = function(input, show){
       console.error('Unexpected episode parsing error')
       return
     }
-    console.log(query_words)
-    console.log(word_list)
-    console.log(last_start_match)
-    console.log(last_end_match)
 
     let result = word_list.slice(last_start_match, last_end_match+1).join(" ").trim()
-    console.log(result)
     // Append episode if result is a single word or if the result starts with a number
     if(last_start_match==last_end_match || isNumeric(word_list[last_start_match])){
       result = 'Episode ' + removeLeadZeros(result)
