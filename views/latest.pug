@@ -73,7 +73,7 @@ html
                 img(class="card-img-top lazy" data-lazy=thumbnail_src src='/media/blank.png' onerror="if (this.src != '/media/default-image.jpg') this.src = '/media/default-image.jpg';")
             div(class="card-body")
               h5(class="card-title")= episode.show_name
-              h5(class="card-text")= "Episode "+episode.episode
+              h5(class="card-text")= episode.episode
           
   script.
     const config = {

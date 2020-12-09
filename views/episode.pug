@@ -51,7 +51,7 @@ html
       if playable
         div(id="aggro")
       h2= data.show_name
-      h3= "Episode "+data.episode
+      h3= data.episode
       if playable && !data.metadata.transcoded
         a(href='potplayer://' + video_src) Open in PotPlayer
         br

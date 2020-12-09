@@ -1,5 +1,4 @@
 const cheerio = require('cheerio');
-const parser = require('../parser.js');
 const assert = require('assert');
 
 module.exports = function(body){
@@ -32,18 +31,16 @@ module.exports = function(body){
     return Error ('Not enough timestamps on page!')
   }
 
-  parser.add_episode_numbers(json_list)
-
   json_list.sort(function(itemA, itemB){
     return itemB['time_uploaded']-itemA['time_uploaded']
   })
 
-  const required_keys = ['torrent_name', 'magnet_link', 'time_uploaded', 'episode']
+  const required_keys = ['torrent_name', 'magnet_link', 'time_uploaded']
   json_list.forEach(obj =>{
     required_keys.forEach(key =>{
       assert(key in obj)
     })
   })
 
-  return json_list.filter(obj => obj.episode!=-1 && obj.episode!='-1')
+  return json_list
 }

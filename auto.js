@@ -40,6 +40,10 @@ const interval_seconds = 5*60
 const max_concurrent_downloads = 1
 let last_visited = {}
 
+function removeEpisodeIdentifier(str){
+  return str.replace(/\{E\#\}/gi," ")
+}
+
 function checkNyaa() {
   start_time = getTime()
   list = parser.get_shows()
@@ -71,7 +75,7 @@ function checkNyaa() {
   let download_queue = []
   const show = list[0]
   console.log(show['name'])
-  const url= 'https://nyaa.si/?f=0&c=1_2&q='+encodeURI(show['query']);
+  const url= 'https://nyaa.si/?f=0&c=1_2&q='+encodeURI(removeEpisodeIdentifier(show.query))
   const polling_promise = new Promise(
     function(resolve, reject) {
       requester.get(url)
