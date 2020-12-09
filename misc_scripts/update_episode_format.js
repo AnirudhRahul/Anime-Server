@@ -20,3 +20,5 @@ database.select_and_replace(
   },
   database_dir
 )
+
+console.log("Successfully updated", database_dir)
