@@ -19,4 +19,4 @@ html
             each item in show
               - var link = '/show/'+item.show_name+'/episode/'+item.episode
               li
-                a(href=link) Episode #{item.episode}
+                a(href=link)= item.episode
