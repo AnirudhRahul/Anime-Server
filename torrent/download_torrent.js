@@ -1,5 +1,7 @@
 //From: https://github.com/sayem314/torrenter/blob/master/download.js
 var WebTorrent = require("webtorrent");
+const log = require("single-line-log").stdout;
+
 
 const _formatBytes = bytes => {
   if (bytes < 1024) return bytes + " Bytes";
@@ -37,7 +39,7 @@ const torrentLog = torrent => {
   progressBar = progressBar + Array(26 - progressBar.length).join("-");
 
   // prettier-ignore
-  console.log(
+  log(
     '\n Name  : ' + torrent.name +
     '\n Connected  : ' + torrent.numPeers + ' peers\n' +
     ' Downloaded : ' + _formatBytes(torrent.downloaded) + ' (' + _formatBytes(torrent.downloadSpeed) + '/s)\n' +
@@ -73,9 +75,9 @@ module.exports = (torrentId, downloadPath) => {
     });
 
     torrent.on("metadata", () => {
-      console.log("\n " + torrent.name);
+      console.log(torrent.name);
       torrent.files.forEach(file => {
-        console.log(` ├── ${file.name} (${_formatBytes(file.length)})`);
+        console.log(`├── ${file.name} (${_formatBytes(file.length)})`);
       });
     });
 
@@ -83,7 +85,7 @@ module.exports = (torrentId, downloadPath) => {
 
     torrent.on("download", bytes => {
       const t = Date.now();
-      if (t - time >= 30*1000) {
+      if (t - time >= 1000) {
         time = t;
         torrentLog(torrent);
       }
@@ -102,7 +104,6 @@ module.exports = (torrentId, downloadPath) => {
       }
       client.destroy();
       client = undefined;
-      st = undefined;
 
       return resolve({path: torrent.path, files: torrent_files})
     });

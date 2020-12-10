@@ -16,7 +16,6 @@ module.exports = (obj, downloadPath, database_dir) =>
   }
   Download(obj.magnet_link, downloadPath)
   .then((torrent) => {
-    console.log(torrent)
     let mainFile = torrent.files[0]
     for(file of torrent.files){
       if(file.length > mainFile.length)
@@ -60,6 +59,7 @@ module.exports = (obj, downloadPath, database_dir) =>
 
 const database = require('../database.js')
 function updateDatabase(obj, metadata, database_dir){
+  console.log("Updated DB")
   obj.metadata = metadata
   database.addSync(obj,database_dir)
   return metadata
