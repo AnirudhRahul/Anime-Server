@@ -23,7 +23,7 @@ module.exports.get_shows = function(){
       official_name: item.Official_Name || '',
       query: item.Query || '',
       type: item.Type || 'Series',
-      ongoing: item.Ongoing || (item.Type in ongoing_defaults?ongoing_defaults[item.Type]:true),
+      ongoing: ('Ongoing' in item) ? item.Ongoing : (item.Type ? ongoing_defaults[item.Type]:true),
       tags: item.Tags || [],
       download_latest: item.Download_Latest || 0,
       offset: item.Offset || 0,
