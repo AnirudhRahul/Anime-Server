@@ -7,8 +7,8 @@ module.exports.writeSync =function(json_map, database_dir){
 
 module.exports.addSync =function(obj, database_dir){
   assert('show_name' in obj)
-  json_map = this.readSync(database_dir)
-  show = obj['show_name']
+  const json_map = this.readSync(database_dir)
+  const show = obj['show_name']
   if(!(show in json_map))
     json_map[show]=[]
   for(let i=0;i<json_map[show].length;i++){
@@ -27,7 +27,7 @@ module.exports.addSync =function(obj, database_dir){
 }
 
 module.exports.select_and_replace = function(filter, replace, database_dir){
-  let json_map = this.readSync(database_dir)
+  const json_map = this.readSync(database_dir)
   for (show in json_map) {
     for(index in json_map[show]){
       cur = json_map[show][index]
@@ -39,7 +39,7 @@ module.exports.select_and_replace = function(filter, replace, database_dir){
 }
 
 module.exports.filter = function(map_filter, database_dir){
-  let json_map = this.readSync(database_dir)
+  const json_map = this.readSync(database_dir)
   for (show in json_map) {
     for(index in json_map[show]){
       json_map[show] = json_map[show].filter(map_filter)
@@ -49,7 +49,7 @@ module.exports.filter = function(map_filter, database_dir){
 }
 
 module.exports.removeSync =function(show, database_dir){
-  json_map = this.readSync(database_dir)
+  const json_map = this.readSync(database_dir)
   out = []
   if(show in json_map)
     out = json_map[show]
@@ -67,5 +67,4 @@ module.exports.readAsync =function(database_dir, callback){
   fs.readFile(database_dir,'utf-8',function(err, data){
     callback(err, JSON.parse(data))
   })
-// return JSON.parse()
 }
