@@ -46,7 +46,7 @@ rm -rf cgi-bin fcgi-bin
 `ffmpeg -version`
 
 # Configure S3
-Make sure to add a .env file with the following attributes:
+Make sure to add a .env file with the following attributes, in the `torrent/object-storage/` dir:
 ```
 AWS_accessKeyId=SECRET
 AWS_secretAccessKey=SECRET
