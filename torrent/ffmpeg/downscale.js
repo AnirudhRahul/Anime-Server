@@ -12,11 +12,13 @@ module.exports.thumbnail = (metadata) =>{
       .on('end', ()=>{
         console.log("Downscaled " + metadata.thumbnail_path)
         metadata.small_thumbnail_path = '/thumbnail/' + fname
-        resolve(metadata)
+        return resolve(metadata)
       })
-      .on('error', (err)=>{
-        reject(err)
-      }).run();
+      .on('error', (err, stdout, stderr)=>{
+        console.error(stderr)
+        return reject(err)
+      })
+      .run()
   });
 }
 

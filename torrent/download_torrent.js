@@ -49,7 +49,7 @@ const torrentLog = torrent => {
   );
 };
 
-module.exports = (torrentId, downloadPath) => {
+module.exports = (torrentId, downloadPath, maxFiles) => {
   return new Promise((resolve, reject) => {
     // client
     let client = new WebTorrent({ maxConns: 300 });
@@ -74,8 +74,16 @@ module.exports = (torrentId, downloadPath) => {
       });
     });
 
+    // TODO: Find a way to gracefully ignore batch downloads for weekly shows
     torrent.on("metadata", () => {
       console.log(torrent.name);
+      if(maxFiles && torrent.files.length > maxFiles){
+        if (st) clearTimeout(st);
+        client.destroy();
+        client = undefined;
+        return reject("Too many files in torrent", "maxFiles:", maxFiles)
+      }
+
       torrent.files.forEach(file => {
         console.log(`├── ${file.name} (${_formatBytes(file.length)})`);
       });
@@ -99,6 +107,7 @@ module.exports = (torrentId, downloadPath) => {
       for(file of torrent.files){
         torrent_files.push({
           path: file.path,
+          name: file.name,
           length: file.length
         })
       }

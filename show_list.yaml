@@ -1,6 +1,6 @@
 # Non Non Biyori:
 #   Link: https://nyaa.si/view/1254532
-#   Ongoing: false
+#   Type: Batch
 #   Tags:
 #     - Slice of life
 #   Files:
@@ -17,137 +17,164 @@
 #     - Folder: Non Non Biyori Movie Vacation
 #       Episode_names:
 #         - 'Movie Vacation'
-
-Re Zero OVA:
-  Query: "[HorribleSubs] Re Zero kara Hajimeru Isekai Seikatsu - {E#} 00 [1080].mkv"
-  Ongoing: false
-
-Re Zero S2:
-  Query: "[Erai-raws] Re.Zero kara Hajimeru Isekai Seikatsu 2nd Season - {E#} [720p][Multiple Subtitle]"
-  Official_Name: "ReZero kara Hajimeru Isekai Seikatsu Season 2"
-  Ongoing: false
+GATE:
+  Link: https://nyaa.si/view/1236032
+  Type: Batch
   Tags:
-    - Action
+    - Isekai
+  Format:
+    - Folder: /
+      Episode: '[AkihitoSubs] GATE - S01E{E#} - The Self-Defense Force Goes to Another World.mkv'
 
-Fire Force S2:
-  Query: "[SubsPlease] Enen no Shouboutai S2 {E#} 1080p"
-  Official_Name: "Enen no Shouboutai: Ni no Shou"
-  Ongoing: True
-  Download_Latest: 1
-
-Oregairu S3:
-  Query: "[HorribleSubs] Yahari Ore no Seishun Love Come wa Machigatteiru Kan - {E#} [720p]"
-  Official_Name: "Yahari Ore no Seishun Love Comedy wa Machigatteiru. Kan"
-  Ongoing: false
-
-Oregairu S3(Good Subs):
-  Query: "[MTBB] Yahari Ore no Seishun Love Comedy wa Machigatteiru. Kan – My Teen Romantic Comedy SNAFU Climax - {E#}"
-  Official_Name: "Yahari Ore no Seishun Love Comedy wa Machigatteiru. Kan"
-  Ongoing: false
-
-Noblesse:
-  Query: "[Erai-raws] Noblesse - {E#} [720p][Multiple Subtitle]"
-  Ongoing: true
-
-Kimi to Boku no Saigo no Senjou:
-  Query: "[SubsPlease] Kimi to Boku no Saigo no Senjou, Arui wa Sekai ga Hajimaru Seisen - {E#} (1080p)"
-  Ongoing: true
-
-The Irregular at Magic High School S2:
-  Query: "[Erai-raws] Mahouka Koukou no Rettousei - Raihousha Hen - {E#} [720p]"
-  Official_Name: "Mahouka Koukou no Rettousei - Raihousha Hen"
-  Ongoing: true
-
-Kimi no Na wa:
-  Query: "[MTBB] Kimi no Na wa. – Your Name. (1080p BD)"
-  Type: Movie
-
-Weathering with You:
-  Query: "[EMBER] Weathering With You (2019) [BDRip] [1080p Dual Audo HEVC 10 bits] (Tenki no Ko)"
-  Type: Movie
-
-SAO Ordinal Scale:
-  Query: "[Judas] Sword Art Online - Movie 01 (Ordinal Scale) [UNCENSORED BD 1080p][HEVC x265 10bit][Dual-Audio][Eng-Subs]"
-  Type: Movie
-
-Penguin Highway:
-  Query: "[PAS] Penguin Highway (BD 1080p AAC) [DFF2C35A].mkv"
-  Type: Movie
-
-MHA Heroes Rising:
-  Query: "[EMBER] My Hero Academia: Heroes Rising-Movie (2019) [BDRip] [1080p HEVC 10 bits] (Boku no Hero Academia the Movie 2: Heroes:Rising) ~Dual"
-  Type: Movie
-
-Fate Stay Night Heaven's Feel I:
-  Query: "[Yūrei] Fate/stay night Movie: Heaven's Feel - I. Presage Flower [BD 1080p x265 10bit Opus 5.1 Dual Audio]"
-  Type: Movie
-
-Fate Stay Night Heaven's Feel II:
-  Query: "[Yūrei] Fate/stay night Movie: Heaven's Feel - II. Lost Butterfly [BD 1080p x265 10bit Opus 5.1 Dual Audio]"
-  Type: Movie
-
-DanMachi Orion no Ya:
-  Query: "[Judas] DanMachi - Movie 01 - Orion no Ya (Arrow of the Orion) [BD 1080p][HEVC x265 10bit][Dual-Audio][Eng-Subs]"
-  Type: Movie
-
-One Piece:
-  Query: "[Erai-raws] One Piece - {E#} [720p]"
-  Ongoing: True
-  Download_Latest: 5
+Sora yori mo Tooi Basho:
+  Link: https://nyaa.si/view/1056992
+  Type: Batch
   Tags:
-    - Long
+    - Slice of Life
+  Format:
+    - Folder: '[MTBB] Sora yori mo Tooi Basho (BD 1080p)'
+      Episode: '[MTBB] Sora yori mo Tooi Basho - {E#} [79E31609].mkv'
+    - Folder: 'NC'
+      Episode: '[MTBB] Sora yori mo Tooi Basho - {E#} [79E31609].mkv'
+# Test Episode1:
+#   Query: "[Jumonji-Giri]_Mokke_Ep{E#}_.mkv"
+#
+# Test Episode2:
+#   Query: "[Jumonji-Giri]_Mokke_Ep{E#}_(5e046438).mkv"
 
-Black Clover:
-  Query: "[Erai-raws] Black Clover (TV) - {E#} [720p][Multiple Subtitle].mkv"
-  Ongoing: True
-  Download_Latest: 10
-  Tags:
-    - Long
-
-Haikyuu!! To the Top:
-  Query: "[SubsPlease] Haikyuu!! To The Top - {E#} (1080p)"
-  Official_Name: "Haikyuu!! To the Top Part 2"
-  Ongoing: True
-  Tags:
-    - Sports
-
-Tonikaku Kawaii:
-  Query: "[SubsPlease] Tonikaku Kawaii - {E#} (1080p)"
-  Ongoing: True
-
-Majo no Tabitabi:
-  Query: "[SubsPlease] Majo no Tabitabi - {E#} (720p)"
-  Ongoing: True
-
-Dungeon ni Deai wo Motomeru S3:
-  Query: "[SubsPlease] Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka S3 - {E#} (1080p)"
-  Official_Name: "Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka III"
-  Ongoing: True
-
-Yuukoku no Moriarty:
-  Query: "[SubsPlease] Yuukoku no Moriarty - {E#} (720p)"
-  Ongoing: True
-
-Burn the Witch:
-  Query: "[WhoWillReplaceHS] Burn the Witch - {E#} [1080p]"
-  Ongoing: False
-
-Munou na Nana:
-  Query: "[SubsPlease] Munou na Nana - {E#} (720p)"
-  Ongoing: True
-
-Akudama Drive:
-  Query: "[SubsPlease] Akudama Drive - {E#} (1080p)"
-  Ongoing: True
-
-Jujutsu Kaisen:
-  Query: "[SubsPlease] Jujutsu Kaisen - {E#} (1080p)"
-  Ongoing: True
-
-Adachi to Shimamura:
-  Query: "[SubsPlease] Adachi to Shimamura - {E#} (720p)"
-  Ongoing: True
-
-Attack on Titan:
-  Query: "[SubsPlease] Shingeki no Kyojin (The Final Season) - {E#} (1080p)"
-  Ongoing: True
+# Re Zero OVA:
+#   Query: "[HorribleSubs] Re Zero kara Hajimeru Isekai Seikatsu - {E#} 00 [1080].mkv"
+#   Ongoing: false
+#
+# Re Zero S2:
+#   Query: "[Erai-raws] Re.Zero kara Hajimeru Isekai Seikatsu 2nd Season - {E#} [720p][Multiple Subtitle]"
+#   Official_Name: "ReZero kara Hajimeru Isekai Seikatsu Season 2"
+#   Ongoing: false
+#   Tags:
+#     - Action
+#
+# Fire Force S2:
+#   Query: "[SubsPlease] Enen no Shouboutai S2 {E#} 1080p"
+#   Official_Name: "Enen no Shouboutai: Ni no Shou"
+#   Ongoing: True
+#   Download_Latest: 1
+#
+# Oregairu S3:
+#   Query: "[HorribleSubs] Yahari Ore no Seishun Love Come wa Machigatteiru Kan - {E#} [720p]"
+#   Official_Name: "Yahari Ore no Seishun Love Comedy wa Machigatteiru. Kan"
+#   Ongoing: false
+#
+# Oregairu S3(Good Subs):
+#   Query: "[MTBB] Yahari Ore no Seishun Love Comedy wa Machigatteiru. Kan – My Teen Romantic Comedy SNAFU Climax - {E#}"
+#   Official_Name: "Yahari Ore no Seishun Love Comedy wa Machigatteiru. Kan"
+#   Ongoing: false
+#
+# Noblesse:
+#   Query: "[Erai-raws] Noblesse - {E#} [720p][Multiple Subtitle]"
+#   Ongoing: true
+#
+# Kimi to Boku no Saigo no Senjou:
+#   Query: "[SubsPlease] Kimi to Boku no Saigo no Senjou, Arui wa Sekai ga Hajimaru Seisen - {E#} (1080p)"
+#   Ongoing: true
+#
+# The Irregular at Magic High School S2:
+#   Query: "[Erai-raws] Mahouka Koukou no Rettousei - Raihousha Hen - {E#} [720p]"
+#   Official_Name: "Mahouka Koukou no Rettousei - Raihousha Hen"
+#   Ongoing: true
+#
+# Kimi no Na wa:
+#   Query: "[MTBB] Kimi no Na wa. – Your Name. (1080p BD)"
+#   Type: Movie
+#
+# Weathering with You:
+#   Query: "[EMBER] Weathering With You (2019) [BDRip] [1080p Dual Audo HEVC 10 bits] (Tenki no Ko)"
+#   Type: Movie
+#
+# SAO Ordinal Scale:
+#   Query: "[Judas] Sword Art Online - Movie 01 (Ordinal Scale) [UNCENSORED BD 1080p][HEVC x265 10bit][Dual-Audio][Eng-Subs]"
+#   Type: Movie
+#
+# Penguin Highway:
+#   Query: "[PAS] Penguin Highway (BD 1080p AAC) [DFF2C35A].mkv"
+#   Type: Movie
+#
+# MHA Heroes Rising:
+#   Query: "[EMBER] My Hero Academia: Heroes Rising-Movie (2019) [BDRip] [1080p HEVC 10 bits] (Boku no Hero Academia the Movie 2: Heroes:Rising) ~Dual"
+#   Type: Movie
+#
+# Fate Stay Night Heaven's Feel I:
+#   Query: "[Yūrei] Fate/stay night Movie: Heaven's Feel - I. Presage Flower [BD 1080p x265 10bit Opus 5.1 Dual Audio]"
+#   Type: Movie
+#
+# Fate Stay Night Heaven's Feel II:
+#   Query: "[Yūrei] Fate/stay night Movie: Heaven's Feel - II. Lost Butterfly [BD 1080p x265 10bit Opus 5.1 Dual Audio]"
+#   Type: Movie
+#
+# DanMachi Orion no Ya:
+#   Query: "[Judas] DanMachi - Movie 01 - Orion no Ya (Arrow of the Orion) [BD 1080p][HEVC x265 10bit][Dual-Audio][Eng-Subs]"
+#   Type: Movie
+#
+# One Piece:
+#   Query: "[Erai-raws] One Piece - {E#} [720p]"
+#   Ongoing: True
+#   Download_Latest: 1
+#   Tags:
+#     - Long
+#
+# Black Clover:
+#   Query: "[Erai-raws] Black Clover (TV) - {E#} [720p][Multiple Subtitle].mkv"
+#   Ongoing: True
+#   Download_Latest: 10
+#   Tags:
+#     - Long
+#
+# Haikyuu!! To the Top:
+#   Query: "[SubsPlease] Haikyuu!! To The Top - {E#} (1080p)"
+#   Official_Name: "Haikyuu!! To the Top Part 2"
+#   Ongoing: True
+#   Tags:
+#     - Sports
+#
+# Tonikaku Kawaii:
+#   Query: "[SubsPlease] Tonikaku Kawaii - {E#} (1080p)"
+#   Ongoing: True
+#
+# Majo no Tabitabi:
+#   Query: "[SubsPlease] Majo no Tabitabi - {E#} (720p)"
+#   Ongoing: True
+#
+# Dungeon ni Deai wo Motomeru S3:
+#   Query: "[SubsPlease] Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka S3 - {E#} (1080p)"
+#   Official_Name: "Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka III"
+#   Ongoing: True
+#
+# Yuukoku no Moriarty:
+#   Query: "[SubsPlease] Yuukoku no Moriarty - {E#} (720p)"
+#   Ongoing: True
+#
+# Burn the Witch:
+#   Query: "[WhoWillReplaceHS] Burn the Witch - {E#} [1080p]"
+#   Ongoing: False
+#
+# Munou na Nana:
+#   Query: "[SubsPlease] Munou na Nana - {E#} (720p)"
+#   Ongoing: True
+#
+# Akudama Drive:
+#   Query: "[SubsPlease] Akudama Drive - {E#} (1080p)"
+#   Ongoing: True
+#
+# Jujutsu Kaisen:
+#   Query: "[SubsPlease] Jujutsu Kaisen - {E#} (1080p)"
+#   Ongoing: True
+#
+# Boruto:
+#   Query: "[Erai-raws] Boruto - Naruto Next Generations - {E#} [1080p][Multiple Subtitle].mkv"
+#
+# Adachi to Shimamura:
+#   Query: "[SubsPlease] Adachi to Shimamura - {E#} (720p)"
+#   Ongoing: True
+#
+# Attack on Titan:
+#   Query: "[SubsPlease] Shingeki no Kyojin (The Final Season) - {E#} (1080p)"
+#   Ongoing: True

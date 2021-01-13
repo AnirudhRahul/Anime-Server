@@ -6,9 +6,9 @@ module.exports.get = function(url){
   return new Promise((resolve, reject) =>{
     retry(url,150, 10000, (err, body)=>{
       if(err)
-        reject(err)
+        return reject(err)
       else
-        resolve(body)
+        return resolve(body)
     })
   })
 }

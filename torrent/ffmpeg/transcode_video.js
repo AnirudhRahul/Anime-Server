@@ -4,25 +4,26 @@ const fs = require("fs")
 function transcode_file(metadata){
   return new Promise(function(resolve, reject){
     const new_video_path = metadata.base_path + '.mp4'
-    const subtitle_path = metadata.base_path + '.ass'
+    // const subtitle_path = metadata.base_path + '.ass'
     // Converts non mp4 file to an mp4 if codec is compatible
     ffmpeg().input(metadata.video_path)
     .output(new_video_path)
     .outputOptions('-c:v copy')
     .outputOptions('-c:a copy')
-    .output(subtitle_path)
-    .outputOptions('-c:s copy')
+    // .output(subtitle_path)
+    // .outputOptions('-c:s copy')
     .on('end', function() {
       //Delete old untranscoded file
       fs.unlinkSync(metadata.video_path)
       metadata.transcoded = true
       metadata.video_path = new_video_path
-      metadata.subtitle_path = subtitle_path
+      // metadata.subtitle_path = subtitle_path
       console.log("Transcoded to " + metadata.video_path)
-      resolve(metadata)
+      return resolve(metadata)
     })
-    .on('error', function(err) {
-      reject(err)
+    .on('error', function(err, stdout, stderr) {
+      console.error(stderr)
+      return reject(err)
     })
     .run()
   })

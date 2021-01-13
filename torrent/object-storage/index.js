@@ -17,25 +17,29 @@ const s3 = new S3({
 });
 
 const fs = require('fs')
-exports.upload = (metadata) => new Promise((resolve, reject) => {
+exports.upload = (metadata) =>
   //Save the path to all the uploaded files so we can delete them later
-  const uploadedFiles = []
   uploadFile(metadata.thumbnail_path, 'image/png')
   .then((link) => {
-    uploadedFiles.push(metadata.thumbnail_path)
     metadata.thumbnail_path = link
   })
   .then(() => {
-    if('subtitle_path' in metadata)
-      return uploadFile(metadata.subtitle_path, 'text/plain')
-    else
-      return false
-  })
-  .then((res) => {
-    if(res){
-      uploadedFiles.push(metadata.subtitle_path)
-      metadata.subtitle_path = res
+    const promise_list = []
+    // Upload all subtitle files
+    for(const index in metadata.subtitle_path){
+      const old_path = metadata.subtitle_path[index].path
+      // Delete path because we don't want to save that metadata to object storage
+      delete metadata.subtitle_path[index].path
+
+      promise_list.push(
+        uploadFile(old_path, 'text/plain', metadata.subtitle_path[index])
+        .then((link)=>{
+          metadata.subtitle_path[index].path = link
+        })
+      )
     }
+
+    return Promise.all(promise_list)
   })
   .then(() => {
     let mimeType = 'video/mp4'
@@ -45,21 +49,22 @@ exports.upload = (metadata) => new Promise((resolve, reject) => {
     return uploadFile(metadata.video_path, mimeType, metadata)
   })
   .then((link) => {
-    uploadedFiles.push(metadata.video_path)
     metadata.video_path = link
-    for(file of uploadedFiles)
-      fs.unlinkSync(file)
     console.log("Finished uploading files")
-    resolve(metadata)
+    console.log(metadata)
+    return metadata
   })
-  .catch(reject)
-})
 
 function uploadFile(file_path, mimeType, metadata){
   let formatted_metadata = {}
   if(metadata){
-    formatted_metadata = {metadata: JSON.stringify(metadata)}
+    const copy = Object.assign({}, metadata);
+    if('subtitle_path' in copy)
+      delete copy.subtitle_path
+    formatted_metadata = {metadata: JSON.stringify(copy)}
   }
+
+
   return new Promise((resolve, reject) => {
     const params = {
       Bucket: bucket,
@@ -68,12 +73,14 @@ function uploadFile(file_path, mimeType, metadata){
       ContentType: mimeType,
       Metadata: formatted_metadata,
     };
-    const options = {partSize: 10 * 1024 * 1024, queueSize: 20}
+    const options = {partSize: 10 * 1024 * 1024, queueSize: 25}
     s3.upload(params, options, function(err, data) {
       if(err)
-        reject(err)
-      else
-        resolve(data.Location)
+        return reject(err)
+      else{
+        fs.unlinkSync(file_path)
+        return resolve(data.Location)
+      }
     });
   })
 

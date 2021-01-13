@@ -15,10 +15,11 @@ module.exports.extract = (metadata) =>{
       .on('end', ()=>{
         console.log("Made thumbnail for " + metadata.video_path)
         metadata.thumbnail_path = metadata.base_path + '.png'
-        resolve(metadata)
+        return resolve(metadata)
       })
-      .on('error', (err)=>{
-        reject(err)
+      .on('error', (err, stdout, stderr)=>{
+        console.error(stderr)
+        return reject(err)
       }).run();
   });
 
