@@ -178,7 +178,7 @@ module.exports.batch = (batch, show, database_dir) => {
                 episode: episode_name,
                 time_uploaded: batch.time_uploaded,
                 time_downloaded: batch.time_downloaded,
-                season_index: folder_format.index,
+                season_index: parseInt(folder_format.index),
                 episode_index: orderIndex
               }
             })

@@ -74,7 +74,7 @@ app.get('/show/:show/episode/:episode', function (req, res) {
   if(episode_index===-1)
     res.status(404).send("Episode not found")
 
-  cur_episode = json_map[req.params.show][episode_index]
+  const cur_episode = json_map[req.params.show][episode_index]
   prev_episode = -1
   try{
     prev_episode = json_map[req.params.show][episode_index+1]['episode']
