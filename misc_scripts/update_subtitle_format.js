@@ -18,14 +18,20 @@ database.select_and_replace(
     if(!entry.metadata.subtitle_path|| entry.metadata.subtitle_path.length==0){
       return []
     }
-    entry.metadata.subtitle_path = {
+    entry.metadata.subtitle_path = [{
       name: 'Default',
       language: 'eng',
       is_default: true,
       path: entry.metadata.subtitle_path
-    }
+    }]
     return entry
   },
+  database_dir
+)
+
+database.select_and_replace(
+  entry => !entry.length,
+  entry => [entry],
   database_dir
 )
 
