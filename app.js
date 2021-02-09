@@ -9,20 +9,27 @@ const env = process.env.NODE_ENV || 'development';
 const port = env =='production'?8000:8001
 const {root_dir, video_dir, database_dir} = require('./dirs.js').all(env)
 
-json_map = database.readSync(database_dir)
-json_map = sortMap(json_map)
-episode_list = getEpisodes(json_map)
-fs.watchFile(database_dir,{interval: 10000}, (cur) => {
-  json_map = database.readSync(database_dir)
-  json_map = sortMap(json_map)
-  episode_list = getEpisodes(json_map)
-});
-
-show_list = require('./parser.js').get_shows()
-name_map = {}
-for(show of show_list){
-  name_map[show.name] = show.official_name
+name_map = {}; ongoing_map = {};
+function poll_show_list(){
+  const show_list = require('./parser.js').get_shows()
+  for(show of show_list){
+    name_map[show.name] = show.official_name
+    ongoing_map[show.name] = show.ongoing
+  }
 }
+poll_show_list()
+setInterval(poll_show_list, 10000)
+
+json_map = {}; done_episode_list=[]; ongoing_episode_list=[];
+function poll_database(){
+  json_map = sortMap(database.readSync(database_dir));
+  done_episode_list = getEpisodes(json_map, ongoing_map, false)
+  ongoing_episode_list = getEpisodes(json_map, ongoing_map, true)
+}
+poll_database()
+fs.watchFile(database_dir,{interval: 10000}, (cur) => {
+  poll_database()
+});
 
 app.set('view engine', 'pug')
 app.use(express.static('public'))
@@ -52,12 +59,17 @@ app.get('/controls', function (req, res) {
 
 const length_per_page = 100
 app.get('/latest', function (req, res) {
-  let offset = 0
-  if(req.query.offset && !isNaN(req.query.offset))
-    offset = parseInt(req.query.offset)
-  if(offset<0)
-    offset = 0
-  res.render('latest', {episode_list: episode_list.slice(offset, offset+length_per_page)})
+  // let offset = 0
+  // if(req.query.offset && !isNaN(req.query.offset))
+  //   offset = parseInt(req.query.offset)
+  // if(offset<0)
+  //   offset = 0
+  // res.render('latest', {episode_list: episode_list.slice(offset, offset+length_per_page)})
+  res.render('latest', {episode_list: ongoing_episode_list})
+})
+
+app.get('/completed', function (req, res) {
+  res.render('latest', {episode_list: done_episode_list})
 })
 
 app.get('/show/:show/episode/:episode', function (req, res) {
@@ -75,6 +87,7 @@ app.get('/show/:show/episode/:episode', function (req, res) {
     res.status(404).send("Episode not found")
 
   const cur_episode = json_map[req.params.show][episode_index]
+  console.log(cur_episode.metadata.subtitle_path);
   prev_episode = -1
   try{
     prev_episode = json_map[req.params.show][episode_index+1]['episode']
@@ -127,15 +140,14 @@ function sortMap(map){
   return sorted_map
 }
 
-function getEpisodes(map){
-  let output = []
-  for(key in map){
-    output.push(...map[key])
+function getEpisodes(map, ongoing_map, filter){
+  const output = []
+  for(show_name in map){
+      if((ongoing_map[show_name] || false)==filter)
+        output.push(...map[show_name])
   }
   output.sort((episodeA,episodeB)=>
     (episodeB['time_uploaded']-episodeA['time_uploaded'])
   )
-
   return output
-
 }
