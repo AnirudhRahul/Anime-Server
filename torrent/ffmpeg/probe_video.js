@@ -26,13 +26,23 @@ module.exports.extract_metadata = (video_path) =>
           }
           // Extracts all subtitle streams from file
           else if(stream.codec_type=='subtitle'){
+            const valid_codecs = {
+              'subrip': 'srt',
+              'srt': 'srt',
+              'ass': 'ass',
+              'webvtt': 'vtt',
+              'vtt': 'vtt'
+            };
+            if(!(stream.codec_name in valid_codecs))
+              continue;
+
             subtitle_streams.push({
               title: stream.tags?.title,
               language: stream.tags?.language,
               is_default: stream?.disposition?.default==1,
               index: stream.index,
               // Guarenteed unique identifier for track
-              file_ending: (stream.tags.title || stream.index) + '.' + stream.codec_name
+              file_ending: (stream.tags.title || stream.index) + '.' + valid_codecs[stream.codec_name]
             })
           }
         }
