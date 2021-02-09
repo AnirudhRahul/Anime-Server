@@ -29,10 +29,4 @@ database.select_and_replace(
   database_dir
 )
 
-database.select_and_replace(
-  entry => !entry.length,
-  entry => [entry],
-  database_dir
-)
-
 console.log("Successfully updated", database_dir)
