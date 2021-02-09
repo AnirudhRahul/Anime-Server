@@ -62,10 +62,10 @@ module.exports = (torrentId, downloadPath, maxFiles) => {
     const torrent = client.add(torrentId, { path: downloadPath });
 
     let st = setTimeout(() => {
-      if (torrent.numPeers < 1) {
+      if (torrent.numPeers < 1 || torrent.progress < 0.0005) {
         client.destroy(() => reject("Cannot find any peers!"));
       }
-    }, 1000 * 10);
+    }, 1000 * 15);
 
     torrent.on("error", err => {
       if (st) clearTimeout(st);

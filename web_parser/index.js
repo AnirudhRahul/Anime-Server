@@ -10,7 +10,6 @@ exports.parseBody = function(body, url, database_dir, show){
         return resolve(nyaa_search(body))
       }
       else if(url.includes('nyaa.si/view')){
-        console.log("BATCH JSON")
         return resolve(nyaa_view(body))
       }
       else{

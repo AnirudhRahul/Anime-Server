@@ -95,18 +95,17 @@ requester.get(show.link)
 // been downloaded
 .then((body) => web_parser.parseBody(body, show.link, database_dir, show))
 .then((resp) => {
+  // Error checks
   if(resp.length==0){
     throw "ShowInputError: No results found for " + show.name + "\nQuery or Link field is likely malformed"
   }
   if(resp.length>1 && show.type!='Series'){
     throw "ShowInputError: Shows of type batch or movie must return 1 result\n" + show.link + " returned multiple results"
   }
+
   for(let i in resp){
     resp[i].magnet_hash = hash(resp[i].magnet_link)
   }
-  return resp
-})
-.then((resp) => {
   // Assigns episode names from torrent_name for series/movies
   if(show.type!='Batch'){
     const title_parser = require('./title_parser.js')
@@ -135,7 +134,12 @@ requester.get(show.link)
 })
 .catch((err)=>{
   console.error(err)
+  if(err.toString().includes('Cannot find any peers!')){
+    console.error(show.name, "seems to be dead, and will stop being polled");
+    updateTimeMap(show.name, Number.MAX_SAFE_INTEGER, time_dir)
+  }
   if(err.toString().startsWith('ShowInputError'))
     process.exit(9)
-  // process.exit(1)
+  else
+    process.exit(1)
 })

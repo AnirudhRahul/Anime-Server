@@ -103,7 +103,7 @@ module.exports.batch = (batch, show, database_dir) => {
     throw new Error('Magnet Link is not in input Object!!!\n'+batch)
   }
 
-  console.log(show.name)
+  console.log("Downloading batch", show.name, "...")
   // Keep track of folder indices
   for(let index in show.format){
     show.format[index].index = index
