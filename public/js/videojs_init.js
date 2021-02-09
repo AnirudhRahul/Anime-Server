@@ -7,6 +7,7 @@ var player = videojs('my-video',{
 );
 
 let next_episode = document.getElementById("init_script").getAttribute("next_episode")
+console.log("NEXT EPISODE", next_episode)
 
 if(next_episode!='-1'){
 var Button = videojs.getComponent('Button');
@@ -51,7 +52,7 @@ for(const track of subtitle_list){
   element.innerHTML = track.title
   sub_element.appendChild(element)
 }
-
+console.log("SUBTITLE LIST", subtitle_list)
 // `
 // <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
 //   <li><a tabindex="-1" href="#">Regular link</a></li>
@@ -67,7 +68,7 @@ player.ready(function () {
           var options = {
               video: video,
               lossyRender: !iOS(),
-              subUrl: subtitle_list[1].path,
+              subUrl: subtitle_list[0].path,
               fonts: ['/fonts/OpenSans-Semibold.ttf'],
               //onReady: onReadyFunction,
               // debug: true,
