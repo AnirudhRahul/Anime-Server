@@ -32,7 +32,7 @@ module.exports = function(body){
   }
 
   json_list.sort(function(itemA, itemB){
-    return itemB['time_uploaded']-itemA['time_uploaded']
+    return -itemB['time_uploaded']+itemA['time_uploaded']
   })
 
   const required_keys = ['torrent_name', 'magnet_link', 'time_uploaded']
