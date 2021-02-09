@@ -49,6 +49,7 @@ html
     
     div(class="m-3")
       if playable
+        ul(class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" id="submenu")
         div(id="aggro")
       h2= data.show_name
       h3= data.episode
@@ -70,5 +71,5 @@ html
     script(src='/js/subtitles-octopus.js')
     script(src='/js/video.min.js')
     script(src='/js/landscape.js')
-    script(src='/js/videojs_init.js' id='init_script' subtitle_src=subtitle_src video_src=video_src)      
+    script(src='/js/videojs_init.js' id='init_script' subtitle_src=subtitle_src video_src=video_src next_episode=next)      
     script(src='/js/reddit_load.js' id='reddit_load' official_name=official_name episode_number=data.episode)      

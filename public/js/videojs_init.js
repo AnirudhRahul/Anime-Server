@@ -1,9 +1,33 @@
 var player = videojs('my-video',{
     userActions: {
-      doubleClick: false
+      doubleClick: false,
+      textTrackSettings: false
     },
   }
 );
+
+let next_episode = document.getElementById("init_script").getAttribute("next_episode")
+
+if(next_episode!='-1'){
+var Button = videojs.getComponent('Button');
+var MyButton = videojs.extend(Button, {
+  constructor: function () {
+    Button.apply(this, arguments);
+      /* init */
+  },
+  text: 'Press Me',
+  handleClick: function () {
+    /* do something on click */
+    console.log("Custom button was clicked")
+    // redirect to next page
+    document.location.href = next_episode
+  }
+});
+videojs.registerComponent('MyButton', MyButton);
+const button = player.controlBar.addChild('MyButton');
+button.el().innerHTML = "TEST"
+
+}
 
 function iOS() {
   return [
@@ -18,14 +42,32 @@ function iOS() {
   || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
 }
 
+let subtitle_list = JSON.parse(document.getElementById("init_script").getAttribute("subtitle_src"))
+
+const sub_element = document.getElementById('submenu')
+
+for(const track of subtitle_list){
+  const element = document.createElement('LI')
+  element.innerHTML = track.title
+  sub_element.appendChild(element)
+}
+
+// `
+// <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+//   <li><a tabindex="-1" href="#">Regular link</a></li>
+//   <li class="disabled"><a tabindex="-1" href="#">Disabled link</a></li>
+//   <li><a tabindex="-1" href="#">Another link</a></li>
+// </ul>
+// `
 player.ready(function () {
       // This would look more nice as a plugin but is's just as showcase of using with custom players
       var video = this.tech_.el_;
+
       window.SubtitlesOctopusOnLoad = function () {
           var options = {
               video: video,
               lossyRender: !iOS(),
-              subUrl: document.getElementById("init_script").getAttribute("subtitle_src"),
+              subUrl: subtitle_list[1].path,
               fonts: ['/fonts/OpenSans-Semibold.ttf'],
               //onReady: onReadyFunction,
               // debug: true,
@@ -36,7 +78,9 @@ player.ready(function () {
       if (SubtitlesOctopus) {
           SubtitlesOctopusOnLoad();
       }
-  });
+});
+
+// window.octopusInstance.setTrackByUrl('/test/railgun_op.ass');
 
 
 // player.poster('#{thumbnail_src}')

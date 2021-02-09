@@ -87,7 +87,7 @@ app.get('/show/:show/episode/:episode', function (req, res) {
     res.status(404).send("Episode not found")
 
   const cur_episode = json_map[req.params.show][episode_index]
-  console.log("subtitle path", cur_episode?.metadata?.subtitle_path);
+  // console.log("subtitle path", cur_episode?.metadata?.subtitle_path);
   prev_episode = -1
   try{
     prev_episode = json_map[req.params.show][episode_index+1]['episode']
