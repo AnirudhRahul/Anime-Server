@@ -49,6 +49,7 @@ const torrentLog = torrent => {
   );
 };
 
+const path = require('path')
 module.exports = (torrentId, downloadPath, maxFiles) => {
   return new Promise((resolve, reject) => {
     // client
@@ -63,7 +64,7 @@ module.exports = (torrentId, downloadPath, maxFiles) => {
 
     let st = setTimeout(() => {
       if (torrent.numPeers < 1 || torrent.progress < 0.0005) {
-        client.destroy(() => reject("Cannot find any peers!"));
+        client.destroy(() => reject("Cannot find any peers for /"+path.basename(downloadPath)+"!"));
       }
     }, 1000 * 15);
 
