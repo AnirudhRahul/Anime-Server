@@ -4,7 +4,7 @@ function isNumeric(str) {
 
 function format(name){
   // Remove special characters
-  name = name.replace(/[^a-zA-Z0-9.{}#]/g,' ')
+  name = name.replace(/[^a-zA-Z0-9.'{}#]/g,' ')
   // Remove version tags
   name = name.replace(/v[0-9]/gi,'')
   // Remove periods but not decimal points
