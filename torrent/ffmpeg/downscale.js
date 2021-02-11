@@ -11,7 +11,7 @@ module.exports.thumbnail = (metadata) =>{
       .output(output_path)
       .on('end', ()=>{
         console.log("Downscaled " + metadata.thumbnail_path)
-        metadata.small_thumbnail_path = '/thumbnail/' + fname
+        metadata.small_thumbnail_path = path.join('/thumbnail', fname);
         return resolve(metadata)
       })
       .on('error', (err, stdout, stderr)=>{
