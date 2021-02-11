@@ -111,8 +111,8 @@ module.exports.filter_downloaded_torrents = function(resp_json, show, database_d
         if(!found)
           missing_episodes.add(resp_json[j].episode)
     }
-    console.log("Missing Episodes")
-    console.log(missing_episodes)
+    // console.log("Missing Episodes")
+    // console.log(missing_episodes)
     const toDownload = []
     for(item of resp_json){
       if(missing_episodes.has(item.episode)){

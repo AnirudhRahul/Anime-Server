@@ -75,8 +75,8 @@ function process_episode(initial_metadata, episode, database_dir){
   .then((metadata) => updateDatabase(episode, metadata, database_dir))
   .then((metadata) => {
       console.log("Finished Torrent promise")
-      console.log("FINAL METADATA")
-      console.log(metadata)
+      // console.log("FINAL METADATA")
+      // console.log(metadata)
   })
 
 }

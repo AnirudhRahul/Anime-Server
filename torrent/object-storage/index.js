@@ -51,7 +51,7 @@ exports.upload = (metadata) =>
   .then((link) => {
     metadata.video_path = link
     console.log("Finished uploading files")
-    console.log(metadata)
+    // console.log(metadata)
     return metadata
   })
 
