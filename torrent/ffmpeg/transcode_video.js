@@ -17,9 +17,15 @@ function transcode_file(metadata){
       fs.unlinkSync(metadata.video_path)
       metadata.transcoded = true
       metadata.video_path = new_video_path
-      // metadata.subtitle_path = subtitle_path
       console.log("Transcoded to " + metadata.video_path)
-      return resolve(metadata)
+
+      ffmpeg.ffprobe(metadata.video_path, (err, new_metadata) => {
+        if(err) reject(err)
+        metadata.duration = new_metadata.format.duration;
+        metadata.file_size = new_metadata.format.size;
+        return resolve(metadata)
+      })
+      // metadata.subtitle_path = subtitle_path
     })
     .on('error', function(err, stdout, stderr) {
       console.error(stderr)
