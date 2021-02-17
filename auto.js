@@ -14,6 +14,7 @@ function poll(){
         console.log("Stopped PM2 because there was an input error")
         const pm2_config_path = path.resolve(__dirname, 'ecosystem.config.js')
         execSync('pm2 stop '+pm2_config_path)
+        return
     }
     //Measure elapsed time in ms
     const diff = Math.floor(Date.now()/1000) - start
