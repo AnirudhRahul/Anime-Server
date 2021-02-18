@@ -25,14 +25,14 @@ module.exports.get_shows = function(){
       query: item.Query || '',
       link: item.Link || '',
       type: item.Type || 'Series',
-      ongoing: ('Ongoing' in item) ? item.Ongoing : (item.Type ? ongoing_defaults[item.Type]:true),
+      ongoing: item.Ongoing || (item.Type ? ongoing_defaults[item.Type]:true),
       tags: item.Tags || [],
       download_latest: item.Download_Latest || 0,
       offset: item.Offset || 0,
       format: item.Format || []
     })
   }
-  
+
   for(const show of output_list){
     for(const item of show.format){
       assert(item.Folder && item.Episode)
