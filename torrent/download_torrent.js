@@ -66,7 +66,7 @@ module.exports = (torrentId, downloadPath, maxFiles) => {
       if (torrent.numPeers < 1 || torrent.progress < 0.0005) {
         client.destroy(() => reject("Cannot find any peers for /"+path.basename(downloadPath)+"!"));
       }
-    }, 1000 * 15);
+    }, 1000 * 200);
 
     torrent.on("error", err => {
       if (st) clearTimeout(st);
