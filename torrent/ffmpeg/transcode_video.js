@@ -9,7 +9,7 @@ function transcode_file(metadata){
     ffmpeg().input(metadata.video_path)
     .output(new_video_path)
     .outputOptions('-c:v copy')
-    .outputOptions('-c:a copy')
+    // .outputOptions('-c:a copy')
     // .output(subtitle_path)
     // .outputOptions('-c:s copy')
     .on('end', function() {
