@@ -8,7 +8,7 @@ const timeout = 5*60*1000
 function poll(){
   const start = Math.floor(Date.now()/1000)
   fork('./poll')
-  .on('close', (exit_code)=>{
+  .once('close', (exit_code)=>{
     if(exit_code==9){
       // Stop the pm2 process if there's an input error
         console.log("Stopped PM2 because there was an input error")
