@@ -34,7 +34,13 @@ fs.watchFile(database_dir,{interval: 10000}, (cur) => {
 });
 
 app.set('view engine', 'pug')
-app.use(express.static('public'))
+app.use(express.static('public',{
+  etag: true
+}))
+app.use(express.static('public_nocache',{
+  etag: false
+}))
+
 app.use(favicon(path.join(__dirname, 'public', 'media', 'favicon.ico')))
 
 prefix = path.resolve('../')
