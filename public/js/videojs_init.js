@@ -30,19 +30,6 @@ button.el().innerHTML = "TEST"
 
 }
 
-function iOS() {
-  return [
-    'iPad Simulator',
-    'iPhone Simulator',
-    'iPod Simulator',
-    'iPad',
-    'iPhone',
-    'iPod'
-  ].includes(navigator.platform)
-  // iPad on iOS 13 detection
-  || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
-}
-
 let subtitle_list = JSON.parse(document.getElementById("init_script").getAttribute("subtitle_src"))
 
 const sub_element = document.getElementById('submenu')
@@ -67,7 +54,7 @@ player.ready(function () {
       window.SubtitlesOctopusOnLoad = function () {
           var options = {
               video: video,
-              lossyRender: !iOS(),
+              lossyRender: typeof createImageBitmap === "function",
               subUrl: subtitle_list[0].path,
               fonts: ['/fonts/OpenSans-Semibold.ttf'],
               //onReady: onReadyFunction,
