@@ -12,7 +12,7 @@ function transcode_file(metadata){
     // .outputOptions('-c:a copy')
     // .output(subtitle_path)
     // .outputOptions('-c:s copy')
-    .on('end', function() {
+    .once('end', function() {
       //Delete old untranscoded file
       fs.unlinkSync(metadata.video_path)
       metadata.transcoded = true
@@ -27,7 +27,7 @@ function transcode_file(metadata){
       })
       // metadata.subtitle_path = subtitle_path
     })
-    .on('error', function(err, stdout, stderr) {
+    .once('error', function(err, stdout, stderr) {
       console.error(stderr)
       return reject(err)
     })

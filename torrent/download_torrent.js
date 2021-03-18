@@ -55,7 +55,7 @@ module.exports = (torrentId, downloadPath, maxFiles) => {
     // client
     let client = new WebTorrent({ maxConns: 300 });
 
-    client.on("error", err => {
+    client.once("error", err => {
       client.destroy(() => reject(err));
     });
 
@@ -68,7 +68,7 @@ module.exports = (torrentId, downloadPath, maxFiles) => {
       }
     }, 1000 * 200);
 
-    torrent.on("error", err => {
+    torrent.once("error", err => {
       if (st) clearTimeout(st);
       client.destroy(() => {
         return reject(err);
@@ -76,7 +76,7 @@ module.exports = (torrentId, downloadPath, maxFiles) => {
     });
 
     // TODO: Find a way to gracefully ignore batch downloads for weekly shows
-    torrent.on("metadata", () => {
+    torrent.once("metadata", () => {
       console.log(torrent.name);
       if(maxFiles && torrent.files.length > maxFiles){
         if (st) clearTimeout(st);
@@ -100,7 +100,7 @@ module.exports = (torrentId, downloadPath, maxFiles) => {
       }
     });
 
-    torrent.on("done", () => {
+    torrent.once("done", () => {
       if (st) clearTimeout(st);
       torrentLog(torrent);
       //Extract subset of file data before it is destroyed

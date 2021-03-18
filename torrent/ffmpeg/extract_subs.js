@@ -15,7 +15,7 @@ function extract_subs(metadata){
       .addOutputOptions(['-map 0:'+ stream.index, '-c copy'])
     }
 
-    cmd.on('end', function(stdout, stderr) {
+    cmd.once('end', function(stdout, stderr) {
       console.log("Extracted " + metadata.subtitle_streams.length + " subtitle tracks")
       metadata.subtitle_path = metadata.subtitle_streams.map(stream => ({
         path: metadata.base_path + '_' + stream.file_ending,
@@ -26,7 +26,7 @@ function extract_subs(metadata){
       delete metadata.subtitle_streams
       return resolve(metadata)
     })
-    .on('error', function(err, stdout, stderr) {
+    .once('error', function(err, stdout, stderr) {
       console.error(stderr)
       return reject(err)
     })

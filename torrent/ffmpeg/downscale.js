@@ -9,12 +9,12 @@ module.exports.thumbnail = (metadata) =>{
       .outputOptions('-vf')
       .outputOptions('scale=480:-1')
       .output(output_path)
-      .on('end', ()=>{
+      .once('end', ()=>{
         console.log("Downscaled " + metadata.thumbnail_path)
         metadata.small_thumbnail_path = path.join('/thumbnail', fname);
         return resolve(metadata)
       })
-      .on('error', (err, stdout, stderr)=>{
+      .once('error', (err, stdout, stderr)=>{
         console.error(stderr)
         return reject(err)
       })
