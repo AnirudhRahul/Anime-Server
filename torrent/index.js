@@ -156,15 +156,21 @@ module.exports.batch = (batch, show, database_dir) => {
           matched_indices.add(format_index)
           matched = true
           show.query = folder_format.Episode
-          console.log("Query", show.query)
+          console.log("Query", show.query || folder_format.Episode_names)
 
           let orderIndex = 0
           // Loop over all files in folder
           // Torrent folders is just a list of indices though
           for(const torrent_index of torrent_folders[torrent_folder_path]){
             const torrent_file = torrent.files[torrent_index]
+            let episode_name = ''
+            if(folder_format.Episode_names){
+              episode_name = folder_format.Episode_names[torrent_index]
+            }
+            else{
+              episode_name = title_parser.parse(torrent_file.name, show)
+            }
             //Make sure there are no duplicate episode names
-            let episode_name = title_parser.parse(torrent_file.name, show)
             if(episode_name in episode_name_set){
               episode_name = torrent_file.name
             }

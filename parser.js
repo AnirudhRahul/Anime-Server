@@ -35,7 +35,7 @@ module.exports.get_shows = function(){
 
   for(const show of output_list){
     for(const item of show.format){
-      assert(item.Folder && item.Episode)
+      assert(item.Folder && (item.Episode || item.Episode_names))
     }
   }
 
