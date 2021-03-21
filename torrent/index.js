@@ -170,6 +170,8 @@ module.exports.batch = (batch, show, database_dir) => {
             else{
               episode_name = title_parser.parse(torrent_file.name, show)
             }
+            if(folder_format.Episode_prefix)
+              episode_name = folder_format.Episode_prefix + ' ' + episode_name
             //Make sure there are no duplicate episode names
             if(episode_name in episode_name_set){
               episode_name = torrent_file.name
