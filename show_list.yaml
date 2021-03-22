@@ -1,41 +1,43 @@
-# Non Non Biyori:
-#   Link: https://nyaa.si/view/1254532
+Non Non Biyori:
+  Link: https://nyaa.si/view/1254532
+  Type: Batch
+  Tags:
+    - Slice of life
+  Files:
+    - Folder: Non Non Biyori
+      Episode_prefix: 'S1'
+      Episode: '[MTBB] Sora yori mo Tooi Basho - {E#} [79E31609].mkv'
+    - Folder: Non Non Biyori OVA
+      Episode_names:
+        - 'S1 OVA'
+    - Folder: Non Non Biyori Repeat
+      Episode_prefix: 'S2'
+      Episode: '[MTBB] Sora yori mo Tooi Basho - {E#} [79E31609].mkv'
+    - Folder: Non Non Biyori Repeat OVA
+      Episode_names:
+        - 'S2 OVA'
+    - Folder: Non Non Biyori Movie Vacation
+      Episode_names:
+        - 'Movie Vacation'
+# GATE:
+#   Link: https://nyaa.si/view/1236032
 #   Type: Batch
 #   Tags:
-#     - Slice of life
-#   Files:
-#     - Folder: Non Non Biyori
-#       Episode_prefix: 'S1'
-#     - Folder: Non Non Biyori OVA
-#       Episode_names:
-#         - 'S1 OVA'
-#     - Folder: Non Non Biyori Repeat
-#       Episode_prefix: 'S2'
-#     - Folder: Non Non Biyori Repeat OVA
-#       Episode_names:
-#         - 'S2 OVA'
-#     - Folder: Non Non Biyori Movie Vacation
-#       Episode_names:
-#         - 'Movie Vacation'
-GATE:
-  Link: https://nyaa.si/view/1236032
-  Type: Batch
-  Tags:
-    - Isekai
-  Format:
-    - Folder: /
-      Episode: '[AkihitoSubs] GATE - S01E{E#} - The Self-Defense Force Goes to Another World.mkv'
-
-Sora yori mo Tooi Basho:
-  Link: https://nyaa.si/view/1056992
-  Type: Batch
-  Tags:
-    - Slice of Life
-  Format:
-    - Folder: '[MTBB] Sora yori mo Tooi Basho (BD 1080p)'
-      Episode: '[MTBB] Sora yori mo Tooi Basho - {E#} [79E31609].mkv'
-    - Folder: 'NC'
-      Episode: '[MTBB] Sora yori mo Tooi Basho - {E#} [79E31609].mkv'
+#     - Isekai
+#   Format:
+#     - Folder: /
+#       Episode: '[AkihitoSubs] GATE - S01E{E#} - The Self-Defense Force Goes to Another World.mkv'
+#
+# Sora yori mo Tooi Basho:
+#   Link: https://nyaa.si/view/1056992
+#   Type: Batch
+#   Tags:
+#     - Slice of Life
+#   Format:
+#     - Folder: '[MTBB] Sora yori mo Tooi Basho (BD 1080p)'
+#       Episode: '[MTBB] Sora yori mo Tooi Basho - {E#} [79E31609].mkv'
+#     - Folder: 'NC'
+#       Episode: '[MTBB] Sora yori mo Tooi Basho - {E#} [79E31609].mkv'
 # Test Episode1:
 #   Query: "[Jumonji-Giri]_Mokke_Ep{E#}_.mkv"
 #
