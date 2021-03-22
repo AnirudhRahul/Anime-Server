@@ -34,6 +34,8 @@ module.exports.get_shows = function(){
   }
 
   for(const show of output_list){
+    if(show.Link)
+      assert(show.type!='Series')
     for(const item of show.format){
       assert(item.Folder && (item.Episode || item.Episode_names))
     }
