@@ -35,7 +35,8 @@ function torrent_episode(episode, show, database_dir){
   .then((torrent) => {
     // Only downloads the torrent if it has 1 file, so we don't accidently pick up batches
     let mainFile = torrent.files[0]
-    episode.episode = title_parser.parse(mainFile.name, show)
+    if(!episode.episode)
+      episode.episode = title_parser.parse(mainFile.name, show)
     episode.time_downloaded = Math.floor(Date.now()/1000)
     // Return video metadata to inform future promises
     return Probe.extract_metadata(path.join(torrent.path, mainFile.path))
