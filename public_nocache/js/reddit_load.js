@@ -1,3 +1,4 @@
+// Queries reddit for the link to the discussion post
 const official_name = document.getElementById("reddit_load").getAttribute("official_name");
 const episode_number = document.getElementById("reddit_load").getAttribute("episode_number");
 const query = official_name + ' - Episode ' + episode_number + ' discussion'
