@@ -59,7 +59,7 @@ player.ready(function () {
               fonts: ['/fonts/OpenSans-Semibold.ttf'],
               //onReady: onReadyFunction,
               // debug: true,
-              workerUrl: '/js/subtitles-octopus-worker.js'
+              workerUrl: '/js/subtitles/subtitles-octopus-worker.js'
           };
           window.octopusInstance = new SubtitlesOctopus(options); // You can experiment in console
       };
