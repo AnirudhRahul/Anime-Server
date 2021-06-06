@@ -5,5 +5,4 @@ media/*
 !media/favicon.ico
 torrent/object-storage/*.env
 !torrent/object-storage/template.env
-public/thumbnail/*.png
-
+public/thumbnail/*
