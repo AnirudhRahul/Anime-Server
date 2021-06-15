@@ -3,6 +3,15 @@ const S3 = require('aws-sdk/clients/s3');
 const AWS = require('aws-sdk');
 const path = require('path')
 require('dotenv').config({path: path.resolve(__dirname, '.env')})
+if(!(process.env.AWS_Endpoint &&
+  process.env.AWS_Region &&
+  process.env.AWS_accessKeyId &&
+  process.env.AWS_secretAccessKey &&
+  process.env.AWS_Bucket)){
+  console.error("Please make sure you have created your .env file in Anime-Server/torrent/object-store\nCheck the ReadME for more info", )
+  process.exit(9)
+}
+
 const endpoint = new AWS.Endpoint(process.env.AWS_Endpoint);
 const region = process.env.AWS_Region
 const accessKeyId = process.env.AWS_accessKeyId
