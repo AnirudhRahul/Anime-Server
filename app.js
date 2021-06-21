@@ -91,7 +91,9 @@ app.get('/show/:show/episode/:episode', function (req, res) {
       break
     }
   }
-  if(episode_index===-1)
+  const cur_episode = json_map[req.params.show][episode_index]
+
+  if(episode_index===-1 || !cur_episode)
     res.status(404).send("Episode not found")
 
   const cur_episode = json_map[req.params.show][episode_index]
