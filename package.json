@@ -32,16 +32,19 @@
     "mongoose": "^5.11.4",
     "needle": "^2.5.0",
     "p-limit": "^3.1.0",
+    "parse5-htmlparser2-tree-adapter": "^6.0.1",
     "pm2": "^4.4.0",
     "pug": "^3.0.0",
     "request": "^2.88.2",
     "rimraf": "^3.0.2",
     "send": "^0.17.1",
     "serve-favicon": "^2.5.0",
+    "sharp": "^0.28.1",
     "single-line-log": "^1.1.2",
+    "sqlite3": "^5.0.2",
     "type-is": "^1.6.18",
     "webtorrent": "^0.108.6",
-    "webtorrent-hybrid": "^4.0.2",
+    "webtorrent-hybrid": "^1.0.6",
     "yargs": "^15.4.1"
   }
 }
