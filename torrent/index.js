@@ -15,7 +15,7 @@ const max_concurrent_downloads = 1
 const max_concurrent_transcodes = 2
 
 
-module.exports.series = (episode_list, show, database_dir) => {
+module.exports.series = function(episode_list, show, database_dir) {
   const limit = PromiseLimit(max_concurrent_downloads)
   const promise_list = episode_list.map(episode => {
     return limit(() =>torrent_episode(episode, show, database_dir))
@@ -99,7 +99,7 @@ function SlashCountDescend(strA, strB){
   return -SlashCountAscend(strA, strB)
 }
 
-module.exports.batch = (batch, show, database_dir) => {
+module.exports.batch = function(batch, show, database_dir) {
   if(!('magnet_link' in batch)){
     throw new Error('Magnet Link is not in input Object!!!\n'+batch)
   }

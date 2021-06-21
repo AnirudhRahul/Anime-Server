@@ -1,8 +1,8 @@
-ffmpeg = require('fluent-ffmpeg');
+const ffmpeg = require('fluent-ffmpeg');
 const path = require('path');
 
 // Downscales thumbnail to a standard 480 x 270
-module.exports.thumbnail = (metadata) =>{
+module.exports.thumbnail = function(metadata){
   const fname = friendlyName(path.basename(metadata.base_path)) + '_small.avif'
   const output_path = path.resolve(__dirname, '..','..','public','thumbnail',fname)
   return sharp(metadata.thumbnail_path)

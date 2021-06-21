@@ -2,7 +2,7 @@ sharp = require('sharp');
 ffmpeg = require('fluent-ffmpeg');
 const RAM_LIMIT = 1.7
 
-function extract(metadata, seekFraction=0.75){
+module.exports.extract = function(metadata, seekFraction=0.75){
   //Good hueuristic for making sure the process doesnt crash because of ram usage
   const thumbnail_frames = Math.floor(RAM_LIMIT*1.25e8/(metadata.width*metadata.height))
   return new Promise((resolve, reject) => {
@@ -43,4 +43,3 @@ function extract(metadata, seekFraction=0.75){
       }).run();
   });
 }
-module.exports.extract = extract;

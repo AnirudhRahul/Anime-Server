@@ -17,7 +17,7 @@ const s3 = new S3({
 });
 
 const fs = require('fs')
-exports.upload = (metadata) =>
+exports.upload = function(metadata){
   //Save the path to all the uploaded files so we can delete them later
   uploadFile(metadata.thumbnail_path, 'image/png')
   .then((link) => {
@@ -54,6 +54,7 @@ exports.upload = (metadata) =>
     // console.log(metadata)
     return metadata
   })
+}
 
 function uploadFile(file_path, mimeType, metadata){
   let formatted_metadata = {}
@@ -64,7 +65,6 @@ function uploadFile(file_path, mimeType, metadata){
     formatted_metadata = {metadata: JSON.stringify(copy)}
   }
 
-
   return new Promise((resolve, reject) => {
     const params = {
       Bucket: bucket,
@@ -73,7 +73,7 @@ function uploadFile(file_path, mimeType, metadata){
       ContentType: mimeType,
       Metadata: formatted_metadata,
     };
-    const options = {partSize: 10 * 1024 * 1024, queueSize: 25}
+    const options = {partSize: 8 * 1024 * 1024, queueSize: 10}
     s3.upload(params, options, function(err, data) {
       if(err)
         return reject(err)
