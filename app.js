@@ -22,13 +22,21 @@ function poll_show_list(){
 poll_show_list()
 setInterval(poll_show_list, 10000)
 
-json_map = {}; done_episode_list=[]; ongoing_episode_list=[];
+json_map = {};
+done_episode_list=[];
+ongoing_episode_list=[];
+combined=[];
 function poll_database(){
   json_map = sortMap(database.readSync(database_dir));
+  console.log(json_map)
   done_episode_list = getEpisodes(json_map, ongoing_map, false)
   ongoing_episode_list = getEpisodes(json_map, ongoing_map, true)
+  combined = []
+  combined.push(...ongoing_episode_list)
+  combined.push(...done_episode_list)
 }
 poll_database()
+
 fs.watchFile(database_dir,{interval: 10000}, (cur) => {
   poll_database()
 });
@@ -73,7 +81,7 @@ app.get('/latest', function (req, res) {
   // if(offset<0)
   //   offset = 0
   // res.render('latest', {episode_list: episode_list.slice(offset, offset+length_per_page)})
-  res.render('latest', {episode_list: ongoing_episode_list})
+  res.render('latest', {episode_list: combined})
 })
 
 app.get('/completed', function (req, res) {
