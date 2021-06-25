@@ -41,7 +41,7 @@ app.use(express.static('public_nocache',{
   etag: false
 }))
 
-app.use(favicon(path.join(__dirname, 'media', 'favicon.ico')))
+app.use(favicon(path.join(__dirname, 'public', 'media', 'favicon.ico')))
 
 prefix = path.resolve('../')
 
