@@ -28,7 +28,6 @@ ongoing_episode_list=[];
 combined=[];
 function poll_database(){
   json_map = sortMap(database.readSync(database_dir));
-  console.log(json_map)
   done_episode_list = getEpisodes(json_map, ongoing_map, false)
   ongoing_episode_list = getEpisodes(json_map, ongoing_map, true)
   combined = []
