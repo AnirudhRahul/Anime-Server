@@ -6,3 +6,4 @@ media/*
 torrent/object-storage/*.env
 !torrent/object-storage/template.env
 public/thumbnail/*
+show_list.yaml
