@@ -28,7 +28,7 @@ const s3 = new S3({
 const fs = require('fs')
 exports.upload = function(metadata){
   //Save the path to all the uploaded files so we can delete them later
-  uploadFile(metadata.thumbnail_path, 'image/png')
+  return uploadFile(metadata.thumbnail_path, 'image/png')
   .then((link) => {
     metadata.thumbnail_path = link
   })
