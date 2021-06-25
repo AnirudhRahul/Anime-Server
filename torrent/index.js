@@ -79,6 +79,7 @@ function process_episode(initial_metadata, episode, database_dir){
       // console.log("FINAL METADATA")
       // console.log(metadata)
   })
+  .catch(console.error)
 
 }
 
