@@ -117,11 +117,14 @@ app.get('/show/:show/episode/:episode', function (req, res) {
   if(official_name in name_map && name_map[official_name].length > 0)
     official_name = name_map[official_name]
 
+  let os = req.headers['user-agent'].indexOf("Win")!=-1? "Windows":"Mac";
+
   res.render('episode', {
-    data:cur_episode,
-    prev:prev_episode,
-    next:next_episode,
-    official_name: official_name
+    data: cur_episode,
+    prev: prev_episode,
+    next: next_episode,
+    official_name: official_name,
+    os: os,
   })
 })
 

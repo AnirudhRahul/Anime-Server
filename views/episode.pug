@@ -3,6 +3,9 @@
 - thumbnail_src = data.metadata.thumbnail_path
 - nice_thumbnail_src = data.metadata.small_thumbnail_path || decodeURIComponent(data.metadata.thumbnail_path)
 - playable = data.metadata.video_path.endsWith('.mp4')
+
+- player = os=="Windows"?"PotPlayer":"IINA"
+- player_link = os=="Windows"? ('potplayer://' + video_src):("iina://open?full_screen=1&url=" + encodeURIComponent(video_src))
 doctype html
 html
   head
@@ -39,13 +42,13 @@ html
           poster=thumbnail_src)
             source(src=video_src, type='video/mp4')
         else
-          a(href='potplayer://' + video_src)
+          a(href=player_link)
             video(align="center" id="my-video" 
             class="video-js embed-responsive-item vjs-default-skin vjs-big-play-centered vjs-fill"
             poster=thumbnail_src)
       if !playable
           h2 Video format not supported, 
-            a(href='potplayer://' + video_src) open in PotPlayer
+            a(href=player_link) Open in #{player}
     
     div(class="m-3")
       if playable
@@ -54,7 +57,7 @@ html
       h2= data.show_name
       h3= data.episode
       if playable && !data.metadata.transcoded
-        a(href='potplayer://' + video_src) Open in PotPlayer
+        a(href=player_link) Open in #{player}
         br
       a(href=video_src download) Download Link
       if prev!=-1
