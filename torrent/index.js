@@ -12,7 +12,7 @@ const title_parser = require('../title_parser.js')
 // Helps stagger promises so RAM doesn't get destroyed
 const PromiseLimit = require('p-limit')
 const max_concurrent_downloads = 1
-const max_concurrent_transcodes = 2
+const max_concurrent_transcodes = 1
 
 
 module.exports.series = function(episode_list, show, database_dir) {
