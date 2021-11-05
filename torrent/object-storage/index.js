@@ -66,13 +66,13 @@ exports.upload = function(metadata){
 }
 
 function uploadFile(file_path, mimeType, metadata){
-  let formatted_metadata = {}
-  if(metadata){
-    const copy = Object.assign({}, metadata);
-    if('subtitle_path' in copy)
-      delete copy.subtitle_path
-    formatted_metadata = {metadata: JSON.stringify(copy)}
-  }
+  // let formatted_metadata = {}
+  // if(metadata){
+  //   const copy = Object.assign({}, metadata);
+  //   if('subtitle_path' in copy)
+  //     delete copy.subtitle_path
+  //   formatted_metadata = {metadata: JSON.stringify(copy)}
+  // }
 
   return new Promise((resolve, reject) => {
     const params = {
@@ -80,7 +80,7 @@ function uploadFile(file_path, mimeType, metadata){
       Key: path.basename(file_path),
       Body: fs.createReadStream(file_path),
       ContentType: mimeType,
-      Metadata: formatted_metadata,
+      // Metadata: formatted_metadata,
     };
     const options = {partSize: 8 * 1024 * 1024, queueSize: 10}
     s3.upload(params, options, function(err, data) {

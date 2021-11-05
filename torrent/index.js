@@ -82,6 +82,7 @@ function process_episode(initial_metadata, episode, database_dir){
   .catch(console.error)
 
 }
+module.exports.process_episode = process_episode
 
 function SlashCountAscend(strA, strB){
   let countA = 0
