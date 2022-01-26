@@ -7,7 +7,7 @@ const favicon = require('serve-favicon');
 const path = require('path')
 const fs = require('fs')
 const database = require('./database.js')
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'production';
 const port = env =='production'?8000:8001
 const {root_dir, video_dir, database_dir} = require('./dirs.js').all(env)
 
