@@ -20,10 +20,14 @@
   },
   "homepage": "https://github.com/AnirudhRahul/Anime-Server#readme",
   "dependencies": {
+    "@wll8/express-ws": "^1.0.0",
     "aws-sdk": "^2.767.0",
+    "body-parser": "^1.20.0",
     "cheerio": "^1.0.0-rc.3",
+    "crypto-random-string": "^5.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-ws": "^5.0.2",
     "fluent-ffmpeg": "^2.1.2",
     "fs": "0.0.1-security",
     "glob": "^7.1.6",
@@ -35,6 +39,7 @@
     "parse5-htmlparser2-tree-adapter": "^6.0.1",
     "pm2": "^4.4.0",
     "pug": "^3.0.0",
+    "randomstring": "^1.2.2",
     "request": "^2.88.2",
     "rimraf": "^3.0.2",
     "send": "^0.17.1",
@@ -42,9 +47,11 @@
     "sharp": "^0.28.1",
     "single-line-log": "^1.1.2",
     "sqlite3": "^5.0.2",
+    "tinyws": "^0.1.0",
     "type-is": "^1.6.18",
     "webtorrent": "^0.108.6",
     "webtorrent-hybrid": "^1.0.6",
+    "ws": "^8.8.0",
     "yargs": "^15.4.1"
   }
 }

@@ -53,7 +53,11 @@ html
     div(class="m-3")
       if playable
         ul(class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" id="submenu")
-        div(id="aggro")
+        div(class="flexRow")
+          div(id="shareplay")
+
+          div(id="aggro")
+
       h2= data.show_name
       h3= data.episode
       if playable && !data.metadata.transcoded

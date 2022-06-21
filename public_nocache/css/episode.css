@@ -24,3 +24,19 @@ h2{
 h3{
   font-size:min(3.75vw,2.25em);
 }
+
+.flexRow{
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
+#shareplay, #aggro{
+  display: inline-block;
+}
+
+#aggro{
+  float: right;
+}
+
+

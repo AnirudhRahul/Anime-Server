@@ -6,6 +6,22 @@ var player = videojs('my-video',{
   }
 );
 
+function createRoom(){
+  fetch("/createRoom",{ 
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({baseUrl:location.href})
+  })
+  .then(res => res.json())
+  .then((res)=>{
+    location.href=res.url
+  })
+}
+
+
+
 let next_episode = document.getElementById("init_script").getAttribute("next_episode")
 console.log("NEXT EPISODE", next_episode)
 
@@ -68,6 +84,8 @@ player.ready(function () {
       }
 });
 
+
+
 // window.octopusInstance.setTrackByUrl('/test/railgun_op.ass');
 
 
@@ -107,6 +125,9 @@ window.seekForward = function(){
 }
 window.seekBackward = function(){
   window.player.currentTime(window.player.currentTime()-10)
+}
+window.seek = function(timeMs){
+  window.player.currentTime(timeMs/1000)
 }
 
 // Keyboard shortcuts
@@ -232,4 +253,116 @@ function loadSource(){
   xhr.open("GET", url)
   xhr.send();
 
+}
+
+var manuallyTriggered = 0
+
+function setState(state, pos){
+  if(pos!==undefined){
+    window.seek(pos)
+  }
+
+  if(player.paused() && state=="pause"){
+    return
+  }
+  if(!player.paused() && state=="play"){
+    return
+  }
+
+  manuallyTriggered+=1
+  if(state=="play"){
+    window.player.play()
+  }
+  else if(state=="pause"){
+    window.player.pause()
+  }
+
+  console.log("Set state to", state, pos)
+}
+
+const url = new URL(location.href)
+if(url.searchParams.has("room")){
+  console.log("Room", url.searchParams.get("room"))
+  const loc = window.location
+  let new_uri;
+  if (loc.protocol === "https:") {
+      new_uri = "wss:";
+  } else {
+      new_uri = "ws:";
+  }
+  new_uri += "//" + loc.host;
+  new_uri += `/joinRoom/${url.searchParams.get("room")}`;
+  const ws = new WebSocket(new_uri);
+  ws.onmessage = (msg)=>{
+    if(msg.data.startsWith("Rejected")){
+      console.error(msg.data)
+      return
+    }
+
+    const data = JSON.parse(msg.data)
+    console.log("Got message", msg.data)
+    if(data.heardAt){
+      if(data.state=="play"){
+        setState(data.state, data.pos+Date.now()-data.heardAt)
+      }
+      else{
+        setState(data.state, data.pos)
+      }
+    }
+    else{
+      setState("pause", data.pos)
+      while(Date.now()<data.waitTill){
+        continue;
+      }
+      setState(data.state)
+      
+    }
+
+
+  }
+
+  ws.onclose = ()=>{
+    history.pushState(null, "", location.href.split("?")[0]);
+  }
+
+
+
+  player.on("play", function (e) {
+    if(manuallyTriggered==0){
+      console.log("Sent packet manual trigger")
+      ws.send(JSON.stringify({
+        state:"play",
+        position: player.currentTime()*1000,
+        sentAt: Date.now()
+      }))
+    }
+    else{
+      manuallyTriggered--
+    }
+
+  });
+
+  player.on("pause", function (e) {
+    if(manuallyTriggered==0){
+      console.log("Sent packet manual trigger")
+      ws.send(JSON.stringify({
+        state:"pause",
+        position: player.currentTime()*1000,
+        sentAt: Date.now()
+      }))
+    }
+    else{
+      manuallyTriggered--
+    }
+  });
+
+}
+else{
+  const CreateRoom =
+    `
+    <button class="btn btn-secondary" type="button" onclick=createRoom()>
+      Create shared room
+    </button>
+    `
+  document.getElementById('shareplay').innerHTML = CreateRoom 
 }

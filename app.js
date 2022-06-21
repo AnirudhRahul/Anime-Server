@@ -1,12 +1,16 @@
 const express = require('express')
 // express.static.mime.types['wasm'] = 'application/wasm'
 express.static.mime.define({'application/wasm': ['wasm']})
-
 const app = express()
+const expressWs = require(`@wll8/express-ws`)
+expressWs(app)
+const bodyParser = require('body-parser')
+app.use(bodyParser.json())
 const favicon = require('serve-favicon');
 const path = require('path')
 const fs = require('fs')
 const database = require('./database.js')
+const randomstring = require("randomstring").generate;
 const env = process.env.NODE_ENV || 'production';
 const port = env =='production'?8000:8001
 const {root_dir, video_dir, database_dir} = require('./dirs.js').all(env)
@@ -51,6 +55,95 @@ app.use(express.static('public_nocache',{
 app.use(favicon(path.join(__dirname, 'public', 'media', 'favicon.ico')))
 
 prefix = path.resolve('../')
+var Rooms = new Map()
+
+class Room {
+  constructor(state, pos, episodeUrl) {
+    this.episodeUrl = episodeUrl
+    console.log(episodeUrl)
+    this.state = state;
+    this.pos = pos;
+    this.userSockets = [];
+    this.lastUpdated = Date.now()
+    this.maxPing = 125;
+  }
+
+  update(state, pos, sentAt, sender){
+    if(sentAt < this.lastUpdated){
+      sender.send("Rejected update wait for last one to finish")
+      return
+    }
+    this.state = state;
+    this.pos = pos;
+    this.lastUpdated = sentAt + this.maxPing
+    for(const ws of this.userSockets){
+      ws.send(JSON.stringify({
+        state: state,
+        pos: pos,
+        waitTill: this.lastUpdated
+      }))
+    }
+  }
+
+  updateMaxPing(userPing){
+    this.maxPing = Math.max(2*userPing, this.maxPing)
+  }
+
+  addUser(user){
+    this.userSockets.push(user)
+    user.send(JSON.stringify({
+      state: this.state,
+      pos: this.pos,
+      heardAt: this.lastUpdated,
+    }))
+  }
+}
+
+app.post('/createRoom', function (req, res) {
+  let randomStr = randomstring(4)
+  while(Rooms.has(randomStr)){
+    randomStr = randomstring(4)
+  }
+  const url = new URL(req.body.baseUrl);
+  url.searchParams.append("room", randomStr)
+  Rooms.set(randomStr, new Room("pause", 0, url.toString()))
+  res.send({url: url.toString()});
+})
+
+app.get('/join/:roomId', function (req, res) {
+  const roomId = req.params.roomId
+  if(Rooms.has(roomId)){
+    res.redirect(Rooms.get(roomId).episodeUrl)
+  }
+  else
+    res.send("Room not found").status(404);
+})
+
+app.ws('/joinRoom/:roomId', function (ws, req){
+  const roomId = req.params.roomId
+  if(!Rooms.has(roomId)){
+    console.error("Room doesnt exist")
+    ws.close()
+    return
+  }
+  const room = Rooms.get(roomId)
+  console.log("has", roomId)
+  room.addUser(ws)
+  console.log("added user", room)
+  
+  ws.on('message', function(msg) {
+    console.log("recived msg", msg)
+    const {state, sentAt, position} = JSON.parse(msg);
+    if(state == "ping"){
+      room.updateMaxPing(Date.now()-sentAt)
+    }
+    else{
+      room.update(state, position, sentAt, ws)
+    }
+    console.log(room)
+  });
+
+})
 
 app.get('/', function (req, res) {
   res.redirect('/latest');
