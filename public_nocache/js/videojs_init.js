@@ -356,6 +356,13 @@ if(url.searchParams.has("room")){
     }
   });
 
+  setInterval(()=>{
+    ws.send({
+      state: "ping",
+      sentAt: Date.now()
+    })
+  }, 60000)
+
 }
 else{
   const CreateRoom =
