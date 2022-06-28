@@ -132,15 +132,18 @@ app.ws('/joinRoom/:roomId', function (ws, req){
   console.log("added user", room)
   
   ws.on('message', function(msg) {
-    console.log("recived msg", msg)
-    const {state, sentAt, position} = JSON.parse(msg);
-    if(state == "ping"){
-      room.updateMaxPing(Date.now()-sentAt)
+    try {
+      const {state, sentAt, position} = JSON.parse(msg);
+      if(state == "ping"){
+        room.updateMaxPing(Date.now()-sentAt)
+      }
+      else{
+        room.update(state, position, sentAt, ws)
+      }
+    } catch(err){
+      console.error(err)
     }
-    else{
-      room.update(state, position, sentAt, ws)
-    }
-    console.log(room)
+
   });
 
 })
