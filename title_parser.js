@@ -10,7 +10,7 @@ function format(name){
   // Remove periods but not decimal points
   name = name.replace(/(?<!\d)\.(?!\d)/g,' ')
   // Remove any hex tags in the string
-  name = name.replace(/\b[a-f0-9]{6,}\b/gi, '')
+  name = name.replace(/\b[A-F0-9]{6,8}\b/g, '')
   // Remove duplicate spaces
   name = name.replace(/  +/g, ' ');
   // Trim to remove trailing/leading spaces
