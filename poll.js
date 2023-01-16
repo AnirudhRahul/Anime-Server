@@ -36,8 +36,23 @@ function getTime(){
     return Math.floor(Date.now()/1000)
 }
 
+function format(name){
+  // Remove special characters
+  name = name.replace(/[^a-zA-Z0-9.'{}#]/g,' ')
+  // Remove version tags
+  name = name.replace(/v[0-9]/gi,'')
+  // Remove periods but not decimal points
+  name = name.replace(/(?<!\d)\.(?!\d)/g,' ')
+  // Remove any hex tags in the string
+  name = name.replace(/\b[A-F0-9]{6,8}\b/g, '')
+  // Remove duplicate spaces
+  name = name.replace(/  +/g, ' ');
+  // Trim to remove trailing/leading spaces
+  return name.trim()
+}
+
 function removeEpisodeIdentifier(str){
-  return str.replace(/\{E\#\}/gi,'')
+  return format(str).replace(/\{E\#\}/gi,'')
 }
 
 function updateTimeMap(show_name, time, time_dir){
